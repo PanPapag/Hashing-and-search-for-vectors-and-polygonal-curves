@@ -1,6 +1,6 @@
 '''
  A script to generate the search files for the lsh and hypercube algorithms.
- Search files consist of N vectors each of which is d-dimension. 
+ Search files consist of N vectors each of which is d-dimension.
 '''
 
 import argparse
@@ -10,7 +10,7 @@ import time
 
 PATH = 'datasets/vectors/'
 SEP = '\t'
-LOWER_BOUND = -100.00
+LOWER_BOUND = 0.00
 UPPER_BOUND = 100.00
 
 def make_args_parser():
