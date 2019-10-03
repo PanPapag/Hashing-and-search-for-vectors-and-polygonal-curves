@@ -2,9 +2,12 @@
 #define UTILS
 
 namespace utils {
-  // Usage - Prints the usage of the program
+  /**
+    Usage - Prints the usage of the program
+    @par const std::string& pass by reference the name of the program
+  */
   [[noreturn]]
-  void ShowUsage(std::string);
+  void ShowUsage(const std::string&);
 }
 
 #endif
