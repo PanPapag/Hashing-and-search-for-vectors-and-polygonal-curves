@@ -2,7 +2,7 @@
 
 #include "../headers/utils.h"
 
-void utils::ShowUsage(const std::string& program_name, const struct InputInfo &input_info) {
+void utils::ShowUsage(const std::string &program_name, const struct InputInfo &input_info) {
   std::cerr << "usage: " << program_name << " [-help] [-d INPUT FILE]"
             << " [-q QUERY FILE] [-k INT] [-L INT] [-o OUTPUT FILE]"
             << "\n\n"
@@ -17,4 +17,13 @@ void utils::ShowUsage(const std::string& program_name, const struct InputInfo &i
             << "  -o\tdefine the output file\n"
             << std::endl;
   exit(EXIT_FAILURE);
+}
+
+void utils::InputInfo::print(void) {
+  std::cout << "Input file: " << input_file << std::endl;
+  std::cout << "Query file: " << query_file << std::endl;
+  std::cout << "Output file: " << output_file << std::endl;
+  std::cout << "Number of LSH hash functions: " << k << std::endl;
+  std::cout << "Number of LSH hash tables: " << L << std::endl;
+  std::cout << "Space dimension: " << d << std::endl;
 }

@@ -7,15 +7,14 @@ namespace utils {
       ReadArguments - Reads arguments given by user in the command line
       @par int argc The number of arguments
       @par char **argv The array of the arguments' values
+      return: ExitCode
     */
-    [[noreturn]]
-    void ReadArguments(int argc, char **argv, struct InputInfo &input_info);
+    int ReadArguments(int argc, char **argv, struct InputInfo &input_info);
     /**
       ScanArguments - Reads arguments given by user in the stdin
+      return: ExitCode
     */
-    [[noreturn]]
-    void ScanArguments(struct InputInfo &input_info);
-
+    int ScanArguments(struct InputInfo &input_info);
   }
 }
 
