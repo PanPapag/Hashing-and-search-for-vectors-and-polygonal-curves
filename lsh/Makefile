@@ -1,7 +1,7 @@
 TARGET_EXEC ?= lsh
 
 CC = g++
-CC_FLAGS = -w -O3 -std=c++11
+CC_FLAGS = -w -std=c++11
 
 BUILD_DIR ?= ./build
 SRC_DIRS ?= ./src
