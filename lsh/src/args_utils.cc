@@ -1,4 +1,6 @@
 #include <iostream>
+#include <unistd.h>
+#include <cstdlib>
 #include <string>
 
 #include "../headers/utils.h"
@@ -42,6 +44,58 @@ int utils::args::ScanArguments(struct InputInfo &input_info) {
       input_info.L = stoi(input_buffer);
     } catch (...) {
        return INVALID_L;
+    }
+  }
+  
+  return SUCCESS;
+}
+
+int utils::args::ReadArguments(int argc, char **argv, struct InputInfo &input_info) {
+  if (argc == 2) {
+    if (!strcmp(argv[1], "-help")) {
+      ShowUsage(argv[0], input_info);
+    }
+  }
+
+  if (argc != 11) {
+    return INVALID_PARARAMETERS;
+  }
+
+  int c;
+  while ((c = getopt(argc, argv, "d:q:k:L:o:")) != -1) {
+    switch (c) {
+      case 'd': {
+        input_info.input_file = optarg;
+        break;
+      }
+      case 'q' : {
+        input_info.query_file = optarg;
+        break;
+      }
+      case 'k': {
+        try {
+          input_info.k = atoi(optarg);
+        } catch (...) {
+           return INVALID_k;;
+        }
+        break;
+      }
+      case 'L': {
+        try {
+          input_info.L = atoi(optarg);
+        } catch (...) {
+           return INVALID_L;;
+        }
+        break;
+      }
+      case 'o': {
+        input_info.output_file = optarg;
+        break;
+      }
+      case '?':
+        break;
+      default:
+        abort();
     }
   }
 

@@ -6,7 +6,8 @@ namespace utils {
   typedef enum ExitCode{
     SUCCESS,
     INVALID_k,
-    INVALID_L
+    INVALID_L,
+    INVALID_PARARAMETERS
   } ExitCode;
   /**
     InputInfo - Groups all input parameters of LSH in a struct

@@ -15,5 +15,14 @@ int main(int argc, char **argv) {
     std:: cout << "k" << std::endl;
   }
   input_info.print(); */
+  /* int exit_code = utils::args::ReadArguments(argc, argv, input_info);
+  if (exit_code == utils::SUCCESS) {
+   std:: cout << "good" << std::endl;
+  } else if (exit_code == utils::INVALID_L) {
+   std:: cout << "L" << std::endl;
+  } else if (exit_code == utils::INVALID_k) {
+   std:: cout << "k" << std::endl;
+  }
+  input_info.print(); */
   return EXIT_SUCCESS;
 }
