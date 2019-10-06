@@ -52,7 +52,7 @@ int utils::args::ScanArguments(struct InputInfo &input_info) {
 
 int utils::args::ReadArguments(int argc, char **argv, struct InputInfo &input_info) {
   if (argc == 2) {
-    if (!strcmp(argv[1], "-help")) {
+    if (argv[1] == "-help") {
       ShowUsage(argv[0], input_info);
     }
   }

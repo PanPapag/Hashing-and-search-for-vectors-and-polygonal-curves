@@ -26,7 +26,7 @@ namespace utils {
     @par const std::string &name Pass by reference the name of the program
     @par const struct InputInfo &input_info Pass by reference the input parameters
   */
-  void ShowUsage(const std::string &name, const struct InputInfo &input_info);
+  void ShowUsage(const std::string&, const struct InputInfo &);
 }
 
 #endif

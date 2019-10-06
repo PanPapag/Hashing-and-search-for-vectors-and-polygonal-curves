@@ -1,7 +1,9 @@
 #include <iostream>
+#include <string>
 
 #include "../headers/utils.h"
 #include "../headers/args_utils.h"
+#include "../headers/dpoint.h"
 
 int main(int argc, char **argv) {
   utils::InputInfo input_info;
@@ -24,5 +26,6 @@ int main(int argc, char **argv) {
    std:: cout << "k" << std::endl;
   }
   input_info.print(); */
+
   return EXIT_SUCCESS;
 }
