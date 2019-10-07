@@ -3,6 +3,16 @@
 
 namespace utils {
   namespace io {
+    /** \brief GetN - Get the number of vectors
+      @par const char *file_name - The relative path for the dataset file
+      @par const struct InputInfo &input_info - Pass by reference the input parameters
+    */
+    int GetN(const char *file_name, struct InputInfo &input_info);
+    /** \brief GetD - Get the dimension of a vector
+      @par const char *file_name - The relative path for the dataset file
+      @par const struct InputInfo &input_info - Pass by reference the input parameters
+    */
+    int GetD(const char *file_name, struct InputInfo &input_info);
     /** \brief ReadDatasetFile - Reads dataset file provided by user
       @par const char *file_name - The relative path for the dataset file
       @par const char delim Delimiter - of the dataset file
