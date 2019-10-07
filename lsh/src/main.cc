@@ -3,7 +3,8 @@
 
 #include "../headers/utils.h"
 #include "../headers/args_utils.h"
-#include "../headers/dpoint.h"
+#include "../headers/xvector.h"
+#include "../headers/hash_function.h"
 
 int main(int argc, char **argv) {
   utils::InputInfo input_info;
@@ -26,6 +27,18 @@ int main(int argc, char **argv) {
    std:: cout << "k" << std::endl;
   }
   input_info.print(); */
+
+  std::vector<double> vect;
+  vect.push_back(2.0);
+  vect.push_back(3.0);
+
+  xVector<double> obj = xVector<double>("lala",vect);
+  const double k = 0.35;
+  obj.PrintVector();
+  vect.push_back(4.0);
+  obj.PrintVector();
+  HashFunction<double> hi = HashFunction<double>(k,obj); 
+
 
   return EXIT_SUCCESS;
 }
