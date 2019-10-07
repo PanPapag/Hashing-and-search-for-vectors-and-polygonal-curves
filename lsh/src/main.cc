@@ -51,16 +51,5 @@ int main(int argc, char **argv) {
   std::cout << "Time taken by function: "
        << duration.count() << " microseconds" << std::endl;
 
-  std::vector<double> vect;
-  vect.push_back(2.0);
-  vect.push_back(3.0);
-
-  xVector<double> obj = xVector<double>("lala",vect);
-  const double k = 0.35;
-  obj.PrintVector();
-  vect.push_back(4.0);
-  obj.PrintVector();
-  HashFunction<double> hi = HashFunction<double>(k,obj); 
-
   return EXIT_SUCCESS;
 }
