@@ -33,6 +33,7 @@ namespace utils {
     @par const struct InputInfo &input_info - Pass by reference the input parameters
   */
   void ShowUsage(const std::string &name, const struct InputInfo &input_info);
+  void fRand(double, double);
 }
 
 #endif

@@ -8,7 +8,8 @@
 #include "../headers/args_utils.h"
 #include "../headers/report_utils.h"
 #include "../headers/io_utils.h"
-#include "../headers/dpoint.h"
+#include "../headers/xvector.h"
+#include "../headers/hash_function.h"
 
 using namespace std::chrono;
 

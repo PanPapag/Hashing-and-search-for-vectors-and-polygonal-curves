@@ -1,4 +1,5 @@
 #include <iostream>
+#include <random>
 
 #include "../headers/utils.h"
 
@@ -27,3 +28,9 @@ void utils::InputInfo::Print(void) {
   std::cout << "Number of LSH hash tables: " << L << std::endl;
   std::cout << "Space dimension: " << D << std::endl;
 }
+
+void utils::fRand(double lb, double ub) {
+  std::uniform_real_distribution<double> unif(lb,ub);
+  std::default_random_engine re;
+  double a_random_double = unif(re);
+} 
