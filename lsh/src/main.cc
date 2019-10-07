@@ -62,6 +62,5 @@ int main(int argc, char **argv) {
   obj.PrintVector();
   HashFunction<double> hi = HashFunction<double>(k,obj); 
 
-
   return EXIT_SUCCESS;
 }
