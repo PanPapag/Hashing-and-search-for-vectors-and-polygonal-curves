@@ -1,9 +1,15 @@
+#include <algorithm>
+#include <chrono>
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include "../headers/utils.h"
 #include "../headers/args_utils.h"
+#include "../headers/parser.h"
 #include "../headers/dpoint.h"
+
+using namespace std::chrono;
 
 int main(int argc, char **argv) {
   utils::InputInfo input_info;
@@ -26,6 +32,21 @@ int main(int argc, char **argv) {
    std:: cout << "k" << std::endl;
   }
   input_info.print(); */
+  std::vector<int> temp;
+  const char *fn = "../../datasets/vectors/search_test";
+  // Get starting timepoint
+  auto start = high_resolution_clock::now();
+  int exit_code = utils::parser::ReadDatasetFile(fn,' ',temp);
+  // Get ending timepoint
+  auto stop = high_resolution_clock::now();
 
+  // Get duration. Substart timepoints to
+  // get durarion. To cast it to proper unit
+  // use duration cast method
+  auto duration = duration_cast<microseconds>(stop - start);
+
+  std::cout << "Time taken by function: "
+       << duration.count() << " microseconds" << std::endl;
+       
   return EXIT_SUCCESS;
 }

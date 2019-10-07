@@ -44,7 +44,7 @@ def generate_file(file_lines, dim, output_file):
     with open(PATH + output_file, "w") as f:
          for i in range(file_lines):
              # write item_id
-             f.write("item_id" + str(i))
+             f.write(str(i))
              f.write(SEP)
              for j in range(dim):
                  f.write(str(random.uniform(LOWER_BOUND,UPPER_BOUND)))

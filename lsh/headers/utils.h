@@ -19,14 +19,13 @@ namespace utils {
     int k = 4;                   // number of LSH hash functions
     int L = 5;                   // number of LSH hash tables
     int d;                       // dimension of the space
-    void print(void);            // print method of the InputInfo struct
+    void Print(void);            // print method of the InputInfo struct
   };
-  /**
-    Usage - Prints the usage of the program
+  /** \brief ShowUsage - Prints the usage of the program
     @par const std::string &name Pass by reference the name of the program
     @par const struct InputInfo &input_info Pass by reference the input parameters
   */
-  void ShowUsage(const std::string&, const struct InputInfo &);
+  void ShowUsage(const std::string &name, const struct InputInfo &input_info);
 }
 
 #endif

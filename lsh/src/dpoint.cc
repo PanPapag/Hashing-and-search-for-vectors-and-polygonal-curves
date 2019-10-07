@@ -6,9 +6,9 @@
 #include "../headers/dpoint.h"
 
 template <class T>
-dpoint<T>::dpoint(std::string item, std::vector<T>& vect) { 
+dpoint<T>::dpoint(std::string item, std::vector<T>& vect) {
   this->item = item;
-  this->feature_vector = vect;
+  this->feature_vector = vect;   //TODO (Maria) change to copy constructor
 }
 
 template <class T>
