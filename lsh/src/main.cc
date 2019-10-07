@@ -15,8 +15,10 @@ using namespace std::chrono;
 
 int main(int argc, char **argv) {
   utils::InputInfo input_info;
+  utils::ExitCode status;
+  char delim = '\t';
   //utils::ShowUsage(argv[0], input_info);
-  //utils::report::ReportError(utils::QUERY_ERROR); 
+  //utils::report::ReportError(utils::QUERY_ERROR);
   /* int exit_code = utils::args::ScanArguments(input_info);
    if (exit_code == utils::SUCCESS) {
     std:: cout << "good" << std::endl;
@@ -36,10 +38,12 @@ int main(int argc, char **argv) {
   }
   input_info.Print(); */
   std::vector<int> temp;
-  const char *fn = "../../datasets/vectors/search_test";
+  const char *fn = "../../datasets/vectors/searcha_test";
   // Get starting timepoint
   auto start = high_resolution_clock::now();
-  int exit_code = utils::io::ReadDatasetFile(fn,' ',temp);
+  utils::io::GetN(fn,input_info,status);
+  utils::io::GetD(fn,delim,input_info,status);
+  input_info.Print();
   // Get ending timepoint
   auto stop = high_resolution_clock::now();
 
@@ -49,7 +53,7 @@ int main(int argc, char **argv) {
   auto duration = duration_cast<microseconds>(stop - start);
 
   std::cout << "Time taken by function: "
-       << duration.count() << " microseconds" << std::endl;
+            << duration.count() << " microseconds" << std::endl;
 
   return EXIT_SUCCESS;
 }

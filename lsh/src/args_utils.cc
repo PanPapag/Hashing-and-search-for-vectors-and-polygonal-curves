@@ -6,7 +6,8 @@
 #include "../headers/utils.h"
 #include "../headers/args_utils.h"
 
-int utils::args::ScanArguments(struct InputInfo &input_info) {
+int utils::args::ScanArguments(struct InputInfo &input_info, utils::ExitCode &status) {
+
   std::string input_buffer;
 
   std::cout << "Provide the relative path for the input file: ";
@@ -35,7 +36,8 @@ int utils::args::ScanArguments(struct InputInfo &input_info) {
     try {
       input_info.K = stoi(input_buffer);
     } catch (...) {
-       return INVALID_k;;
+      status = INVALID_k;
+      return FAIL;
     }
 
     std::cout << "Provide the number of LSH hash tables: ";
@@ -43,14 +45,16 @@ int utils::args::ScanArguments(struct InputInfo &input_info) {
     try {
       input_info.L = stoi(input_buffer);
     } catch (...) {
-       return INVALID_L;
+      status = INVALID_L;
+      return FAIL;
     }
   }
-
   return SUCCESS;
 }
 
-int utils::args::ReadArguments(int argc, char **argv, struct InputInfo &input_info) {
+int utils::args::ReadArguments(int argc, char **argv,
+  struct InputInfo &input_info, utils::ExitCode &status) {
+
   if (argc == 2) {
     if (argv[1] == "-help") {
       ShowUsage(argv[0], input_info);
@@ -58,7 +62,8 @@ int utils::args::ReadArguments(int argc, char **argv, struct InputInfo &input_in
   }
 
   if (argc != 11) {
-    return INVALID_PARARAMETERS;
+    status = INVALID_PARARAMETERS;
+    return FAIL;
   }
 
   int c;
@@ -76,7 +81,8 @@ int utils::args::ReadArguments(int argc, char **argv, struct InputInfo &input_in
         try {
           input_info.K = atoi(optarg);
         } catch (...) {
-           return INVALID_k;;
+          status = INVALID_k;
+          return FAIL;
         }
         break;
       }
@@ -84,7 +90,8 @@ int utils::args::ReadArguments(int argc, char **argv, struct InputInfo &input_in
         try {
           input_info.L = atoi(optarg);
         } catch (...) {
-           return INVALID_L;;
+          status = INVALID_L;
+          return FAIL;
         }
         break;
       }
@@ -98,6 +105,5 @@ int utils::args::ReadArguments(int argc, char **argv, struct InputInfo &input_in
         abort();
     }
   }
-
   return SUCCESS;
 }
