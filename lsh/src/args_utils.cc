@@ -33,7 +33,7 @@ int utils::args::ScanArguments(struct InputInfo &input_info) {
     std::cout << "Provide the number of LSH hash functions: ";
     std::cin >> input_buffer;
     try {
-      input_info.k = stoi(input_buffer);
+      input_info.K = stoi(input_buffer);
     } catch (...) {
        return INVALID_k;;
     }
@@ -46,13 +46,13 @@ int utils::args::ScanArguments(struct InputInfo &input_info) {
        return INVALID_L;
     }
   }
-  
+
   return SUCCESS;
 }
 
 int utils::args::ReadArguments(int argc, char **argv, struct InputInfo &input_info) {
   if (argc == 2) {
-    if (argv[1] == "-help") {
+    if (!strcmp(argv[1],"-help")) {
       ShowUsage(argv[0], input_info);
     }
   }
@@ -74,7 +74,7 @@ int utils::args::ReadArguments(int argc, char **argv, struct InputInfo &input_in
       }
       case 'k': {
         try {
-          input_info.k = atoi(optarg);
+          input_info.K = atoi(optarg);
         } catch (...) {
            return INVALID_k;;
         }

@@ -6,9 +6,9 @@
 #include <stdlib.h>
 
 #include "../headers/utils.h"
-#include "../headers/parser.h"
+#include "../headers/io_utils.h"
 
-int utils::parser::ReadDatasetFile(const char *file_name, const char delim, std::vector<int> &vectors) {
+int utils::io::ReadDatasetFile(const char *file_name, const char delim, std::vector<int> &vectors) {
   FILE *fp = fopen(file_name, "r");
   if (fp == NULL) // TODO add report
     exit(EXIT_FAILURE);

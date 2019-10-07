@@ -6,7 +6,8 @@
 
 #include "../headers/utils.h"
 #include "../headers/args_utils.h"
-#include "../headers/parser.h"
+#include "../headers/report_utils.h"
+#include "../headers/io_utils.h"
 #include "../headers/dpoint.h"
 
 using namespace std::chrono;
@@ -14,6 +15,7 @@ using namespace std::chrono;
 int main(int argc, char **argv) {
   utils::InputInfo input_info;
   //utils::ShowUsage(argv[0], input_info);
+  //utils::report::ReportError(utils::QUERY_ERROR); 
   /* int exit_code = utils::args::ScanArguments(input_info);
    if (exit_code == utils::SUCCESS) {
     std:: cout << "good" << std::endl;
@@ -22,7 +24,7 @@ int main(int argc, char **argv) {
   } else if (exit_code == utils::INVALID_k) {
     std:: cout << "k" << std::endl;
   }
-  input_info.print(); */
+  input_info.Print(); */
   /* int exit_code = utils::args::ReadArguments(argc, argv, input_info);
   if (exit_code == utils::SUCCESS) {
    std:: cout << "good" << std::endl;
@@ -31,12 +33,12 @@ int main(int argc, char **argv) {
   } else if (exit_code == utils::INVALID_k) {
    std:: cout << "k" << std::endl;
   }
-  input_info.print(); */
+  input_info.Print(); */
   std::vector<int> temp;
   const char *fn = "../../datasets/vectors/search_test";
   // Get starting timepoint
   auto start = high_resolution_clock::now();
-  int exit_code = utils::parser::ReadDatasetFile(fn,' ',temp);
+  int exit_code = utils::io::ReadDatasetFile(fn,' ',temp);
   // Get ending timepoint
   auto stop = high_resolution_clock::now();
 
@@ -47,6 +49,6 @@ int main(int argc, char **argv) {
 
   std::cout << "Time taken by function: "
        << duration.count() << " microseconds" << std::endl;
-       
+
   return EXIT_SUCCESS;
 }
