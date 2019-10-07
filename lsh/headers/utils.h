@@ -6,6 +6,7 @@ namespace utils {
   typedef enum ExitCode{
     SUCCESS,
     FAIL,
+    NO_ARGS,
     INVALID_k,
     INVALID_L,
     INVALID_PARARAMETERS,

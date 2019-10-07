@@ -11,38 +11,20 @@
 #include "../headers/io_utils.h"
 #include "../headers/report_utils.h"
 
+template <typename T>
 int utils::io::ReadDatasetFile(const char *file_name, const char delim,
-  std::vector<int> &vectors, utils::ExitCode &status) {
+  std::vector<T> &v, utils::ExitCode &status) {
 
-  FILE *fp = fopen(file_name, "r");
-  if (fp == NULL) // TODO add report
-    exit(EXIT_FAILURE);
-
-  char *line = NULL;
-  size_t len = 0;
-
-  while ((getline(&line, &len, fp)) != -1) {
-    // convert char *line to string
-    std::string vector_record(line);
-    // process string
-    std::string vector_id = vector_record.substr(0, vector_record.find('\t'));
-    std::cout << vector_record;
-  }
-  // close file pointer
-  fclose(fp);
-  // clear any memory left
-  if (line)
-    free(line);
+  return SUCCESS;
 }
 
-int utils::io::GetN(const char *file_name, struct InputInfo &input_info,
-  utils::ExitCode &status) {
+int utils::io::GetN(struct InputInfo &input_info, utils::ExitCode &status) {
 
   FILE *fp;                // To opem the file for reading
   unsigned int count = 0;  // Line counter (result)
   char c;                  // To store a character read from file
   // Open the file
-  fp = fopen(file_name, "r");
+  fp = fopen(input_info.input_file.c_str(), "r");
   // Check if file exists
   if (!fp) {
     status = INVALID_DATASET;
@@ -62,11 +44,11 @@ int utils::io::GetN(const char *file_name, struct InputInfo &input_info,
   return SUCCESS;
 }
 
-int utils::io::GetD(const char *file_name, char delim,
-  struct InputInfo &input_info, utils::ExitCode &status) {
+int utils::io::GetD(const char delim, struct InputInfo &input_info,
+  utils::ExitCode &status) {
 
   std::ifstream file;
-  file.open(file_name);
+  file.open(input_info.input_file);
   std::string line;
   // Check if file exists
   if (!file) {

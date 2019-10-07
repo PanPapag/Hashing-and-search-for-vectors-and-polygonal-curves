@@ -16,44 +16,67 @@ using namespace std::chrono;
 int main(int argc, char **argv) {
   utils::InputInfo input_info;
   utils::ExitCode status;
-  char delim = '\t';
-  //utils::ShowUsage(argv[0], input_info);
-  //utils::report::ReportError(utils::QUERY_ERROR);
-  /* int exit_code = utils::args::ScanArguments(input_info);
-   if (exit_code == utils::SUCCESS) {
-    std:: cout << "good" << std::endl;
-  } else if (exit_code == utils::INVALID_L) {
-    std:: cout << "L" << std::endl;
-  } else if (exit_code == utils::INVALID_k) {
-    std:: cout << "k" << std::endl;
-  }
-  input_info.Print(); */
-  /* int exit_code = utils::args::ReadArguments(argc, argv, input_info);
-  if (exit_code == utils::SUCCESS) {
-   std:: cout << "good" << std::endl;
-  } else if (exit_code == utils::INVALID_L) {
-   std:: cout << "L" << std::endl;
-  } else if (exit_code == utils::INVALID_k) {
-   std:: cout << "k" << std::endl;
-  }
-  input_info.Print(); */
-  std::vector<int> temp;
-  const char *fn = "../../datasets/vectors/searcha_test";
-  // Get starting timepoint
+  const char delim = ' ';
+  int exit_code;
+
+  input_info.input_file = "../../datasets/vectors/input_small_id";
+
+  /* Get arguments */
+  /*exit_code = utils::args::ReadArguments(argc, argv, input_info, status);
+  switch (exit_code) {
+    case utils::SUCCESS:
+      std::cout << "\nArguments provided correctly" << std::endl;
+      break;
+    case utils::FAIL:
+      if (status == utils::NO_ARGS) {
+        std::cout << "\nNo arguments provided" << std::endl;
+        std::cout << "Proceding to input them.." << std::endl;
+        exit_code = utils::args::ScanArguments(input_info, status);
+        switch (exit_code) {
+          case utils::SUCCESS:
+            std::cout << "Arguments provided correctly" << std::endl;
+            break;
+          case utils::FAIL:
+            utils::report::ReportError(status);
+            break;
+          default:
+            break;
+        }
+      } else {
+        utils::report::ReportError(status);
+      }
+      break;
+    default:
+      break;
+  } */
+
+  /* Preprocessing file to get number of vectors and their dimension */
   auto start = high_resolution_clock::now();
-  utils::io::GetN(fn,input_info,status);
-  utils::io::GetD(fn,delim,input_info,status);
-  input_info.Print();
-  // Get ending timepoint
+  std::cout << "\nGetting number of vectors.." << std::endl;
+  exit_code = utils::io::GetN(input_info, status);
+  if (exit_code != utils::SUCCESS) {
+    utils::report::ReportError(status);
+  }
   auto stop = high_resolution_clock::now();
-
-  // Get duration. Substart timepoints to
-  // get durarion. To cast it to proper unit
-  // use duration cast method
   auto duration = duration_cast<microseconds>(stop - start);
+  std::cout << "Getting number of vectors completed successfully." << std::endl;
+  std::cout << "Time elapsed: " << duration.count()
+            << " microseconds" << std::endl;
 
-  std::cout << "Time taken by function: "
-            << duration.count() << " microseconds" << std::endl;
+
+  start = high_resolution_clock::now();
+  std::cout << "\nGetting vectors' dimension.." << std::endl;
+  exit_code = utils::io::GetD(delim, input_info, status);
+  if (exit_code != utils::SUCCESS) {
+    utils::report::ReportError(status);
+  }
+  stop = high_resolution_clock::now();
+  duration = duration_cast<microseconds>(stop - start);
+  std::cout << "Getting vectors' dimension completed successfully." << std::endl;
+  std::cout << "Time elapsed: " << duration.count()
+            << " microseconds" << std::endl;
+
+  input_info.Print();
 
   return EXIT_SUCCESS;
 }

@@ -21,6 +21,7 @@ void utils::ShowUsage(const std::string &program_name, const struct InputInfo &i
 }
 
 void utils::InputInfo::Print(void) {
+  std::cout << std::endl;
   std::cout << "Input file: " << input_file << std::endl;
   std::cout << "Query file: " << query_file << std::endl;
   std::cout << "Output file: " << output_file << std::endl;

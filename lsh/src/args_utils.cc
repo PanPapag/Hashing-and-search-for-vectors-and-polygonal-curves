@@ -1,6 +1,8 @@
+#include <algorithm>
 #include <iostream>
-#include <unistd.h>
 #include <cstdlib>
+#include <getopt.h>
+#include <unistd.h>
 #include <string>
 
 #include "../headers/utils.h"
@@ -55,8 +57,13 @@ int utils::args::ScanArguments(struct InputInfo &input_info, utils::ExitCode &st
 int utils::args::ReadArguments(int argc, char **argv,
   struct InputInfo &input_info, utils::ExitCode &status) {
 
+  if (argc == 1) {
+    status = NO_ARGS;
+    return FAIL;
+  }
+
   if (argc == 2) {
-    if (argv[1] == "-help") {
+    if (!strcmp(argv[1],"-help")) {
       ShowUsage(argv[0], input_info);
     }
   }
@@ -66,10 +73,26 @@ int utils::args::ReadArguments(int argc, char **argv,
     return FAIL;
   }
 
-  int c;
-  while ((c = getopt(argc, argv, "d:q:k:L:o:")) != -1) {
-    switch (c) {
-      case 'd': {
+  const char * const short_opts = "d:q:k:L:o:";
+  const option long_opts[] = {
+           {"input", required_argument, nullptr, 'd'},
+           {"query", required_argument, nullptr, 'q'},
+           {"k", required_argument, nullptr, 'k'},
+           {"L", required_argument, nullptr, 'L'},
+           {"help", required_argument, nullptr, 'o'},
+           {nullptr, no_argument, nullptr, 0}
+   };
+
+   while (true) {
+
+     const auto opt = getopt_long(argc, argv, short_opts, long_opts, nullptr);
+
+     if (-1 == opt) {
+       break;
+     }
+
+     switch (opt) {
+       case 'd': {
         input_info.input_file = optarg;
         break;
       }
