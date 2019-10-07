@@ -11,15 +11,18 @@
 #include "../headers/xvector.h"
 #include "../headers/hash_function.h"
 
+#define T double
+#define K int
+
 using namespace std::chrono;
 
 int main(int argc, char **argv) {
   utils::InputInfo input_info;
   utils::ExitCode status;
-  const char delim = ' ';
+  const char delim = '\t';
   int exit_code;
 
-  input_info.input_file = "../../datasets/vectors/input_small_id";
+  input_info.input_file = "../../datasets/vectors/search_test";
 
   /* Get arguments */
   /*exit_code = utils::args::ReadArguments(argc, argv, input_info, status);
@@ -63,7 +66,6 @@ int main(int argc, char **argv) {
   std::cout << "Time elapsed: " << duration.count()
             << " microseconds" << std::endl;
 
-
   start = high_resolution_clock::now();
   std::cout << "\nGetting vectors' dimension.." << std::endl;
   exit_code = utils::io::GetD(delim, input_info, status);
@@ -77,6 +79,16 @@ int main(int argc, char **argv) {
             << " microseconds" << std::endl;
 
   input_info.Print();
+  /*
+    Read dataset and create 1D vector which represents the d-dimensional points
+    of N vectors. Also create 1D vector that stores vectors' ids.
+    1D vector of points representation support cache efficiency and as a result
+    faster computations
+  */
+  std::vector<T> input_points(input_info.N * input_info.D);
+  std::vector<K> input_ids(input_info.N);
+  exit_code = utils::io::ReadInputFile<T,K>(input_points, input_ids, input_info, delim, status);
+
 
   return EXIT_SUCCESS;
 }

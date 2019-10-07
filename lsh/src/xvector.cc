@@ -6,7 +6,7 @@
 #include "../headers/xvector.h"
 
 template <class T>
-xVector<T>::xVector(std::string item, std::vector<T> vect) : item(item) { 
+xVector<T>::xVector(std::string item, std::vector<T> vect) : item(item) {
   this->feature_vector.swap(vect);
 }
 

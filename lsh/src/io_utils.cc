@@ -11,13 +11,6 @@
 #include "../headers/io_utils.h"
 #include "../headers/report_utils.h"
 
-template <typename T>
-int utils::io::ReadDatasetFile(const char *file_name, const char delim,
-  std::vector<T> &v, utils::ExitCode &status) {
-
-  return SUCCESS;
-}
-
 int utils::io::GetN(struct InputInfo &input_info, utils::ExitCode &status) {
 
   FILE *fp;                // To opem the file for reading
