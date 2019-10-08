@@ -6,7 +6,7 @@
 #include "../headers/xvector.h"
 
 template <class T>
-xVector<T>::xVector(std::string item, std::vector<T> vect) : item(item) { 
+xVector<T>::xVector(std::string item, std::vector<T> vect) : item(item) {
   this->feature_vector.swap(vect);
 }
 
@@ -28,6 +28,16 @@ void xVector<std::vector<double>>::PrintVector() {
     }
     std::cout << std::endl;
   }
+}
+
+template <class T>
+int xVector<T>::getDimensions() {
+  return this->feature_vector.size();
+}
+
+template <class T>
+std::vector<T>& xVector<T>::getFeatureVector() {
+  return this->feature_vector;
 }
 
 template class xVector<double>;

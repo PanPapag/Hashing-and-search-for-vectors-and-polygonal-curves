@@ -1,44 +1,116 @@
+#include <algorithm>
+#include <chrono>
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include "../headers/utils.h"
 #include "../headers/args_utils.h"
+#include "../headers/report_utils.h"
+#include "../headers/io_utils.h"
 #include "../headers/xvector.h"
+#include "../headers/metric.h"
 #include "../headers/hash_function.h"
+
+#define T int
+#define K int
+
+using namespace std::chrono;
 
 int main(int argc, char **argv) {
   utils::InputInfo input_info;
-  //utils::ShowUsage(argv[0], input_info);
-  /* int exit_code = utils::args::ScanArguments(input_info);
-   if (exit_code == utils::SUCCESS) {
-    std:: cout << "good" << std::endl;
-  } else if (exit_code == utils::INVALID_L) {
-    std:: cout << "L" << std::endl;
-  } else if (exit_code == utils::INVALID_k) {
-    std:: cout << "k" << std::endl;
+  utils::ExitCode status;
+  const char delim = ' ';
+  int exit_code;
+
+  input_info.input_file = "../../datasets/vectors/input_small_id";
+
+  /* Get arguments */
+  /*exit_code = utils::args::ReadArguments(argc, argv, input_info, status);
+  switch (exit_code) {
+    case utils::SUCCESS:
+      std::cout << "\nArguments provided correctly" << std::endl;
+      break;
+    case utils::FAIL:
+      if (status == utils::NO_ARGS) {
+        std::cout << "\nNo arguments provided" << std::endl;
+        std::cout << "Proceding to input them.." << std::endl;
+        exit_code = utils::args::ScanArguments(input_info, status);
+        switch (exit_code) {
+          case utils::SUCCESS:
+            std::cout << "Arguments provided correctly" << std::endl;
+            break;
+          case utils::FAIL:
+            utils::report::ReportError(status);
+            break;
+          default:
+            break;
+        }
+      } else {
+        utils::report::ReportError(status);
+      }
+      break;
+    default:
+      break;
+  } */
+
+  /* Preprocessing file to get number of vectors and their dimension */
+  auto start = high_resolution_clock::now();
+  std::cout << "\nGetting number of vectors.." << std::endl;
+  exit_code = utils::io::GetN(input_info, status);
+  if (exit_code != utils::SUCCESS) {
+    utils::report::ReportError(status);
   }
-  input_info.print(); */
-  /* int exit_code = utils::args::ReadArguments(argc, argv, input_info);
-  if (exit_code == utils::SUCCESS) {
-   std:: cout << "good" << std::endl;
-  } else if (exit_code == utils::INVALID_L) {
-   std:: cout << "L" << std::endl;
-  } else if (exit_code == utils::INVALID_k) {
-   std:: cout << "k" << std::endl;
+  auto stop = high_resolution_clock::now();
+  auto duration = duration_cast<microseconds>(stop - start);
+  std::cout << "Getting number of vectors completed successfully." << std::endl;
+  std::cout << "Time elapsed: " << duration.count() << " ms" << std::endl;
+
+  start = high_resolution_clock::now();
+  std::cout << "\nGetting vectors' dimension.." << std::endl;
+  exit_code = utils::io::GetD(delim, input_info, status);
+  if (exit_code != utils::SUCCESS) {
+    utils::report::ReportError(status);
   }
-  input_info.print(); */
+  stop = high_resolution_clock::now();
+  duration = duration_cast<microseconds>(stop - start);
+  std::cout << "Getting vectors' dimension completed successfully." << std::endl;
+  std::cout << "Time elapsed: " << duration.count() << " ms" << std::endl;
 
-  std::vector<double> vect;
-  vect.push_back(2.0);
-  vect.push_back(3.0);
+  input_info.Print();
+  /*
+    Read dataset and create 1D vector which represents the d-dimensional points
+    of N vectors. Also create 1D vector that stores vectors' ids.
+    1D vector of points representation support cache efficiency and as a result
+    faster computations
+  */
+  start = high_resolution_clock::now();
+  std::cout << "\nReading input file.." << std::endl;
+  std::vector<T> input_points(input_info.N * input_info.D);
+  std::vector<K> input_ids(input_info.N);
+  exit_code = utils::io::ReadInputFile<T,K>(input_points, input_ids, input_info, delim, status);
+  stop = high_resolution_clock::now();
+  duration = duration_cast<microseconds>(stop - start);
+  std::cout << "Reading input file completed successfully." << std::endl;
+  std::cout << "Time elapsed: " << duration.count() << " ms" << std::endl;
 
-  xVector<double> obj = xVector<double>("lala",vect);
-  const double k = 0.35;
-  obj.PrintVector();
-  vect.push_back(4.0);
-  obj.PrintVector();
-  HashFunction<double> hi = HashFunction<double>(k,obj); 
-
+  /* print dataset
+  std::cout << std::endl;
+  for (int i = 0; i < input_info.N; i++)  {
+    std::cout << input_ids[i] << " ";
+    for (int j = 0; j < input_info.D; j++)
+      std::cout << input_points[i * input_info.D + j] << " ";
+    std::cout << std::endl;
+  }
+  std::cout << std::endl;
+  */
+  start = high_resolution_clock::now();
+  std::cout << "\nDistance: " << metric::EuclidianDistance<T>(input_points.begin(),
+    input_points.begin() + 2*input_info.D, (input_points.begin() + 2 * input_info.D) + input_info.D)
+    << std::endl;
+    stop = high_resolution_clock::now();
+  duration = duration_cast<microseconds>(stop - start);
+  std::cout << "Time elapsed to manhattan_distance: " << duration.count() << " ms" << std::endl;
 
   return EXIT_SUCCESS;
 }
