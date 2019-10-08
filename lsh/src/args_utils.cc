@@ -4,6 +4,7 @@
 #include <getopt.h>
 #include <unistd.h>
 #include <string>
+#include <string.h>
 
 #include "../headers/utils.h"
 #include "../headers/args_utils.h"
