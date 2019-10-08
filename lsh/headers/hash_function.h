@@ -9,11 +9,13 @@
 template <class T>
 class HashFunction {
   private:
-    double w;
     int m;
-    std::vector<T> si;
+    std::vector<T> s;
   public:
-    HashFunction(double,xVector<T>&);
+    HashFunction(double, double, xVector<T>&);
+    void RandomVectorInit(int, double);
+    void PrintVector();
+    std::vector<T>& ProjectX(double, xVector<T>&); 
     ~HashFunction();
 };
 

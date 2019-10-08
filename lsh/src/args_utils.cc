@@ -63,7 +63,7 @@ int utils::args::ReadArguments(int argc, char **argv,
   }
 
   if (argc == 2) {
-    if (!strcmp(argv[1],"-help")) {
+    if (argv[1] == "-help") {
       ShowUsage(argv[0], input_info);
     }
   }
