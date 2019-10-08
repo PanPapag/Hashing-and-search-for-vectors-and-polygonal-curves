@@ -51,12 +51,11 @@ int utils::io::GetD(const char delim, struct InputInfo &input_info,
   else {
     // Get the first line
     if (getline(file, line)) {
-      std::stringstream temp(line);
-      std::string token;
-      unsigned int count = 0;
-      while (getline(temp, token, delim)) {
-        count++;
-      }
+      // Get total number of elements
+      int count =  std::distance(std::istream_iterator<std::string>(
+                    std::istringstream(line) >> std::ws),
+                    std::istream_iterator<std::string>());
+      // The first one is the vector's id. The remaining determines the dimension
       input_info.D = count - 1;
     }
   }
