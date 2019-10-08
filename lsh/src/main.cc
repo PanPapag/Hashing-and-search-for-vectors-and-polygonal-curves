@@ -9,6 +9,7 @@
 #include "../headers/report_utils.h"
 #include "../headers/io_utils.h"
 #include "../headers/xvector.h"
+#include "../headers/metric.h"
 #include "../headers/hash_function.h"
 
 #define T int
@@ -83,9 +84,33 @@ int main(int argc, char **argv) {
     1D vector of points representation support cache efficiency and as a result
     faster computations
   */
+  start = high_resolution_clock::now();
+  std::cout << "\nReading input file.." << std::endl;
   std::vector<T> input_points(input_info.N * input_info.D);
   std::vector<K> input_ids(input_info.N);
   exit_code = utils::io::ReadInputFile<T,K>(input_points, input_ids, input_info, delim, status);
+  stop = high_resolution_clock::now();
+  duration = duration_cast<microseconds>(stop - start);
+  std::cout << "Reading input file completed successfully." << std::endl;
+  std::cout << "Time elapsed: " << duration.count() << " ms" << std::endl;
+
+  /* print dataset
+  std::cout << std::endl;
+  for (int i = 0; i < input_info.N; i++)  {
+    std::cout << input_ids[i] << " ";
+    for (int j = 0; j < input_info.D; j++)
+      std::cout << input_points[i * input_info.D + j] << " ";
+    std::cout << std::endl;
+  }
+  std::cout << std::endl;
+  */
+  start = high_resolution_clock::now();
+  std::cout << "\nDistance: " << metric::ManhattanDistance<T>(input_points.begin(),
+    input_points.begin() + 2*input_info.D, (input_points.begin() + 2 * input_info.D) + input_info.D)
+    << std::endl;
+    stop = high_resolution_clock::now();
+  duration = duration_cast<microseconds>(stop - start);
+  std::cout << "Time elapsed to manhattan_distance: " << duration.count() << " ms" << std::endl;
 
   return EXIT_SUCCESS;
 }
