@@ -27,8 +27,10 @@ void utils::InputInfo::Print(void) {
   std::cout << "Output file: " << output_file << std::endl;
   std::cout << "Number of LSH hash functions: " << K << std::endl;
   std::cout << "Number of LSH hash tables: " << L << std::endl;
-  std::cout << "Number of vectors: " << N << std::endl;
+  std::cout << "Number of dataset points: " << N << std::endl;
+  std::cout << "Number of query points: " << Q << std::endl;
   std::cout << "Space dimension: " << D << std::endl;
+  std::cout << "Radius: " << R << std::endl;
 }
 
 double utils::fRand(double lb, double ub) {
@@ -36,4 +38,4 @@ double utils::fRand(double lb, double ub) {
   std::default_random_engine re;
   double a_random_double = unif(re);
   return a_random_double;
-} 
+}

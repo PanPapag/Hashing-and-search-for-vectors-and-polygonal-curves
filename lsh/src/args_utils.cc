@@ -69,7 +69,7 @@ int utils::args::ReadArguments(int argc, char **argv,
     }
   }
 
-  if (argc != 11) {
+  if (argc != 13) {
     status = INVALID_PARARAMETERS;
     return FAIL;
   }
@@ -80,6 +80,7 @@ int utils::args::ReadArguments(int argc, char **argv,
            {"query", required_argument, nullptr, 'q'},
            {"k", required_argument, nullptr, 'k'},
            {"L", required_argument, nullptr, 'L'},
+           {"radius", required_argument, nullptr, 'R'},
            {"help", required_argument, nullptr, 'o'},
            {nullptr, no_argument, nullptr, 0}
    };
@@ -115,6 +116,15 @@ int utils::args::ReadArguments(int argc, char **argv,
           input_info.L = atoi(optarg);
         } catch (...) {
           status = INVALID_L;
+          return FAIL;
+        }
+        break;
+      }
+      case 'R': {
+        try {
+          input_info.R = atoi(optarg);
+        } catch (...) {
+          status = INVALID_R;
           return FAIL;
         }
         break;
