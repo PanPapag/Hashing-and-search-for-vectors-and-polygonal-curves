@@ -8,7 +8,6 @@
 #include "../headers/args_utils.h"
 #include "../headers/report_utils.h"
 #include "../headers/io_utils.h"
-#include "../headers/xvector.h"
 #include "../headers/metric.h"
 #include "../headers/hash_function.h"
 
@@ -104,6 +103,7 @@ int main(int argc, char **argv) {
   }
   std::cout << std::endl;
   */
+ 
   start = high_resolution_clock::now();
   std::cout << "\nDistance: " << metric::SquaredEuclidianDistance<T>(input_points.begin(),
     input_points.begin() + 2*input_info.D, (input_points.begin() + 2*input_info.D) + input_info.D)
