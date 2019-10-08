@@ -12,7 +12,7 @@ void utils::ShowUsage(const std::string &program_name, const struct InputInfo &i
             << "  -d\tdefine the input file\n"
             << "  -q\tdefine the query file\n"
             << "  -k\tdefine the number of LSH hash functions (default = "
-                  << input_info.k << ")\n"
+                  << input_info.K << ")\n"
             << "  -L\tdefine the number of LSH hash tables (default = "
                   << input_info.L << ")\n"
             << "  -o\tdefine the output file\n"
@@ -20,17 +20,20 @@ void utils::ShowUsage(const std::string &program_name, const struct InputInfo &i
   exit(EXIT_FAILURE);
 }
 
-void utils::InputInfo::print(void) {
+void utils::InputInfo::Print(void) {
+  std::cout << std::endl;
   std::cout << "Input file: " << input_file << std::endl;
   std::cout << "Query file: " << query_file << std::endl;
   std::cout << "Output file: " << output_file << std::endl;
-  std::cout << "Number of LSH hash functions: " << k << std::endl;
+  std::cout << "Number of LSH hash functions: " << K << std::endl;
   std::cout << "Number of LSH hash tables: " << L << std::endl;
-  std::cout << "Space dimension: " << d << std::endl;
+  std::cout << "Number of vectors: " << N << std::endl;
+  std::cout << "Space dimension: " << D << std::endl;
 }
 
-void utils::fRand(double lb, double ub) {
+double utils::fRand(double lb, double ub) {
   std::uniform_real_distribution<double> unif(lb,ub);
   std::default_random_engine re;
   double a_random_double = unif(re);
+  return a_random_double;
 } 
