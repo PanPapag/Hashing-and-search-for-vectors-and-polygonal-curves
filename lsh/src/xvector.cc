@@ -30,5 +30,15 @@ void xVector<std::vector<double>>::PrintVector() {
   }
 }
 
+template <class T>
+int xVector<T>::getDimensions() {
+  return this->feature_vector.size();
+}
+
+template <class T>
+std::vector<T>& xVector<T>::getFeatureVector() {
+  return this->feature_vector;
+}
+
 template class xVector<double>;
 template class xVector<std::vector<double>>;

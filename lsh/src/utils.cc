@@ -31,8 +31,9 @@ void utils::InputInfo::Print(void) {
   std::cout << "Space dimension: " << D << std::endl;
 }
 
-void utils::fRand(double lb, double ub) {
+double utils::fRand(double lb, double ub) {
   std::uniform_real_distribution<double> unif(lb,ub);
   std::default_random_engine re;
   double a_random_double = unif(re);
-}
+  return a_random_double;
+} 

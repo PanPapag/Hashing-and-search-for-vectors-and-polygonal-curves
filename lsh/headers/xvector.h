@@ -12,6 +12,8 @@ class xVector {
   public:
     xVector(std::string,std::vector<T>);
     void PrintVector(); //auxiliary func
+    int getDimensions();
+    std::vector<T>& getFeatureVector();
     ~xVector();
 };
 
