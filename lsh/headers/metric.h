@@ -29,7 +29,7 @@ namespace metric {
     returns: euclidian_distance type of T
   */
   template <typename T, typename iterator>
-  T EuclidianDistance(iterator p, iterator q, iterator q_end) {
+  T SquaredEuclidianDistance(iterator p, iterator q, iterator q_end) {
     T manhattan_distance{};
     for (; q < q_end; ++q, ++p) {
       manhattan_distance += (*q - *p) * (*q - *p);

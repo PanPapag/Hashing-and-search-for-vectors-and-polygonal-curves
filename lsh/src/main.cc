@@ -105,8 +105,8 @@ int main(int argc, char **argv) {
   std::cout << std::endl;
   */
   start = high_resolution_clock::now();
-  std::cout << "\nDistance: " << metric::EuclidianDistance<T>(input_points.begin(),
-    input_points.begin() + 2*input_info.D, (input_points.begin() + 2 * input_info.D) + input_info.D)
+  std::cout << "\nDistance: " << metric::SquaredEuclidianDistance<T>(input_points.begin(),
+    input_points.begin() + 2*input_info.D, (input_points.begin() + 2*input_info.D) + input_info.D)
     << std::endl;
     stop = high_resolution_clock::now();
   duration = duration_cast<microseconds>(stop - start);
