@@ -11,7 +11,7 @@
 #include "../headers/xvector.h"
 #include "../headers/hash_function.h"
 
-#define T double
+#define T int
 #define K int
 
 using namespace std::chrono;
@@ -19,10 +19,10 @@ using namespace std::chrono;
 int main(int argc, char **argv) {
   utils::InputInfo input_info;
   utils::ExitCode status;
-  const char delim = '\t';
+  const char delim = ' ';
   int exit_code;
 
-  input_info.input_file = "../../datasets/vectors/search_test";
+  input_info.input_file = "../../datasets/vectors/input_small_id";
 
   /* Get arguments */
   /*exit_code = utils::args::ReadArguments(argc, argv, input_info, status);
@@ -63,8 +63,7 @@ int main(int argc, char **argv) {
   auto stop = high_resolution_clock::now();
   auto duration = duration_cast<microseconds>(stop - start);
   std::cout << "Getting number of vectors completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << duration.count()
-            << " microseconds" << std::endl;
+  std::cout << "Time elapsed: " << duration.count() << " ms" << std::endl;
 
   start = high_resolution_clock::now();
   std::cout << "\nGetting vectors' dimension.." << std::endl;
@@ -75,8 +74,7 @@ int main(int argc, char **argv) {
   stop = high_resolution_clock::now();
   duration = duration_cast<microseconds>(stop - start);
   std::cout << "Getting vectors' dimension completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << duration.count()
-            << " microseconds" << std::endl;
+  std::cout << "Time elapsed: " << duration.count() << " ms" << std::endl;
 
   input_info.Print();
   /*
@@ -88,7 +86,6 @@ int main(int argc, char **argv) {
   std::vector<T> input_points(input_info.N * input_info.D);
   std::vector<K> input_ids(input_info.N);
   exit_code = utils::io::ReadInputFile<T,K>(input_points, input_ids, input_info, delim, status);
-
 
   return EXIT_SUCCESS;
 }
