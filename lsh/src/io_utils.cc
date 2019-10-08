@@ -12,13 +12,14 @@
 #include "../headers/io_utils.h"
 #include "../headers/report_utils.h"
 
-int utils::io::GetN(struct InputInfo &input_info, utils::ExitCode &status) {
+int utils::io::GetDataPoints(std::string &file_name, int &no_vectors,
+  utils::ExitCode &status) {
 
   FILE *fp;                // To opem the file for reading
   unsigned int count = 0;  // Line counter (result)
   char c;                  // To store a character read from file
   // Open the file
-  fp = fopen(input_info.input_file.c_str(), "r");
+  fp = fopen(file_name.c_str(), "r");
   // Check if file exists
   if (!fp) {
     status = INVALID_DATASET;
@@ -30,19 +31,19 @@ int utils::io::GetN(struct InputInfo &input_info, utils::ExitCode &status) {
       count = count + 1;
     }
   }
-  // Pass number of vectors into the input_info struct
-  input_info.N = count;
+  // Pass info
+  no_vectors = count;
   // Close the file
   fclose(fp);
   // everything ok, return SUCCESS
   return SUCCESS;
 }
 
-int utils::io::GetD(const char delim, struct InputInfo &input_info,
+int utils::io::GetPointsDim(std::string &file_name, int &dim,
   utils::ExitCode &status) {
 
   std::ifstream file;
-  file.open(input_info.input_file);
+  file.open(file_name);
   std::string line;
   // Check if file exists
   if (!file) {
@@ -57,7 +58,7 @@ int utils::io::GetD(const char delim, struct InputInfo &input_info,
                     std::istringstream(line) >> std::ws),
                     std::istream_iterator<std::string>());
       // The first one is the vector's id. The remaining determines the dimension
-      input_info.D = count - 1;
+      dim = count - 1;
     }
   }
   // close the file

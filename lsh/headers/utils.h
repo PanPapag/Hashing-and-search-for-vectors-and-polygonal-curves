@@ -9,6 +9,7 @@ namespace utils {
     NO_ARGS,
     INVALID_k,
     INVALID_L,
+    INVALID_R,
     INVALID_PARARAMETERS,
     INVALID_DATASET,
     INVALID_QUERY,
@@ -26,8 +27,10 @@ namespace utils {
     std::string output_file;     // name of the relative path to the output file
     int K = 4;                   // number of LSH hash functions
     int L = 5;                   // number of LSH hash tables
-    int N;                       // number of vectors
+    int N;                       // number of dataset points
+    int Q;                       // number of query points
     int D;                       // dimension of the space
+    double R = 0.0;              // radius for (r,c) - NN
     void Print(void);            // print method of the InputInfo struct
   };
   /** \brief ShowUsage - Prints the usage of the program
