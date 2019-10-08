@@ -41,7 +41,7 @@ void HashFunction<std::vector<double>>::PrintVector() {
 template <>
 std::vector<double>& HashFunction<double>::ProjectX(double w, xVector<double>& point) {
   std::vector<double> x = point.getFeatureVector();
-  std::vector<double> a; 
+  std::vector<double> a;
   for (int i=0; i<x.size(); i++) {
     double j =  (x[i] - s[i])/w; //lower bound
     a.push_back(j);

@@ -105,7 +105,7 @@ int main(int argc, char **argv) {
   std::cout << std::endl;
   */
   start = high_resolution_clock::now();
-  std::cout << "\nDistance: " << metric::ManhattanDistance<T>(input_points.begin(),
+  std::cout << "\nDistance: " << metric::EuclidianDistance<T>(input_points.begin(),
     input_points.begin() + 2*input_info.D, (input_points.begin() + 2 * input_info.D) + input_info.D)
     << std::endl;
     stop = high_resolution_clock::now();
