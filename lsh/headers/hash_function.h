@@ -12,7 +12,7 @@ class HashFunction {
     int m;
     std::vector<T> s;
   public:
-    HashFunction(double, double, xVector<T>&);
+    HashFunction(double, double);
     void RandomVectorInit(int, double);
     void PrintVector();
     std::vector<T>& ProjectX(double, xVector<T>&); 

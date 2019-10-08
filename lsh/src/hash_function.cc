@@ -9,9 +9,9 @@
 #include "../headers/hash_function.h"
 
 template <class T>
-HashFunction<T>::HashFunction(double r, double w, xVector<T>& x) {
-  RandomVectorInit(x.getDimensions(),w);
-  std::vector<T> a = ProjectX(w,x);
+HashFunction<T>::HashFunction(double r, double w) {
+  //RandomVectorInit(x.getDimensions(),w);
+  //std::vector<T> a = ProjectX(w,x);
 }
 
 template <>
