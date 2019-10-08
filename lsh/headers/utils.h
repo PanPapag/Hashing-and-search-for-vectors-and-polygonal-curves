@@ -5,6 +5,8 @@ namespace utils {
   /* enumerated exit codes */
   typedef enum ExitCode{
     SUCCESS,
+    FAIL,
+    NO_ARGS,
     INVALID_k,
     INVALID_L,
     INVALID_PARARAMETERS,
@@ -24,7 +26,7 @@ namespace utils {
     std::string output_file;     // name of the relative path to the output file
     int K = 4;                   // number of LSH hash functions
     int L = 5;                   // number of LSH hash tables
-    int N;                       // number of vectors 
+    int N;                       // number of vectors
     int D;                       // dimension of the space
     void Print(void);            // print method of the InputInfo struct
   };
@@ -33,7 +35,7 @@ namespace utils {
     @par const struct InputInfo &input_info - Pass by reference the input parameters
   */
   void ShowUsage(const std::string &name, const struct InputInfo &input_info);
-  void fRand(double, double);
+  double fRand(double, double);
 }
 
 #endif

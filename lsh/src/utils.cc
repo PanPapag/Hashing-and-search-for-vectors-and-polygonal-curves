@@ -21,16 +21,19 @@ void utils::ShowUsage(const std::string &program_name, const struct InputInfo &i
 }
 
 void utils::InputInfo::Print(void) {
+  std::cout << std::endl;
   std::cout << "Input file: " << input_file << std::endl;
   std::cout << "Query file: " << query_file << std::endl;
   std::cout << "Output file: " << output_file << std::endl;
   std::cout << "Number of LSH hash functions: " << K << std::endl;
   std::cout << "Number of LSH hash tables: " << L << std::endl;
+  std::cout << "Number of vectors: " << N << std::endl;
   std::cout << "Space dimension: " << D << std::endl;
 }
 
-void utils::fRand(double lb, double ub) {
+double utils::fRand(double lb, double ub) {
   std::uniform_real_distribution<double> unif(lb,ub);
   std::default_random_engine re;
   double a_random_double = unif(re);
+  return a_random_double;
 } 
