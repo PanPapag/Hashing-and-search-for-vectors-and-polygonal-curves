@@ -8,7 +8,6 @@
 #include <vector>
 
 #include "../headers/utils.h"
-#include "../headers/hash_function.h"
 
 template <class T>
 class HashFunction {
@@ -30,7 +29,7 @@ HashFunction<T>::HashFunction(double r, double w, int d) {
 
 template <class T>
 void HashFunction<T>::RandomVectorInit(int n, double w) {
-  for(int i=0;i<n;i++) {
+  for(size_t i=0; i<n; i++) {
     s.push_back(utils::fRand(0,w));
   }
 }
@@ -44,23 +43,24 @@ void HashFunction<T>::PrintVector() {
 
 template <class T>
 std::vector<T>& HashFunction<T>::ProjectX(double w, std::vector<T>& x) {
-  std::vector<double> a; 
-  for (int i=0; i<x.size(); i++) {
-    double j =  (x[i] - s[i])/w; //lower bound
-    a.push_back(j);
+  std::vector<T> a; 
+  for (size_t i=0; i<x.size(); i++) {
+    T j =  (x[i] - s[i])/w;
+    a.push_back(floor(j));
   }
   return a;
 }
 
 template <class T>
 uint64_t HashFunction<T>::HashPoint(uint64_t m, uint64_t M, std::vector<T>& a) { 
-  double hij = 0;
-  for (int i=0; i<a.size(); i++) {
+  double hi = 0;
+  for (size_t i=0; i<a.size(); i++) {
     double di = i * 1.0;
     double mi = m * 1.0;
-    hij +=  a[i] * pow(mi,di) % M;
+    size_t j = a.size() - i - 1; 
+    hi +=  a[j] * pow(mi,di) % M;
   }
-  return hij;
+  return hi;
 }
 
 template <class T>
