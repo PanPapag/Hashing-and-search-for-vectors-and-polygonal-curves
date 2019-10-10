@@ -6,7 +6,7 @@
 namespace metric {
   /** \brief Computes Manhattan Distance of 2 points in R^d
     @par iterator p - iterator of the dataset point
-    @par iterator p - iterator of the query point
+    @par iterator q - iterator of the query point
     @par iterator end - end iterator of query point
       (each points is of dimension D so end of query point signals the
        final coordinate of dataset point as well)
@@ -22,7 +22,7 @@ namespace metric {
   }
   /** \brief Computes Euclidian Distance of 2 points in R^d
     @par iterator p - iterator of the dataset point
-    @par iterator p - iterator of the query point
+    @par iterator q - iterator of the query point
     @par iterator end - end iterator of query point
       (each points is of dimension D so end of query point signals the
        final coordinate of dataset point as well)

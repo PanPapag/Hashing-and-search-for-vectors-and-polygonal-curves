@@ -2,7 +2,9 @@
 #include <chrono>
 #include <iostream>
 #include <string>
+#include <utility>
 #include <vector>
+
 
 #include "../headers/utils.h"
 #include "../headers/args_utils.h"
@@ -12,6 +14,7 @@
 #include "../headers/hash_function.h"
 #include "../headers/hash_table.h"
 #include "../headers/search/lsh.h"
+#include "../headers/search/brute_force.h"
 
 #define T int
 #define U int
@@ -124,26 +127,46 @@ int main(int argc, char **argv) {
   std::cout << "Reading query file completed successfully." << std::endl;
   std::cout << "Time elapsed: " << duration.count() << " ms" << std::endl;
 
+  /* Print all input info */
   input_info.Print();
+  /* Create BruteForce class object and a vector to store exact-NN results */
+  std::vector<std::pair<T,U>> bf_results(input_info.Q);
+  search::BruteForce<T,U> bf(dataset_points, dataset_ids, input_info.N,
+                             input_info.D, input_info.R);
+  /* Execute Exact Nearest Neighbor */
+  /*start = high_resolution_clock::now();
+  std::cout << "\nExecuting Exact Nearest Neighbor.." << std::endl;
+  for (int i = 0; i < input_info.Q; ++i) {
+    bf_results[i] = bf.NearestNeighbor(std::next(query_points.begin(), i * input_info.D),
+                       std::next(query_points.begin(), i * input_info.D + input_info.D));
+  }
+  stop = high_resolution_clock::now();
+  duration = duration_cast<microseconds>(stop - start);
+  std::cout << "Executing Exact Nearest Neighbor." << std::endl;
+  std::cout << "Time elapsed: " << duration.count() << " ms" << std::endl;
+
   //print dataset
-  /* for (int i = 0; i < input_info.N; i++)  {
-    std::cout << dataset_ids[i] << " ";
-    for (int j = 0; j < input_info.D; j++)
-      std::cout << dataset_points[i * input_info.D + j] << " ";
+  /*start = high_resolution_clock::now();
+  for (int i = 0; i < input_info.Q; ++i)  {
+    std::cout << query_ids[i] << " ";
+    for (int j = 0; j < input_info.D; ++j)
+      std::cout << query_points[i * input_info.D + j] << " ";
     std::cout << std::endl;
-  } */
+  }
+  stop = high_resolution_clock::now();
+  duration = duration_cast<microseconds>(stop - start);
+  std::cout << "Time elapsed: " << duration.count() << " ms" << std::endl; */
 
   /*std::cout << std::endl;
   start = high_resolution_clock::now();
   std::cout << "\nDistance: " << metric::SquaredEuclidianDistance<T>(dataset_points.begin(),
-    dataset_points.begin() + 2*input_info.D, (dataset_points.begin() + 2*input_info.D) + input_info.D)
+    query_points.begin() + 10*input_info.D, (query_points.begin() + 10*input_info.D) + input_info.D)
     << std::endl;
     stop = high_resolution_clock::now();
   duration = duration_cast<microseconds>(stop - start);
-  std::cout << "Time elapsed to manhattan_distance: " << duration.count() << " ms" << std::endl;
-  */
+  std::cout << "Time elapsed to manhattan_distance: " << duration.count() << " ms" << std::endl; */
 
   //uint64_t largeword = ((uint16_t) 10 << 32) + ((uint16_t) 2 << 16) + ((uint16_t) 3);
-  LSH_ <int> *HashTables = new LSH_ <int>(input_info);
+  //LSH_ <int> *HashTables = new LSH_ <int>(input_info);
   return EXIT_SUCCESS;
 }
