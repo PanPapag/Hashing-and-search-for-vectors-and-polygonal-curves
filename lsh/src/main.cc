@@ -10,9 +10,11 @@
 #include "../headers/io_utils.h"
 #include "../headers/metric.h"
 #include "../headers/hash_function.h"
+#include "../headers/hash_table.h"
+#include "../headers/search/lsh.h"
 
 #define T int
-#define K int
+#define U int
 
 using namespace std::chrono;
 
@@ -86,8 +88,8 @@ int main(int argc, char **argv) {
   start = high_resolution_clock::now();
   std::cout << "\nReading input file.." << std::endl;
   std::vector<T> dataset_points(input_info.N * input_info.D);
-  std::vector<K> dataset_ids(input_info.N);
-  exit_code = utils::io::ReadFile<T,K>(input_info.input_file, input_info.N,
+  std::vector<U> dataset_ids(input_info.N);
+  exit_code = utils::io::ReadFile<T,U>(input_info.input_file, input_info.N,
     input_info.D, dataset_points, dataset_ids, status);
   if (exit_code != utils::SUCCESS) {
     utils::report::ReportError(status);
@@ -113,8 +115,8 @@ int main(int argc, char **argv) {
   start = high_resolution_clock::now();
   std::cout << "\nReading query file.." << std::endl;
   std::vector<T> query_points(input_info.Q * input_info.D);
-  std::vector<K> query_ids(input_info.Q);
-  exit_code = utils::io::ReadFile<T,K>(input_info.query_file, input_info.Q,
+  std::vector<U> query_ids(input_info.Q);
+  exit_code = utils::io::ReadFile<T,U>(input_info.query_file, input_info.Q,
     input_info.D, query_points, query_ids, status);  if (exit_code != utils::SUCCESS) {
     utils::report::ReportError(status);
   }
@@ -141,5 +143,8 @@ int main(int argc, char **argv) {
   duration = duration_cast<microseconds>(stop - start);
   std::cout << "Time elapsed to manhattan_distance: " << duration.count() << " ms" << std::endl;
   */
+
+  //uint64_t largeword = ((uint16_t) 10 << 32) + ((uint16_t) 2 << 16) + ((uint16_t) 3);
+  LSH_ <int> *HashTables = new LSH_ <int>(input_info);
   return EXIT_SUCCESS;
 }
