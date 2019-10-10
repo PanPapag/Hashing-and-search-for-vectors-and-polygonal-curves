@@ -24,7 +24,6 @@ int main(int argc, char **argv) {
 
   input_info.input_file = "../../datasets/vectors/input_small_id";
   input_info.query_file = "../../datasets/vectors/query_small_id";
-  
 
   /* Get arguments */
   /*exit_code = utils::args::ReadArguments(argc, argv, input_info, status);
@@ -110,7 +109,7 @@ int main(int argc, char **argv) {
   std::cout << "Getting number of query points completed successfully." << std::endl;
   std::cout << "Time elapsed: " << duration.count() << " ms" << std::endl;
 
-  /* Read Query file */
+  /* Reading query file */
   start = high_resolution_clock::now();
   std::cout << "\nReading query file.." << std::endl;
   std::vector<T> query_points(input_info.Q * input_info.D);
