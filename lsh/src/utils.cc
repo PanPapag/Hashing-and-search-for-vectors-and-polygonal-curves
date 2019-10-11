@@ -1,5 +1,4 @@
 #include <iostream>
-#include <random>
 
 #include "../headers/utils/utils.h"
 
@@ -33,14 +32,7 @@ void utils::InputInfo::Print(void) {
             << static_cast<unsigned int>(N) << std::endl;
   std::cout << "Number of query points: "
             << static_cast<unsigned int>(Q) << std::endl;
-  std::cout << "Space dimension: " 
+  std::cout << "Space dimension: "
             << static_cast<unsigned int>(D) << std::endl;
   std::cout << "Radius: " << R << std::endl;
-}
-
-double utils::fRand(double lb, double ub) {
-  std::uniform_real_distribution<double> unif(lb,ub);
-  std::default_random_engine re;
-  double a_random_double = unif(re);
-  return a_random_double;
 }

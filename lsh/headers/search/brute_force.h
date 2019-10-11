@@ -22,9 +22,13 @@ namespace search {
         @par const int D - Points' dimension
         @par const int R - Radius value
       */
-      BruteForce(const std::vector<T> &points, const std::vector<T> &ids,
-        const uint32_t N, const uint16_t D, const double R)
+      BruteForce(const uint32_t N, const uint16_t D, const double R,
+                 const std::vector<T> &points, const std::vector<T> &ids)
         : N(N), D(D), R(R), feature_vector(points), feature_vector_ids(ids) {};
+      /**
+        \brief class BruteForce default construct
+      */
+      ~BruteForce() = default;
       /** \brief Executes exact Nearest tNeighbor
         @par const std::vector<T> &query_points - Pass by reference query points
         @par const int offset - Offset to get correspodent point

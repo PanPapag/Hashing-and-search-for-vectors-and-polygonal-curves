@@ -11,7 +11,7 @@
 #include "../../headers/search/lsh.h"
 #include "../../headers/hash/hash_function.h"
 
-template <class T>
+/*template <class T>
 class HashTable {
   private:
     std::vector<T*> *table;
@@ -32,6 +32,6 @@ HashTable<T>::HashTable(utils::InputInfo& input_info, uint32_t w, uint32_t m, ui
 }
 
 template <class T>
-HashTable<T>::~HashTable() {}
+HashTable<T>::~HashTable() {} */
 
 #endif

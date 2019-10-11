@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <chrono>
+#include <cmath>
 #include <iostream>
 #include <string>
 #include <tuple>
@@ -134,8 +135,8 @@ int main(int argc, char **argv) {
   start = high_resolution_clock::now();
   std::cout << "\nBuilding Brute Force.." << std::endl;
   std::vector<std::pair<T,U>> bf_nn_results(input_info.Q);
-  search::BruteForce<T,U> bf{dataset_points, dataset_ids, input_info.N,
-                             input_info.D, input_info.R};
+  search::BruteForce<T,U> bf{input_info.N, input_info.D, input_info.R,
+                             dataset_points, dataset_ids};
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
   std::cout << "Building Brute Force completed successfully." << std::endl;
@@ -164,15 +165,18 @@ int main(int argc, char **argv) {
   std::cout << "Executing Radius Nearest Neighbor using Brute Force completed successfully." << std::endl;
   std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
+  // HashFunction example
+  hash::HashFunction<T> hf(128, (1ULL << 32) - 5, 256, 10);
+  hf.Hash(query_points,0);
   //uint64_t largeword = ((uint16_t) 10 << 32) + ((uint16_t) 2 << 16) + ((uint16_t) 3);
   //LSH_ <int> *HashTables = new LSH_ <int>(input_info);
 
   // print bf nn
-  for (int i = 0; i < input_info.Q; ++i) {
+  /* for (int i = 0; i < input_info.Q; ++i) {
     std::cout << "Query: " << i << " -- ";
     std::cout << "Distance: " << std::get<0>(bf_nn_results[i]) << " - "
               << "Id: " << std::get<1>(bf_nn_results[i]) << std::endl;
-  }
+  } */
   // print bf radius nn
   /*
   for (int i = 0; i < input_info.Q; ++i) {
@@ -195,7 +199,6 @@ int main(int argc, char **argv) {
   stop = high_resolution_clock::now();
   duration = duration_cast<microseconds>(stop - start);
   std::cout << "Time elapsed: " << duration.count() << " ms" << std::endl; */
-
 
   return EXIT_SUCCESS;
 }

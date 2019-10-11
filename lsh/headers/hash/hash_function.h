@@ -1,56 +1,73 @@
 #ifndef HASH_FUNCTION
 #define HASH_FUNCTION
 
-#include <iostream>
-#include <string>
-#include <iterator>
 #include <cmath>
+#include <chrono>
+#include <iostream>
+#include <iterator>
+#include <random>
+#include <string>
 #include <vector>
 
 #include "../../headers/utils/utils.h"
+namespace hash {
 
-template <class T>
-class HashFunction {
-  private:
-    std::vector<T> s;
-  public:
-    HashFunction(double, double, int);
-    void RandomVectorInit(int, double);
-    uint64_t HashPoint(uint64_t, uint64_t, std::vector<T>&);
-    void PrintVector();
-    std::vector<T>& ProjectX(double, std::vector<T>&);
-    ~HashFunction();
-};
+  template <typename T>
+  class HashFunction {
+    private:
+      std::default_random_engine generator;
+      std::uniform_real_distribution<double> distribution;
+      const uint16_t D;
+      const uint32_t m;
+      const uint32_t M;
+      const double w;
+      std::vector<double> s;
+      std::vector<int> a;
+    public:
+      /** \brief HashFunction class constructor
+        This class illustrates the following hash function:
+        h(x)= (a_d−1 + m*a_d−2 +···+ m^(d−1)*a_0) modM , m > max a_i
+        where a_i = floor((x_i - s_i) / w)
+        @par D - Space dimension
+        @par m - parameter m in the hash function
+        @par M - parameter M in the hash function
+        @par w - window size
+      */
+      HashFunction(const uint16_t D, const uint32_t m, const uint32_t M,
+        const double w): D(D), m(m), M(M), w(w), distribution(0,w), s(D), a(D),
+        generator(std::chrono::system_clock::now().time_since_epoch().count()) {
 
-template <class T>
-HashFunction<T>::HashFunction(double r, double w, int d) {
-  RandomVectorInit(d,w);
+        /* Initialize s vector of dimension D using uniform_real_distribution */
+        for(size_t i = 0; i < D; ++i) {
+          s[i] = distribution(generator);
+        }
+      };
+      /**
+        \brief HashFunction class default destructor
+      */
+      ~HashFunction() = default;
+      /*
+      /** \brief Hash point as follows:
+        1) Compute a_i = floor((x_i - s_i) / w) for i = 0...D-1
+        2) Compute h(x) = (a_d−1 + m*a_d−2 +···+ m^(d−1)*a_0) modM
+      */
+      uint64_t Hash(std::vector<T> &points, int offset) {
+        for (size_t i = 0; i < D; ++i) {
+          std::cout << points[offset * D + i] - s[i] << std::endl;
+          a.push_back(floor((points[offset * D + i] - s[i]) / w));
+        }
+        for (int i = 0; i < D; ++i) {
+          std::cout << a[i] << " ";
+        }
+        std::cout << std::endl;
+      };
+  };
+
 }
 
-template <class T>
-void HashFunction<T>::RandomVectorInit(int n, double w) {
-  for(size_t i=0; i<n; i++) {
-    s.push_back(utils::fRand(0,w));
-  }
-}
 
-template <class T>
-void HashFunction<T>::PrintVector() {
-  for (const auto &si : s) {
-    std::cout << si << std::endl;
-  }
-}
 
-template <class T>
-std::vector<T>& HashFunction<T>::ProjectX(double w, std::vector<T>& x) {
-  std::vector<T> a;
-  for (size_t i=0; i<x.size(); i++) {
-    T j =  (x[i] - s[i])/w;
-    a.push_back(floor(j));
-  }
-  return a;
-}
-
+/*
 template <class T>
 uint64_t HashFunction<T>::HashPoint(uint64_t m, uint64_t M, std::vector<T>& a) {
   double hi = 0;
@@ -62,8 +79,6 @@ uint64_t HashFunction<T>::HashPoint(uint64_t m, uint64_t M, std::vector<T>& a) {
   }
   return hi;
 }
-
-template <class T>
-HashFunction<T>::~HashFunction() {}
+ */
 
 #endif
