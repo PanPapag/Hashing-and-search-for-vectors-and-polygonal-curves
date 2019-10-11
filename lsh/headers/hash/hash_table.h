@@ -7,9 +7,9 @@
 #include <cmath>
 #include <vector>
 
-#include "../headers/utils.h"
-#include "../headers/search/lsh.h"
-#include "../headers/hash_function.h"
+#include "../../headers/utils/utils.h"
+#include "../../headers/search/lsh.h"
+#include "../../headers/hash/hash_function.h"
 
 template <class T>
 class HashTable {

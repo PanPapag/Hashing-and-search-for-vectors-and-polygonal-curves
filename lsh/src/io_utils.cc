@@ -8,9 +8,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../headers/utils.h"
-#include "../headers/io_utils.h"
-#include "../headers/report_utils.h"
+#include "../headers/utils/utils.h"
+#include "../headers/utils/io_utils.h"
+#include "../headers/utils/report_utils.h"
 
 int utils::io::GetDataPoints(std::string &file_name, int &no_vectors,
   utils::ExitCode &status) {

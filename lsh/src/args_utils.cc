@@ -6,8 +6,8 @@
 #include <string>
 #include <string.h>
 
-#include "../headers/utils.h"
-#include "../headers/args_utils.h"
+#include "../headers/utils/utils.h"
+#include "../headers/utils/args_utils.h"
 
 int utils::args::ScanArguments(struct InputInfo &input_info, utils::ExitCode &status) {
 

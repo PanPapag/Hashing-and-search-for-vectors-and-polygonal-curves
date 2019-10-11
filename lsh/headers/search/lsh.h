@@ -1,8 +1,8 @@
 #ifndef LSH
 #define LSH
 
-#include "../../headers/utils.h"
-#include "../../headers/hash_table.h"
+#include "../../headers/utils/utils.h"
+#include "../../headers/hash/hash_table.h"
 
 template <class T>
 class HashTable;

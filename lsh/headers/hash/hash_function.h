@@ -7,7 +7,7 @@
 #include <cmath>
 #include <vector>
 
-#include "../headers/utils.h"
+#include "../../headers/utils/utils.h"
 
 template <class T>
 class HashFunction {
@@ -18,7 +18,7 @@ class HashFunction {
     void RandomVectorInit(int, double);
     uint64_t HashPoint(uint64_t, uint64_t, std::vector<T>&);
     void PrintVector();
-    std::vector<T>& ProjectX(double, std::vector<T>&); 
+    std::vector<T>& ProjectX(double, std::vector<T>&);
     ~HashFunction();
 };
 
@@ -43,7 +43,7 @@ void HashFunction<T>::PrintVector() {
 
 template <class T>
 std::vector<T>& HashFunction<T>::ProjectX(double w, std::vector<T>& x) {
-  std::vector<T> a; 
+  std::vector<T> a;
   for (size_t i=0; i<x.size(); i++) {
     T j =  (x[i] - s[i])/w;
     a.push_back(floor(j));
@@ -52,12 +52,12 @@ std::vector<T>& HashFunction<T>::ProjectX(double w, std::vector<T>& x) {
 }
 
 template <class T>
-uint64_t HashFunction<T>::HashPoint(uint64_t m, uint64_t M, std::vector<T>& a) { 
+uint64_t HashFunction<T>::HashPoint(uint64_t m, uint64_t M, std::vector<T>& a) {
   double hi = 0;
   for (size_t i=0; i<a.size(); i++) {
     double di = i * 1.0;
     double mi = m * 1.0;
-    size_t j = a.size() - i - 1; 
+    size_t j = a.size() - i - 1;
     hi +=  a[j] * pow(mi,di) % M;
   }
   return hi;

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <random>
 
-#include "../headers/utils.h"
+#include "../headers/utils/utils.h"
 
 void utils::ShowUsage(const std::string &program_name, const struct InputInfo &input_info) {
   std::cerr << "usage: " << program_name << " [-help] [-d INPUT FILE]"

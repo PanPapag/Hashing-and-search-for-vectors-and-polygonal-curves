@@ -7,13 +7,13 @@
 #include <vector>
 
 
-#include "../headers/utils.h"
-#include "../headers/args_utils.h"
-#include "../headers/report_utils.h"
-#include "../headers/io_utils.h"
-#include "../headers/metric.h"
-#include "../headers/hash_function.h"
-#include "../headers/hash_table.h"
+#include "../headers/utils/utils.h"
+#include "../headers/utils/args_utils.h"
+#include "../headers/utils/report_utils.h"
+#include "../headers/utils/io_utils.h"
+#include "../headers/metric/metric.h"
+#include "../headers/hash/hash_function.h"
+#include "../headers/hash/hash_table.h"
 #include "../headers/search/lsh.h"
 #include "../headers/search/brute_force.h"
 
@@ -169,11 +169,11 @@ int main(int argc, char **argv) {
   //LSH_ <int> *HashTables = new LSH_ <int>(input_info);
 
   // print bf nn
-  /*for (int i = 0; i < input_info.Q; ++i) {
+  for (int i = 0; i < input_info.Q; ++i) {
     std::cout << "Query: " << i << " -- ";
     std::cout << "Distance: " << std::get<0>(bf_nn_results[i]) << " - "
               << "Id: " << std::get<1>(bf_nn_results[i]) << std::endl;
-  } */
+  }
   // print bf radius nn
   /*
   for (int i = 0; i < input_info.Q; ++i) {

@@ -2,16 +2,16 @@
 #define BRUTE_FORCE
 
 #include <limits>
-#include "../../headers/metric.h"
+#include "../../headers/metric/metric.h"
 
 namespace search {
 
   template <typename T, typename U>
   class BruteForce {
     private:
-      const int N;          // number of points in the dataset
-      const int D;          // vectors' dimension
-      const double R;       // radius for NN (default value is 0)
+      const int N;
+      const int D;
+      const double R;
       const std::vector<T>  &feature_vector;
       const std::vector<U>  &feature_vector_ids;
     public:

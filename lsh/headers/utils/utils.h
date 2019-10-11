@@ -21,12 +21,12 @@ namespace utils {
   /**
     InputInfo - Group all input parameters of LSH in a struct
   */
- 
+
   struct InputInfo {
     std::string input_file;      // name of the relative path to the input file
     std::string query_file;      // name of the relative path to the query file
     std::string output_file;     // name of the relative path to the output file
-    int K = 4;                   // number of LSH hash functions
+    int K = 4;                   // number of LSH hash functions for each hashTable
     int L = 5;                   // number of LSH hash tables
     int N;                       // number of dataset points
     int Q;                       // number of query points
