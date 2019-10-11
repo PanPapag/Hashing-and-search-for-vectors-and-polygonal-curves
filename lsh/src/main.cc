@@ -2,6 +2,7 @@
 #include <chrono>
 #include <iostream>
 #include <string>
+#include <tuple>
 #include <utility>
 #include <vector>
 
@@ -28,7 +29,7 @@ int main(int argc, char **argv) {
 
   input_info.input_file = "../../datasets/vectors/input_small_id";
   input_info.query_file = "../../datasets/vectors/query_small_id";
-
+  input_info.R = 2500.00;
   /* Get arguments */
   /*exit_code = utils::args::ReadArguments(argc, argv, input_info, status);
   switch (exit_code) {
@@ -66,9 +67,9 @@ int main(int argc, char **argv) {
     utils::report::ReportError(status);
   }
   auto stop = high_resolution_clock::now();
-  auto duration = duration_cast<microseconds>(stop - start);
+  duration <double> total_time = duration_cast<duration<double>>(stop - start);
   std::cout << "Getting number of dataset points completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << duration.count() << " ms" << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
   start = high_resolution_clock::now();
   std::cout << "\nGetting dataset points' dimension.." << std::endl;
@@ -77,9 +78,9 @@ int main(int argc, char **argv) {
     utils::report::ReportError(status);
   }
   stop = high_resolution_clock::now();
-  duration = duration_cast<microseconds>(stop - start);
+  total_time = duration_cast<duration<double>>(stop - start);
   std::cout << "Getting dataset points' dimension completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << duration.count() << " ms" << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
   /*
     Read dataset and create 1D vector which represents the d-dimensional points
@@ -97,9 +98,9 @@ int main(int argc, char **argv) {
     utils::report::ReportError(status);
   }
   stop = high_resolution_clock::now();
-  duration = duration_cast<microseconds>(stop - start);
+  total_time = duration_cast<duration<double>>(stop - start);
   std::cout << "Reading input file completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << duration.count() << " ms" << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
   /* Preprocessing query file */
   start = high_resolution_clock::now();
@@ -109,9 +110,9 @@ int main(int argc, char **argv) {
     utils::report::ReportError(status);
   }
   stop = high_resolution_clock::now();
-  duration = duration_cast<microseconds>(stop - start);
+  total_time = duration_cast<duration<double>>(stop - start);
   std::cout << "Getting number of query points completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << duration.count() << " ms" << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
   /* Reading query file */
   start = high_resolution_clock::now();
@@ -123,28 +124,67 @@ int main(int argc, char **argv) {
     utils::report::ReportError(status);
   }
   stop = high_resolution_clock::now();
-  duration = duration_cast<microseconds>(stop - start);
+  total_time = duration_cast<duration<double>>(stop - start);
   std::cout << "Reading query file completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << duration.count() << " ms" << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
   /* Print all input info */
   input_info.Print();
+
   /* Create BruteForce class object and a vector to store exact-NN results */
-  std::vector<std::pair<T,U>> bf_results(input_info.Q);
-  search::BruteForce<T,U> bf(dataset_points, dataset_ids, input_info.N,
-                             input_info.D, input_info.R);
-  /* Execute Exact Nearest Neighbor */
-  /*start = high_resolution_clock::now();
-  std::cout << "\nExecuting Exact Nearest Neighbor.." << std::endl;
+  start = high_resolution_clock::now();
+  std::cout << "\nBuilding Brute Force.." << std::endl;
+  std::vector<std::pair<T,U>> bf_nn_results(input_info.Q);
+  search::BruteForce<T,U> bf{dataset_points, dataset_ids, input_info.N,
+                             input_info.D, input_info.R};
+  stop = high_resolution_clock::now();
+  total_time = duration_cast<duration<double>>(stop - start);
+  std::cout << "Building Brute Force completed successfully." << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+
+  /* Executing Exact Nearest Neighbor */
+  std::vector<std::vector<std::pair<T,U>>> bf_radius_nn_results(input_info.Q);
+  start = high_resolution_clock::now();
+  std::cout << "\nExecuting Nearest Neighbor uing Brute Force.." << std::endl;
   for (int i = 0; i < input_info.Q; ++i) {
-    bf_results[i] = bf.NearestNeighbor(std::next(query_points.begin(), i * input_info.D),
-                       std::next(query_points.begin(), i * input_info.D + input_info.D));
+    bf_nn_results[i] = bf.NearestNeighbor(query_points, i);
   }
   stop = high_resolution_clock::now();
-  duration = duration_cast<microseconds>(stop - start);
-  std::cout << "Executing Exact Nearest Neighbor." << std::endl;
-  std::cout << "Time elapsed: " << duration.count() << " ms" << std::endl;
+  total_time = duration_cast<duration<double>>(stop - start);
+  std::cout << "Executing Nearest Neighbor using Brute Force completed successfully." << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
+  /* Executing Radius Nearest Neighbor */
+  start = high_resolution_clock::now();
+  std::cout << "\nExecuting Radius Nearest Neighbor using Brute Force.." << std::endl;
+  for (int i = 0; i < input_info.Q; ++i) {
+    bf_radius_nn_results[i] = bf.RadiusNearestNeighbor(query_points, i);
+  }
+  stop = high_resolution_clock::now();
+  total_time = duration_cast<duration<double>>(stop - start);
+  std::cout << "Executing Radius Nearest Neighbor using Brute Force completed successfully." << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+
+  //uint64_t largeword = ((uint16_t) 10 << 32) + ((uint16_t) 2 << 16) + ((uint16_t) 3);
+  //LSH_ <int> *HashTables = new LSH_ <int>(input_info);
+
+  // print bf nn
+  /*for (int i = 0; i < input_info.Q; ++i) {
+    std::cout << "Query: " << i << " -- ";
+    std::cout << "Distance: " << std::get<0>(bf_nn_results[i]) << " - "
+              << "Id: " << std::get<1>(bf_nn_results[i]) << std::endl;
+  } */
+  // print bf radius nn
+  /*
+  for (int i = 0; i < input_info.Q; ++i) {
+    std::cout << "---------- Query " << i << " ---------- " << std::endl;
+    for (int j = 0; j < bf_radius_nn_results[i].size(); ++j) {
+      std::cout << "Distance: " << std::get<0>(bf_radius_nn_results[i][j])
+                << " - " << "Id: " << std::get<1>(bf_radius_nn_results[i][j])
+                << std::endl;
+    }
+    std::cout << std::endl;
+  } */
   //print dataset
   /*start = high_resolution_clock::now();
   for (int i = 0; i < input_info.Q; ++i)  {
@@ -157,16 +197,6 @@ int main(int argc, char **argv) {
   duration = duration_cast<microseconds>(stop - start);
   std::cout << "Time elapsed: " << duration.count() << " ms" << std::endl; */
 
-  /*std::cout << std::endl;
-  start = high_resolution_clock::now();
-  std::cout << "\nDistance: " << metric::SquaredEuclidianDistance<T>(dataset_points.begin(),
-    query_points.begin() + 10*input_info.D, (query_points.begin() + 10*input_info.D) + input_info.D)
-    << std::endl;
-    stop = high_resolution_clock::now();
-  duration = duration_cast<microseconds>(stop - start);
-  std::cout << "Time elapsed to manhattan_distance: " << duration.count() << " ms" << std::endl; */
 
-  //uint64_t largeword = ((uint16_t) 10 << 32) + ((uint16_t) 2 << 16) + ((uint16_t) 3);
-  //LSH_ <int> *HashTables = new LSH_ <int>(input_info);
   return EXIT_SUCCESS;
 }
