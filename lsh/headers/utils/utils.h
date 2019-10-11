@@ -26,11 +26,11 @@ namespace utils {
     std::string input_file;      // name of the relative path to the input file
     std::string query_file;      // name of the relative path to the query file
     std::string output_file;     // name of the relative path to the output file
-    int K = 4;                   // number of LSH hash functions for each hashTable
-    int L = 5;                   // number of LSH hash tables
-    int N;                       // number of dataset points
-    int Q;                       // number of query points
-    int D;                       // dimension of the space
+    uint8_t K = 4;               // number of LSH hash functions for each hashTable
+    uint8_t L = 5;               // number of LSH hash tables
+    uint32_t N;                  // number of dataset points
+    uint32_t Q;                  // number of query points
+    uint16_t D;                  // dimension of the space
     double R = 0.0;              // radius for (r,c) - NN
     void Print(void);            // print method of the InputInfo struct
   };

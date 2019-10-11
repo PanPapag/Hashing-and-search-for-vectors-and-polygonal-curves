@@ -46,14 +46,14 @@ namespace utils {
       @par ExitCode &statues - enumerated ExitCode provided from namespace utils
       return: SUCCESS or FAIL
     */
-    int GetDataPoints(std::string &file_name, int &no_vectors, ExitCode &status);
+    int GetDataPoints(std::string &file_name, uint32_t &no_vectors, ExitCode &status);
     /** \brief GetPointsDim - Get the dimension of the points
       @par std::string &file_name - Path to file
       @par int &dim - Pass by reference the points' dimension
       @par ExitCode &statues - enumerated ExitCode provided from namespace utils
       return: SUCCESS or FAIL
     */
-    int GetPointsDim(std::string &file_name, int &dim, ExitCode &status);
+    int GetPointsDim(std::string &file_name, uint16_t &dim, ExitCode &status);
   }
 }
 

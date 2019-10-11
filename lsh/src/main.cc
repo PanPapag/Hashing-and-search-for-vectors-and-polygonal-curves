@@ -6,14 +6,13 @@
 #include <utility>
 #include <vector>
 
-
+#include "../headers/hash/hash_function.h"
+#include "../headers/hash/hash_table.h"
+#include "../headers/metric/metric.h"
 #include "../headers/utils/utils.h"
 #include "../headers/utils/args_utils.h"
 #include "../headers/utils/report_utils.h"
 #include "../headers/utils/io_utils.h"
-#include "../headers/metric/metric.h"
-#include "../headers/hash/hash_function.h"
-#include "../headers/hash/hash_table.h"
 #include "../headers/search/lsh.h"
 #include "../headers/search/brute_force.h"
 

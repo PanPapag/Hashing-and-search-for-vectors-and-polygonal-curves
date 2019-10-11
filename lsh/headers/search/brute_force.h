@@ -9,8 +9,8 @@ namespace search {
   template <typename T, typename U>
   class BruteForce {
     private:
-      const int N;
-      const int D;
+      const uint32_t N;
+      const uint16_t D;
       const double R;
       const std::vector<T>  &feature_vector;
       const std::vector<U>  &feature_vector_ids;
@@ -23,7 +23,7 @@ namespace search {
         @par const int R - Radius value
       */
       BruteForce(const std::vector<T> &points, const std::vector<T> &ids,
-        const int N, const int D, const double R)
+        const uint32_t N, const uint16_t D, const double R)
         : N(N), D(D), R(R), feature_vector(points), feature_vector_ids(ids) {};
       /** \brief Executes exact Nearest tNeighbor
         @par const std::vector<T> &query_points - Pass by reference query points

@@ -12,7 +12,7 @@
 #include "../headers/utils/io_utils.h"
 #include "../headers/utils/report_utils.h"
 
-int utils::io::GetDataPoints(std::string &file_name, int &no_vectors,
+int utils::io::GetDataPoints(std::string &file_name, uint32_t &no_vectors,
   utils::ExitCode &status) {
 
   FILE *fp;                // To opem the file for reading
@@ -39,7 +39,7 @@ int utils::io::GetDataPoints(std::string &file_name, int &no_vectors,
   return SUCCESS;
 }
 
-int utils::io::GetPointsDim(std::string &file_name, int &dim,
+int utils::io::GetPointsDim(std::string &file_name, uint16_t &dim,
   utils::ExitCode &status) {
 
   std::ifstream file;
