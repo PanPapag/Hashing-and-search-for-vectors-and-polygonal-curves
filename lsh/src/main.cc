@@ -178,7 +178,7 @@ int main(int argc, char **argv) {
   std::cout << "Building LSH completed successfully." << std::endl;
   std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
-  /* Executing Exact Nearest Neighbor using BruteForce */
+  /* Executing approximate Nearest Neighbor using LSH */
   start = high_resolution_clock::now();
   std::cout << "\nExecuting Nearest Neighbor using LSH.." << std::endl;
   for (int i = 0; i < input_info.Q; ++i) {
@@ -189,13 +189,26 @@ int main(int argc, char **argv) {
   std::cout << "Executing Nearest Neighbor using LSH completed successfully." << std::endl;
   std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
-
-  // print lsh nn
+  /* Executing Radius Nearest Neighbor using BruteForce*/
+  std::vector<std::vector<std::pair<T,U>>> lsh_radius_nn_results(input_info.Q);
+  start = high_resolution_clock::now();
+  std::cout << "\nExecuting Radius Nearest Neighbor using LSH.." << std::endl;
   for (int i = 0; i < input_info.Q; ++i) {
-    std::cout << "Query: " << i << " -- ";
-    std::cout << "Distance: " << std::get<0>(lsh_nn_results[i]) << " - "
-              << "Id: " << std::get<1>(lsh_nn_results[i]) << std::endl;
+    lsh_radius_nn_results[i] = lsh.RadiusNearestNeighbor(query_points, i);
   }
+  stop = high_resolution_clock::now();
+  total_time = duration_cast<duration<double>>(stop - start);
+  std::cout << "Executing Radius Nearest Neighbor using LSH completed successfully." << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+
+  /* Writing results to the output file */
+  
+  // print results nn
+  /*for (int i = 0; i < input_info.Q; ++i) {
+    std::cout << "Query: " << i << " -- ";
+    std::cout << "LDistance: " << std::get<0>(lsh_nn_results[i]) << " - "
+              << "TDistance: " << std::get<0>(bf_nn_results[i]) << std::endl;
+  } */
   // print bf nn
   /*for (int i = 0; i < input_info.Q; ++i) {
     std::cout << "Query: " << i << " -- ";
