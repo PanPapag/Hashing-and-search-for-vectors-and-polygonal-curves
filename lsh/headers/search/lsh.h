@@ -34,7 +34,7 @@ namespace search {
       LSH(const uint8_t K, const uint8_t L, const uint16_t D, const uint32_t N,
           const double R, const std::vector<T> &points, const std::vector<T> &ids)
         : K(K), L(L), D(D), N(N), R(R), feature_vector(points), feature_vector_ids(ids) {
-          w = 2 * R + 1000;
+          w = 2 * R + 1000; // TODO (pantelis) fix it
           m = (1ULL << 32) - 5;
           M = pow(2, 32 / K);
           //hash_tables = CreateHashTables(input_info);

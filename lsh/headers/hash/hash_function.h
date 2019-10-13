@@ -7,6 +7,7 @@
 #include <iostream>
 #include <iterator>
 #include <random>
+#include <stdlib.h>
 #include <string>
 #include <vector>
 
@@ -67,6 +68,51 @@ namespace hash {
         }
         return hash_value % M;
       };
+  };
+
+  template <typename T>
+  class AmplifiedHashFunction {
+    private:
+      std::vector<HashFunction<T>> h;
+      const uint8_t K;
+      const uint16_t D;
+      const uint32_t m;
+      const uint32_t M;
+      const double w;
+    public:
+      /** \brief AmplifiedHashFunction class constructor
+        This class illustrates g(x) = [h1(x)|h2(x)| · · · |hk (x)].
+        @par K - Number of Hash Functions selected uniformly
+        @par D - Space dimension
+        @par m - parameter m in the hash function
+        @par M - parameter M in the hash function
+        @par w - window size
+      */
+      AmplifiedHashFunction(const uint8_t K, const uint16_t D, const uint32_t m,
+        const uint32_t M, const double w): K(K), D(D), m(m), M(M), w(w) {
+          /* Select uniformly K hash functions */
+          for (size_t i = 0; i < K; ++i) {
+            h.push_back(HashFunction<T>(D, m, M, w));
+          }
+        }
+      /**
+        \brief AmplifiedHashFunction class default destructor
+      */
+      ~AmplifiedHashFunction() = default;
+      /** Hash point as follows:
+        1) Hashing using h_i for i = 1..K
+        2) Concat h_i and modulo with table_size
+      */
+      uint64_t Hash(std::vector<T> &points, int offset) {
+        std::string str_value{};
+        for (size_t i = 0; i < K; ++i) {
+          str_value += std::to_string(h[i].Hash(points,offset));
+        }
+        // convert str_value to uint64_t
+        char *p_end;
+        uint64_t hash_value = strtoull(str_value.c_str(), &p_end, 10);
+        return hash_value;
+      }
   };
 
 }

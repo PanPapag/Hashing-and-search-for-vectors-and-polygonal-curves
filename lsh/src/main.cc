@@ -188,9 +188,15 @@ int main(int argc, char **argv) {
   w /= double(10);
   //std::cout << w << std::endl;
   // HashFunction example
-  hash::HashFunction<T> hf(128, (1ULL << 32) - 5, 256, w);
-  std::cout << hf.Hash(query_points,0) << std::endl;
-  
+  hash::AmplifiedHashFunction<T> g(input_info.K, 128, (1ULL << 32) - 5, 256, w);
+  int i = 0;
+  //for(int i = 0; i < input_info.N; ++i) {
+      std::cout << g.Hash(dataset_points,i) << std::endl;
+      std::cout << g.Hash(dataset_points,i)  << std::endl;
+
+  //}
+
+
   //uint64_t largeword = ((uint16_t) 10 << 32) + ((uint16_t) 2 << 16) + ((uint16_t) 3);
   //LSH_ <int> *HashTables = new LSH_ <int>(input_info);
 
