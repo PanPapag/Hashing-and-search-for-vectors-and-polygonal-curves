@@ -144,7 +144,7 @@ int main(int argc, char **argv) {
   std::cout << "Building Brute Force completed successfully." << std::endl;
   std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
-  /* Executing Exact Nearest Neighbor */
+  /* Executing Exact Nearest Neighbor using BruteForce */
   std::vector<std::vector<std::pair<T,U>>> bf_radius_nn_results(input_info.Q);
   start = high_resolution_clock::now();
   std::cout << "\nExecuting Nearest Neighbor using Brute Force.." << std::endl;
@@ -156,7 +156,7 @@ int main(int argc, char **argv) {
   std::cout << "Executing Nearest Neighbor using Brute Force completed successfully." << std::endl;
   std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
-  /* Executing Radius Nearest Neighbor */
+  /* Executing Radius Nearest Neighbor using BruteForce*/
   start = high_resolution_clock::now();
   std::cout << "\nExecuting Radius Nearest Neighbor using Brute Force.." << std::endl;
   for (int i = 0; i < input_info.Q; ++i) {
@@ -167,34 +167,24 @@ int main(int argc, char **argv) {
   std::cout << "Executing Radius Nearest Neighbor using Brute Force completed successfully." << std::endl;
   std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
-  /* Algorithm to compute w (window) */
-  // Pick at random N / 1000 vectors from the input dataset
-  std::vector<U> random_dataset_ids(dataset_ids);
-  unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-  shuffle(random_dataset_ids.begin(), random_dataset_ids.end(),
-          std::default_random_engine(seed));
+  /* Creating LSH class object and a vector to store approx-NN results */
+  start = high_resolution_clock::now();
+  std::cout << "\nBuilding LSH.." << std::endl;
+  std::vector<std::pair<T,U>> lsh_nn_results(input_info.Q);
+  search::LSH<T,U> lsh{input_info.K, input_info.L, input_info.D,
+                       input_info.N, input_info.R, dataset_points, dataset_ids};
+  stop = high_resolution_clock::now();
+  total_time = duration_cast<duration<double>>(stop - start);
+  std::cout << "Building LSH completed successfully." << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
-  std::vector<double> avg_cord(10);
-  for (int i = 0; i < 10; ++i) {
-    for (int j = 0; j < 128; ++j) {
-      avg_cord[i] += dataset_points[random_dataset_ids[i] * 128 + i];
-    }
-    avg_cord[i] /= 128;
-  }
-  double w = 0.0;
-  for (int i = 0; i < 10; ++i) {
-    w += avg_cord[i];
-  }
-  w /= double(10);
-  //std::cout << w << std::endl;
+
+
   // HashFunction example
-  hash::AmplifiedHashFunction<T> g(input_info.K, 128, (1ULL << 32) - 5, 256, w);
-  int i = 0;
-  //for(int i = 0; i < input_info.N; ++i) {
-      std::cout << g.Hash(dataset_points,i) << std::endl;
-      std::cout << g.Hash(dataset_points,i)  << std::endl;
-
-  //}
+  /*hash::AmplifiedHashFunction<T> g(input_info.K, 128, (1ULL << 32) - 5, 256, w);
+  for(int i = 0; i < input_info.N; ++i) {
+    std::cout << g.Hash(dataset_points,i) << std::endl;
+  } */
 
 
   //uint64_t largeword = ((uint16_t) 10 << 32) + ((uint16_t) 2 << 16) + ((uint16_t) 3);

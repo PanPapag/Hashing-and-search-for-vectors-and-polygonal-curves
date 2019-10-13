@@ -54,7 +54,7 @@ namespace hash {
         1) Compute a_i = floor((x_i - s_i) / w) for i = 0...D-1
         2) Compute h(x) = (a_d−1 + m*a_d−2 +···+ m^(d−1)*a_0) modM
       */
-      uint32_t Hash(std::vector<T> &points, int offset) {
+      uint32_t Hash(const std::vector<T> &points, int offset) {
         uint32_t hash_value{};
         /* Computing a_i */
         for (size_t i = 0; i < D; ++i) {
@@ -103,7 +103,7 @@ namespace hash {
         1) Hashing using h_i for i = 1..K
         2) Concat h_i and modulo with table_size
       */
-      uint64_t Hash(std::vector<T> &points, int offset) {
+      uint64_t Hash(const std::vector<T> &points, int offset) {
         std::string str_value{};
         for (size_t i = 0; i < K; ++i) {
           str_value += std::to_string(h[i].Hash(points,offset));
