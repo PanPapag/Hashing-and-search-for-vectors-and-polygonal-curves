@@ -145,7 +145,6 @@ int main(int argc, char **argv) {
   std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
   /* Executing Exact Nearest Neighbor using BruteForce */
-  std::vector<std::vector<std::pair<T,U>>> bf_radius_nn_results(input_info.Q);
   start = high_resolution_clock::now();
   std::cout << "\nExecuting Nearest Neighbor using Brute Force.." << std::endl;
   for (int i = 0; i < input_info.Q; ++i) {
@@ -157,6 +156,7 @@ int main(int argc, char **argv) {
   std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
   /* Executing Radius Nearest Neighbor using BruteForce*/
+  std::vector<std::vector<std::pair<T,U>>> bf_radius_nn_results(input_info.Q);
   start = high_resolution_clock::now();
   std::cout << "\nExecuting Radius Nearest Neighbor using Brute Force.." << std::endl;
   for (int i = 0; i < input_info.Q; ++i) {
@@ -178,18 +178,24 @@ int main(int argc, char **argv) {
   std::cout << "Building LSH completed successfully." << std::endl;
   std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
+  /* Executing Exact Nearest Neighbor using BruteForce */
+  start = high_resolution_clock::now();
+  std::cout << "\nExecuting Nearest Neighbor using LSH.." << std::endl;
+  for (int i = 0; i < input_info.Q; ++i) {
+    lsh_nn_results[i] = lsh.NearestNeighbor(query_points, i);
+  }
+  stop = high_resolution_clock::now();
+  total_time = duration_cast<duration<double>>(stop - start);
+  std::cout << "Executing Nearest Neighbor using LSH completed successfully." << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
 
-  // HashFunction example
-  /*hash::AmplifiedHashFunction<T> g(input_info.K, 128, (1ULL << 32) - 5, 256, w);
-  for(int i = 0; i < input_info.N; ++i) {
-    std::cout << g.Hash(dataset_points,i) << std::endl;
-  } */
-
-
-  //uint64_t largeword = ((uint16_t) 10 << 32) + ((uint16_t) 2 << 16) + ((uint16_t) 3);
-  //LSH_ <int> *HashTables = new LSH_ <int>(input_info);
-
+  // print lsh nn
+  for (int i = 0; i < input_info.Q; ++i) {
+    std::cout << "Query: " << i << " -- ";
+    std::cout << "Distance: " << std::get<0>(lsh_nn_results[i]) << " - "
+              << "Id: " << std::get<1>(lsh_nn_results[i]) << std::endl;
+  }
   // print bf nn
   /*for (int i = 0; i < input_info.Q; ++i) {
     std::cout << "Query: " << i << " -- ";
@@ -207,17 +213,7 @@ int main(int argc, char **argv) {
     }
     std::cout << std::endl;
   } */
-  //print dataset
-  /*start = high_resolution_clock::now();
-  for (int i = 0; i < input_info.Q; ++i)  {
-    std::cout << query_ids[i] << " ";
-    for (int j = 0; j < input_info.D; ++j)
-      std::cout << query_points[i * input_info.D + j] << " ";
-    std::cout << std::endl;
-  }
-  stop = high_resolution_clock::now();
-  duration = duration_cast<microseconds>(stop - start);
-  std::cout << "Time elapsed: " << duration.count() << " ms" << std::endl; */
+
 
   return EXIT_SUCCESS;
 }
