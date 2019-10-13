@@ -2,6 +2,8 @@
 #include <chrono>
 #include <cmath>
 #include <iostream>
+#include <iterator>
+#include <random>
 #include <string>
 #include <tuple>
 #include <utility>
@@ -145,7 +147,7 @@ int main(int argc, char **argv) {
   /* Executing Exact Nearest Neighbor */
   std::vector<std::vector<std::pair<T,U>>> bf_radius_nn_results(input_info.Q);
   start = high_resolution_clock::now();
-  std::cout << "\nExecuting Nearest Neighbor uing Brute Force.." << std::endl;
+  std::cout << "\nExecuting Nearest Neighbor using Brute Force.." << std::endl;
   for (int i = 0; i < input_info.Q; ++i) {
     bf_nn_results[i] = bf.NearestNeighbor(query_points, i);
   }
@@ -165,14 +167,35 @@ int main(int argc, char **argv) {
   std::cout << "Executing Radius Nearest Neighbor using Brute Force completed successfully." << std::endl;
   std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
+  /* Algorithm to compute w (window) */
+  // Pick at random N / 1000 vectors from the input dataset
+  std::vector<U> random_dataset_ids(dataset_ids);
+  unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+  shuffle(random_dataset_ids.begin(), random_dataset_ids.end(),
+          std::default_random_engine(seed));
+
+  std::vector<double> avg_cord(10);
+  for (int i = 0; i < 10; ++i) {
+    for (int j = 0; j < 128; ++j) {
+      avg_cord[i] += dataset_points[random_dataset_ids[i] * 128 + i];
+    }
+    avg_cord[i] /= 128;
+  }
+  double w = 0.0;
+  for (int i = 0; i < 10; ++i) {
+    w += avg_cord[i];
+  }
+  w /= double(10);
+  //std::cout << w << std::endl;
   // HashFunction example
-  hash::HashFunction<T> hf(128, (1ULL << 32) - 5, 256, 10);
-  hf.Hash(query_points,0);
+  hash::HashFunction<T> hf(128, (1ULL << 32) - 5, 256, w);
+  std::cout << hf.Hash(query_points,0) << std::endl;
+  
   //uint64_t largeword = ((uint16_t) 10 << 32) + ((uint16_t) 2 << 16) + ((uint16_t) 3);
   //LSH_ <int> *HashTables = new LSH_ <int>(input_info);
 
   // print bf nn
-  /* for (int i = 0; i < input_info.Q; ++i) {
+  /*for (int i = 0; i < input_info.Q; ++i) {
     std::cout << "Query: " << i << " -- ";
     std::cout << "Distance: " << std::get<0>(bf_nn_results[i]) << " - "
               << "Id: " << std::get<1>(bf_nn_results[i]) << std::endl;

@@ -39,7 +39,17 @@ namespace utils {
     @par const struct InputInfo &input_info - Pass by reference the input parameters
   */
   void ShowUsage(const std::string &name, const struct InputInfo &input_info);
-  double fRand(double, double);
+  /** \brief Computes both negative and positive modulos
+    @par int a - Dividend
+    @par int b - modulo divisor
+  */
+  constexpr int mod(int a, int b) { return (a % b + b) % b; }
+  /** \brief Computes modular exponentiation
+    @par base - base
+    @par exp - expotent
+    @par mod - modulo divisor
+  */
+  uint64_t mod_exp(uint32_t base, uint16_t exp, uint32_t mod);
 }
 
 #endif

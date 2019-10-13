@@ -36,3 +36,14 @@ void utils::InputInfo::Print(void) {
             << static_cast<unsigned int>(D) << std::endl;
   std::cout << "Radius: " << R << std::endl;
 }
+
+uint64_t utils::mod_exp(uint32_t base, uint16_t exp, uint32_t mod) {
+  uint64_t res = 1;
+   while (exp > 0) {
+      if (exp % 2 == 1)
+         res = (res * base) % mod;
+      exp = exp >> 1;
+      base = (base * base) % mod;
+   }
+   return res;
+}

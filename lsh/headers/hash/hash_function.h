@@ -1,6 +1,7 @@
 #ifndef HASH_FUNCTION
 #define HASH_FUNCTION
 
+#include <algorithm>
 #include <cmath>
 #include <chrono>
 #include <iostream>
@@ -10,6 +11,7 @@
 #include <vector>
 
 #include "../../headers/utils/utils.h"
+
 namespace hash {
 
   template <typename T>
@@ -51,34 +53,23 @@ namespace hash {
         1) Compute a_i = floor((x_i - s_i) / w) for i = 0...D-1
         2) Compute h(x) = (a_d−1 + m*a_d−2 +···+ m^(d−1)*a_0) modM
       */
-      uint64_t Hash(std::vector<T> &points, int offset) {
+      uint32_t Hash(std::vector<T> &points, int offset) {
+        uint32_t hash_value{};
+        /* Computing a_i */
         for (size_t i = 0; i < D; ++i) {
-          std::cout << points[offset * D + i] - s[i] << std::endl;
-          a.push_back(floor((points[offset * D + i] - s[i]) / w));
+          a[i] = floor((points[offset * D + i] - s[i]) / w);
         }
-        for (int i = 0; i < D; ++i) {
-          std::cout << a[i] << " ";
+        /* Reverse vector a */
+        std::reverse(a.begin(),a.end());
+        /* Computing h(x) */
+        for (size_t i = 0; i < D; ++i) {
+          hash_value += utils::mod(a[i],M) * utils::mod_exp(m,i,M);
         }
-        std::cout << std::endl;
+        return hash_value % M;
       };
   };
 
 }
 
-
-
-/*
-template <class T>
-uint64_t HashFunction<T>::HashPoint(uint64_t m, uint64_t M, std::vector<T>& a) {
-  double hi = 0;
-  for (size_t i=0; i<a.size(); i++) {
-    double di = i * 1.0;
-    double mi = m * 1.0;
-    size_t j = a.size() - i - 1;
-    hi +=  a[j] * pow(mi,di) % M;
-  }
-  return hi;
-}
- */
 
 #endif
