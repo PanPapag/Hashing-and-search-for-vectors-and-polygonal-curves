@@ -11,7 +11,6 @@ namespace search {
     private:
       const uint32_t N;
       const uint16_t D;
-      const double R;
       const std::vector<T> &feature_vector;
       const std::vector<U> &feature_vector_ids;
     public:
@@ -22,9 +21,9 @@ namespace search {
         @par const int D - Points' dimension
         @par const int R - Radius value
       */
-      BruteForce(const uint32_t N, const uint16_t D, const double R,
-                 const std::vector<T> &points, const std::vector<T> &ids)
-        : N(N), D(D), R(R), feature_vector(points), feature_vector_ids(ids) {};
+      BruteForce(const uint32_t N, const uint16_t D,
+          const std::vector<T> &points, const std::vector<T> &ids)
+        : N(N), D(D), feature_vector(points), feature_vector_ids(ids) {};
       /**
         \brief class BruteForce default construct
       */
@@ -60,7 +59,7 @@ namespace search {
       */
       std::vector<std::pair<T,U>> RadiusNearestNeighbor(
         const std::vector<T> &query_points,
-        const int offset) {
+        const int offset, const double R) {
 
         /* Define result vector */
         std::vector<std::pair<T,U>> result;

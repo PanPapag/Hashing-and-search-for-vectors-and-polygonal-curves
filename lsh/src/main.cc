@@ -30,7 +30,6 @@ int main(int argc, char **argv) {
 
   input_info.input_file = "../../datasets/vectors/input_small_id";
   input_info.query_file = "../../datasets/vectors/query_small_id";
-  input_info.R = 2500.00;
   /* Get arguments */
   /*exit_code = utils::args::ReadArguments(argc, argv, input_info, status);
   switch (exit_code) {
@@ -129,15 +128,14 @@ int main(int argc, char **argv) {
   std::cout << "Reading query file completed successfully." << std::endl;
   std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
-  /* Print all input info */
+  /* Print input info */
   input_info.Print();
 
   /* Create BruteForce class object and a vector to store exact-NN results */
   start = high_resolution_clock::now();
   std::cout << "\nBuilding Brute Force.." << std::endl;
   std::vector<std::pair<T,U>> bf_nn_results(input_info.Q);
-  search::BruteForce<T,U> bf{input_info.N, input_info.D, input_info.R,
-                             dataset_points, dataset_ids};
+  search::BruteForce<T,U> bf{input_info.N, input_info.D, dataset_points, dataset_ids};
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
   std::cout << "Building Brute Force completed successfully." << std::endl;
@@ -154,12 +152,22 @@ int main(int argc, char **argv) {
   std::cout << "Executing Nearest Neighbor using Brute Force completed successfully." << std::endl;
   std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
+  /* Computing radius */
+  start = high_resolution_clock::now();
+  std::cout << "\nComputing radius.." << std::endl;
+  double radius = utils::ComputeRadius(bf_nn_results);
+  stop = high_resolution_clock::now();
+  total_time = duration_cast<duration<double>>(stop - start);
+  std::cout << "Computing radius completed successfully." << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+  std::cout << "Radius: " << radius << std::endl;
+
   /* Executing Radius Nearest Neighbor using BruteForce*/
   std::vector<std::vector<std::pair<T,U>>> bf_radius_nn_results(input_info.Q);
   start = high_resolution_clock::now();
   std::cout << "\nExecuting Radius Nearest Neighbor using Brute Force.." << std::endl;
   for (int i = 0; i < input_info.Q; ++i) {
-    bf_radius_nn_results[i] = bf.RadiusNearestNeighbor(query_points, i);
+    bf_radius_nn_results[i] = bf.RadiusNearestNeighbor(query_points, i, radius);
   }
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
@@ -171,7 +179,7 @@ int main(int argc, char **argv) {
   std::cout << "\nBuilding LSH.." << std::endl;
   std::vector<std::pair<T,U>> lsh_nn_results(input_info.Q);
   search::LSH<T,U> lsh{input_info.K, input_info.L, input_info.D,
-                       input_info.N, input_info.R, dataset_points, dataset_ids};
+                       input_info.N, dataset_points, dataset_ids};
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
   std::cout << "Building LSH completed successfully." << std::endl;
@@ -193,7 +201,7 @@ int main(int argc, char **argv) {
   start = high_resolution_clock::now();
   std::cout << "\nExecuting Radius Nearest Neighbor using LSH.." << std::endl;
   for (int i = 0; i < input_info.Q; ++i) {
-    lsh_radius_nn_results[i] = lsh.RadiusNearestNeighbor(query_points, i);
+    lsh_radius_nn_results[i] = lsh.RadiusNearestNeighbor(query_points, i, radius);
   }
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
@@ -207,21 +215,13 @@ int main(int argc, char **argv) {
 
   /* Writing results to the output file */
 
-<<<<<<< HEAD
-=======
 
->>>>>>> b1d8dcefdd7eb9feb8b76661aebf9d49a591dc21
   // print results nn
-  for (int i = 0; i < input_info.Q; ++i) {
+  /* for (int i = 0; i < input_info.Q; ++i) {
     std::cout << "Query: " << i << " -- ";
     std::cout << "LDistance: " << std::get<0>(lsh_nn_results[i]) << " - "
               << "TDistance: " << std::get<0>(bf_nn_results[i]) << std::endl;
-<<<<<<< HEAD
-  }
-=======
-  }*/
-  
->>>>>>> b1d8dcefdd7eb9feb8b76661aebf9d49a591dc21
+  } */
   // print bf nn
   /*for (int i = 0; i < input_info.Q; ++i) {
     std::cout << "Query: " << i << " -- ";

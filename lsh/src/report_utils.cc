@@ -13,10 +13,6 @@ void utils::report::ReportError(const utils::ExitCode &code) {
       std::cout << "\n[ERROR]: " << "Invalid value of L (number of hash tables)"
                 << std::endl;
       break;
-    case INVALID_R:
-      std::cout << "\n[ERROR]: " << "Invalid value of R (radius in (r,c)-NN)"
-                << std::endl;
-      break;
     case INVALID_PARARAMETERS:
       std::cout << "\n[ERROR]: " << "Invalid parameters given" << std::endl;
       break;

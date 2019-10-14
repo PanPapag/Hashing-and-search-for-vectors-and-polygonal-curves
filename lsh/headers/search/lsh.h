@@ -22,7 +22,6 @@ namespace search {
       const uint8_t L;
       const uint16_t D;
       const uint32_t N;
-      const double R;
       const std::vector<T> &feature_vector;
       const std::vector<U> &feature_vector_ids;
       std::vector<hash::AmplifiedHashFunction<T>> hash_functions;
@@ -32,8 +31,8 @@ namespace search {
       /** \brief class LSH constructor
       */
       LSH(const uint8_t K, const uint8_t L, const uint16_t D, const uint32_t N,
-          const double R, const std::vector<T> &points, const std::vector<T> &ids)
-        : K(K), L(L), D(D), N(N), R(R), feature_vector(points), feature_vector_ids(ids) {
+          const std::vector<T> &points, const std::vector<T> &ids)
+        : K(K), L(L), D(D), N(N), feature_vector(points), feature_vector_ids(ids) {
           w = ComputeWindow(points, N);
           m = (1ULL << 32) - 5;
           M = pow(2, 32 / K);
@@ -122,24 +121,12 @@ namespace search {
         /* return result as a pair of min_dist and min_id */
         return std::make_pair(min_dist,min_id);
       };
-
-/*
-template<class T>
-std::vector<HashTable<T>*>& LSH_<T>::CreateHashTables(utils::InputInfo& info) {
-  for (size_t i; i<info.L; i++) {
-    HashTable<T> *ht = new HashTable<T>(info, w, m, M);
-    hash_tables.push_back(ht);
-  }
-  return hash_tables;
-}
-*/
-
       /** \brief Executes approximate Radius Nearest tNeighbor
         @par const std::vector<T> &query_points - Pass by reference query points
         @par const int offset - Offset to get correspodent point
       */
       std::vector<std::pair<T,U>> RadiusNearestNeighbor(const std::vector<T> &query_points,
-        const int offset) {
+        const int offset, const double R) {
 
         /* Define result vector */
         std::vector<std::pair<T,U>> result;

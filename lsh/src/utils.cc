@@ -34,7 +34,6 @@ void utils::InputInfo::Print(void) {
             << static_cast<unsigned int>(Q) << std::endl;
   std::cout << "Space dimension: "
             << static_cast<unsigned int>(D) << std::endl;
-  std::cout << "Radius: " << R << std::endl;
 }
 
 uint64_t utils::mod_exp(uint32_t base, uint16_t exp, uint32_t mod) {

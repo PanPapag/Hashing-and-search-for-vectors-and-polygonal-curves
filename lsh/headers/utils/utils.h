@@ -12,7 +12,6 @@ namespace utils {
     NO_ARGS,
     INVALID_k,
     INVALID_L,
-    INVALID_R,
     INVALID_PARARAMETERS,
     INVALID_DATASET,
     INVALID_QUERY,
@@ -34,7 +33,6 @@ namespace utils {
     uint32_t N;                  // number of dataset points
     uint32_t Q;                  // number of query points
     uint16_t D;                  // dimension of the space
-    double R = 0.0;              // radius for (r,c) - NN
     void Print(void);            // print method of the InputInfo struct
   };
   /** \brief ShowUsage - Prints the usage of the program
@@ -62,14 +60,30 @@ namespace utils {
     std::vector<std::pair<T,U>> &approx) {
 
     /* Get number of queries executed */
-    int n = exact.size();
+    int N = exact.size();
     /* Sum up difference approx_i - exact_i while exact_i s always >= approx_i */
     double distance_error{};
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < N; ++i) {
       distance_error += std::get<0>(approx[i]) - std::get<0>(exact[i]);
     }
     /* Return its average */
-    return distance_error / n;
+    return distance_error / N;
+  }
+  /** \brief Computes the radius as the average of the distances of each point
+    to its nearest neighbor
+  */
+  template <typename T, typename U>
+  double ComputeRadius(std::vector<std::pair<T,U>> &exact) {
+
+    /* Get number of points */
+    int N = exact.size();
+    /* Sum up distances from the nearest neighbor */
+    double distance_to_nn{};
+    for (int i = 0; i < N; ++i) {
+      distance_to_nn += std::get<0>(exact[i]);
+    }
+    /* Return its average */
+    return distance_to_nn / N;
   }
 }
 
