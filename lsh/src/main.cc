@@ -200,14 +200,28 @@ int main(int argc, char **argv) {
   std::cout << "Executing Radius Nearest Neighbor using LSH completed successfully." << std::endl;
   std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
+  /* Compute Average Distance Error */
+  std::cout << "\nAverage Distance Error while using Brute Force and LSH: "
+            << utils::ComputeAvgDistanceError(bf_nn_results, lsh_nn_results)
+            << std::endl;
+
   /* Writing results to the output file */
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> b1d8dcefdd7eb9feb8b76661aebf9d49a591dc21
   // print results nn
   for (int i = 0; i < input_info.Q; ++i) {
     std::cout << "Query: " << i << " -- ";
     std::cout << "LDistance: " << std::get<0>(lsh_nn_results[i]) << " - "
               << "TDistance: " << std::get<0>(bf_nn_results[i]) << std::endl;
+<<<<<<< HEAD
   }
+=======
+  }*/
+  
+>>>>>>> b1d8dcefdd7eb9feb8b76661aebf9d49a591dc21
   // print bf nn
   /*for (int i = 0; i < input_info.Q; ++i) {
     std::cout << "Query: " << i << " -- ";

@@ -1,6 +1,9 @@
 #ifndef UTILS
 #define UTILS
 
+#include <tuple>
+#include <vector>
+
 namespace utils {
   /* enumerated exit codes */
   typedef enum ExitCode{
@@ -50,6 +53,24 @@ namespace utils {
     @par mod - modulo divisor
   */
   uint64_t mod_exp(uint32_t base, uint16_t exp, uint32_t mod);
+  /** \brief Computes average distance error between the results provided by
+    exeuting the exact Nearest Neighbor and the results provided by executing the
+    approximate Nearest NearestNeighbor
+  */
+  template <typename T, typename U>
+  double ComputeAvgDistanceError(std::vector<std::pair<T,U>> &exact,
+    std::vector<std::pair<T,U>> &approx) {
+
+    /* Get number of queries executed */
+    int n = exact.size();
+    /* Sum up difference approx_i - exact_i while exact_i s always >= approx_i */
+    double distance_error{};
+    for (int i = 0; i < n; ++i) {
+      distance_error += std::get<0>(approx[i]) - std::get<0>(exact[i]);
+    }
+    /* Return its average */
+    return distance_error / n;
+  }
 }
 
 #endif

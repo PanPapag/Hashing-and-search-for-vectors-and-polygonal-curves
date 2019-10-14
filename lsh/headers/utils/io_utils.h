@@ -40,6 +40,29 @@ namespace utils {
       infile.close();
       return SUCCESS;
     }
+    /** \brief WriteFile - Output prorgam results to given output file
+      @par ExitCode &statues - enumerated ExitCode provided from namespace utils
+      return: SUCCESS or FAIL
+    */
+    template <typename T, typename U>
+    int WriteFile(std::string file_name, std::vector<std::pair<T,U>> &exact,
+      std::vector<std::pair<T,U>> &approx, utils::ExitCode &status) {
+
+      // Open file
+      std::ofstream outfile;
+      outfile.open(file_name);
+      // Check if file is opened
+      if (outfile.is_open()) {
+        // TODO
+        return 1;
+      } else {
+        status = INVALID_DATASET; // fix it
+        return FAIL;
+      }
+      // close file
+      outfile.close();
+      return SUCCESS;
+    }
     /** \brief GetDataPoints - Get the number of file data points
       @par std::string &file_name - Path to file
       @par int &no_vectors - Pass by reference the number of vectors to be returned
