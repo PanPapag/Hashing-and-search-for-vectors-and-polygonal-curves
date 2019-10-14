@@ -29,7 +29,6 @@ namespace search {
       const std::vector<U> &feature_vector_ids;
       std::vector<hash::AmplifiedHashFunction<T>> hash_functions;
       std::vector<std::unordered_map<int,std::vector<int>>> hash_tables;
-      //std::vector<HashTable<T>*> hash_tables;
     public:
       /** \brief class LSH constructor
       */
