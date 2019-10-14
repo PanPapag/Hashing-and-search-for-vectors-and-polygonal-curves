@@ -2,7 +2,10 @@
 #define BRUTE_FORCE
 
 #include <limits>
+#include <tuple>
 #include "../../headers/metric/metric.h"
+
+using namespace std::chrono;
 
 namespace search {
 
@@ -32,9 +35,10 @@ namespace search {
         @par const std::vector<T> &query_points - Pass by reference query points
         @par const int offset - Offset to get correspodent point
       */
-      std::pair<T,U> NearestNeighbor(const std::vector<T> &query_points,
+      std::tuple<T,U,double> NearestNeighbor(const std::vector<T> &query_points,
         const int offset) {
 
+        auto start = high_resolution_clock::now();
         /* Initialize min_dist to max value of type T */
         T min_dist = std::numeric_limits<T>::max();
         /* Initialize correspodent min_id using the C++11 way */
@@ -50,8 +54,10 @@ namespace search {
             min_id = feature_vector_ids[i];
           }
         }
-        /* return result as a pair of min_dist and min_id */
-        return std::make_pair(min_dist,min_id);
+        auto stop = high_resolution_clock::now();
+        duration <double> total_time = duration_cast<duration<double>>(stop - start);
+        /* return result as a tuple of min_dist, min_id and total_time */
+        return std::make_tuple(min_dist,min_id,total_time.count());
       };
       /** \brief Executes (r,c)-Nearest tNeighbor
         @par const std::vector<T> &query_points - Pass by reference query points

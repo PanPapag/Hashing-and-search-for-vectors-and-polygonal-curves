@@ -30,6 +30,7 @@ int main(int argc, char **argv) {
 
   input_info.input_file = "../../datasets/vectors/input_small_id";
   input_info.query_file = "../../datasets/vectors/query_small_id";
+  input_info.output_file = "../../results/vectors/small";
   /* Get arguments */
   /*exit_code = utils::args::ReadArguments(argc, argv, input_info, status);
   switch (exit_code) {
@@ -134,7 +135,7 @@ int main(int argc, char **argv) {
   /* Create BruteForce class object and a vector to store exact-NN results */
   start = high_resolution_clock::now();
   std::cout << "\nBuilding Brute Force.." << std::endl;
-  std::vector<std::pair<T,U>> bf_nn_results(input_info.Q);
+  std::vector<std::tuple<T,U,double>> bf_nn_results(input_info.Q);
   search::BruteForce<T,U> bf{input_info.N, input_info.D, dataset_points, dataset_ids};
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
@@ -177,7 +178,7 @@ int main(int argc, char **argv) {
   /* Creating LSH class object and a vector to store approx-NN results */
   start = high_resolution_clock::now();
   std::cout << "\nBuilding LSH.." << std::endl;
-  std::vector<std::pair<T,U>> lsh_nn_results(input_info.Q);
+  std::vector<std::tuple<T,U,double>> lsh_nn_results(input_info.Q);
   search::LSH<T,U> lsh{input_info.K, input_info.L, input_info.D,
                        input_info.N, dataset_points, dataset_ids};
   stop = high_resolution_clock::now();
@@ -214,32 +215,17 @@ int main(int argc, char **argv) {
             << std::endl;
 
   /* Writing results to the output file */
-
-
-  // print results nn
-  /* for (int i = 0; i < input_info.Q; ++i) {
-    std::cout << "Query: " << i << " -- ";
-    std::cout << "LDistance: " << std::get<0>(lsh_nn_results[i]) << " - "
-              << "TDistance: " << std::get<0>(bf_nn_results[i]) << std::endl;
-  } */
-  // print bf nn
-  /*for (int i = 0; i < input_info.Q; ++i) {
-    std::cout << "Query: " << i << " -- ";
-    std::cout << "Distance: " << std::get<0>(bf_nn_results[i]) << " - "
-              << "Id: " << std::get<1>(bf_nn_results[i]) << std::endl;
-  } */
-  // print bf radius nn
-  /*
-  for (int i = 0; i < input_info.Q; ++i) {
-    std::cout << "---------- Query " << i << " ---------- " << std::endl;
-    for (int j = 0; j < bf_radius_nn_results[i].size(); ++j) {
-      std::cout << "Distance: " << std::get<0>(bf_radius_nn_results[i][j])
-                << " - " << "Id: " << std::get<1>(bf_radius_nn_results[i][j])
-                << std::endl;
-    }
-    std::cout << std::endl;
-  } */
-
+  start = high_resolution_clock::now();
+  std::cout << "\nWriting results to the output file.." << std::endl;
+  exit_code = utils::io::WriteFile<T,U>(input_info.output_file, bf_nn_results,
+    lsh_nn_results, radius, bf_radius_nn_results, status);
+  if (exit_code != utils::SUCCESS) {
+    utils::report::ReportError(status);
+  }
+  stop = high_resolution_clock::now();
+  total_time = duration_cast<duration<double>>(stop - start);
+  std::cout << "Writing results to the output file completed successfully." << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
   return EXIT_SUCCESS;
 }

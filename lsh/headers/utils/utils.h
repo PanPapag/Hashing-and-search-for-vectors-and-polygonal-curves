@@ -56,8 +56,8 @@ namespace utils {
     approximate Nearest NearestNeighbor
   */
   template <typename T, typename U>
-  double ComputeAvgDistanceError(std::vector<std::pair<T,U>> &exact,
-    std::vector<std::pair<T,U>> &approx) {
+  double ComputeAvgDistanceError(std::vector<std::tuple<T,U,double>> &exact,
+    std::vector<std::tuple<T,U,double>> &approx) {
 
     /* Get number of queries executed */
     int N = exact.size();
@@ -73,7 +73,7 @@ namespace utils {
     to its nearest neighbor
   */
   template <typename T, typename U>
-  double ComputeRadius(std::vector<std::pair<T,U>> &exact) {
+  double ComputeRadius(std::vector<std::tuple<T,U,double>> &exact) {
 
     /* Get number of points */
     int N = exact.size();
