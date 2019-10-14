@@ -64,7 +64,7 @@ namespace hash {
         std::reverse(a.begin(),a.end());
         /* Computing h(x) */
         for (size_t i = 0; i < D; ++i) {
-          hash_value += utils::mod(a[i],M) * utils::mod_exp(m,i,M);
+          hash_value += (utils::mod(a[i],M) * utils::mod_exp(m,i,M)) % M;
         }
         return hash_value % M;
       };

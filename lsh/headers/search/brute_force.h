@@ -70,7 +70,7 @@ namespace search {
             std::next(feature_vector.begin(), i * D),
             std::next(query_points.begin(), offset * D),
             std::next(query_points.begin(), offset * D + D));
-          if(dist <= R) {
+          if (dist <= R) {
             result.push_back(std::make_pair(dist,feature_vector_ids[i]));
           }
         }

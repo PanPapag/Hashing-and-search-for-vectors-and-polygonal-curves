@@ -9,9 +9,6 @@
 #include "../../headers/metric/metric.h"
 #include "../../headers/utils/utils.h"
 
-//template <class T>
-//class HashTable;
-
 namespace search {
 
   template <typename T, typename U>
@@ -160,18 +157,5 @@ namespace search {
       };
   };
 }
-
-
-
-/*
-template<class T>
-std::vector<HashTable<T>*>& LSH_<T>::CreateHashTables(utils::InputInfo& info) {
-  for (size_t i; i<info.L; i++) {
-    HashTable<T> *ht = new HashTable<T>(info, w, m, M);
-    hash_tables.push_back(ht);
-  }
-  return hash_tables;
-}
-*/
 
 #endif
