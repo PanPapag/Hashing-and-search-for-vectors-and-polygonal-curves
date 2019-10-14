@@ -12,8 +12,8 @@ namespace search {
       const uint32_t N;
       const uint16_t D;
       const double R;
-      const std::vector<T>  &feature_vector;
-      const std::vector<U>  &feature_vector_ids;
+      const std::vector<T> &feature_vector;
+      const std::vector<U> &feature_vector_ids;
     public:
       /** \brief class BruteForce constructor
         @par const std::vector<T> &points - Pass by reference given points

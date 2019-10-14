@@ -9,9 +9,6 @@
 #include "../../headers/metric/metric.h"
 #include "../../headers/utils/utils.h"
 
-//template <class T>
-//class HashTable;
-
 namespace search {
 
   template <typename T, typename U>
@@ -34,7 +31,7 @@ namespace search {
     public:
       /** \brief class LSH constructor
       */
-      LSH (const uint8_t K, const uint8_t L, const uint16_t D, const uint32_t N,
+      LSH(const uint8_t K, const uint8_t L, const uint16_t D, const uint32_t N,
           const double R, const std::vector<T> &points, const std::vector<T> &ids)
         : K(K), L(L), D(D), N(N), R(R), feature_vector(points), feature_vector_ids(ids) {
           w = ComputeWindow(points, N);
@@ -79,10 +76,10 @@ namespace search {
         // compute average coordinates for the sample_n points selected randomly
         std::vector<double> avg_coord(sample_n);
         for (int i = 0; i < sample_n; ++i) {
-          for (int j = 0; j < 128; ++j) {
-            avg_coord[i] += points[v[i] * 128 + i];
+          for (int j = 0; j < D; ++j) {
+            avg_coord[i] += points[v[i] * D + i];
           }
-          avg_coord[i] /= 128;
+          avg_coord[i] /= D;
         }
         // average them to compute window
         for (int i = 0; i < sample_n; ++i) {
@@ -109,7 +106,7 @@ namespace search {
           // get all points in the same bucket
           std::vector<int> &bucket = ht_i[hash_functions[i].Hash(query_points,offset) % table_size];
           // if large number of retrieved items then continue to the next hashtable
-          if (bucket.size() > 4 * L) continue;
+          if (bucket.size() > 5 * L) continue;
           // iterate over all points in the buck
           for (auto const& fv_offset: bucket) {
             T dist = metric::ManhattanDistance<T>(
@@ -125,6 +122,18 @@ namespace search {
         /* return result as a pair of min_dist and min_id */
         return std::make_pair(min_dist,min_id);
       };
+
+/*
+template<class T>
+std::vector<HashTable<T>*>& LSH_<T>::CreateHashTables(utils::InputInfo& info) {
+  for (size_t i; i<info.L; i++) {
+    HashTable<T> *ht = new HashTable<T>(info, w, m, M);
+    hash_tables.push_back(ht);
+  }
+  return hash_tables;
+}
+*/
+
       /** \brief Executes approximate Radius Nearest tNeighbor
         @par const std::vector<T> &query_points - Pass by reference query points
         @par const int offset - Offset to get correspodent point
@@ -144,7 +153,7 @@ namespace search {
           // get all points in the same bucket
           std::vector<int> &bucket = ht_i[hash_functions[i].Hash(query_points,offset) % table_size];
           // if large number of retrieved items then continue to the next hashtable
-          if (bucket.size() > 4 * L) continue;
+          if (bucket.size() > 5 * L) continue;
           // iterate over all points in the buck
           for (auto const& fv_offset: bucket) {
             T dist = metric::ManhattanDistance<T>(
@@ -160,18 +169,5 @@ namespace search {
       };
   };
 }
-
-
-
-/*
-template<class T>
-std::vector<HashTable<T>*>& LSH_<T>::CreateHashTables(utils::InputInfo& info) {
-  for (size_t i; i<info.L; i++) {
-    HashTable<T> *ht = new HashTable<T>(info, w, m, M);
-    hash_tables.push_back(ht);
-  }
-  return hash_tables;
-}
-*/
 
 #endif

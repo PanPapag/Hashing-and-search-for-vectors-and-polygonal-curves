@@ -10,7 +10,6 @@
 #include <vector>
 
 #include "../headers/hash/hash_function.h"
-#include "../headers/hash/hash_table.h"
 #include "../headers/metric/metric.h"
 #include "../headers/utils/utils.h"
 #include "../headers/utils/args_utils.h"
@@ -201,14 +200,21 @@ int main(int argc, char **argv) {
   std::cout << "Executing Radius Nearest Neighbor using LSH completed successfully." << std::endl;
   std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
+  /* Compute Average Distance Error */
+  std::cout << "\nAverage Distance Error while using Brute Force and LSH: "
+            << utils::ComputeAvgDistanceError(bf_nn_results, lsh_nn_results)
+            << std::endl;
+
   /* Writing results to the output file */
-  
+
+
   // print results nn
   /*for (int i = 0; i < input_info.Q; ++i) {
     std::cout << "Query: " << i << " -- ";
     std::cout << "LDistance: " << std::get<0>(lsh_nn_results[i]) << " - "
               << "TDistance: " << std::get<0>(bf_nn_results[i]) << std::endl;
-  } */
+  }*/
+  
   // print bf nn
   /*for (int i = 0; i < input_info.Q; ++i) {
     std::cout << "Query: " << i << " -- ";
