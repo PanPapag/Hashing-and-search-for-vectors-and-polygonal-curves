@@ -180,7 +180,7 @@ int main(int argc, char **argv) {
   std::cout << "\nBuilding LSH.." << std::endl;
   std::vector<std::tuple<T,U,double>> lsh_nn_results(input_info.Q);
   search::LSH<T,U> lsh{input_info.K, input_info.L, input_info.D,
-                       input_info.N, dataset_points, dataset_ids};
+                       input_info.N, radius, dataset_points, dataset_ids};
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
   std::cout << "Building LSH completed successfully." << std::endl;
@@ -202,13 +202,12 @@ int main(int argc, char **argv) {
   start = high_resolution_clock::now();
   std::cout << "\nExecuting Radius Nearest Neighbor using LSH.." << std::endl;
   for (int i = 0; i < input_info.Q; ++i) {
-    lsh_radius_nn_results[i] = lsh.RadiusNearestNeighbor(query_points, i, radius);
+    lsh_radius_nn_results[i] = lsh.RadiusNearestNeighbor(query_points, i);
   }
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
   std::cout << "Executing Radius Nearest Neighbor using LSH completed successfully." << std::endl;
   std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
-
 
   /* Compute Max and Average ratio lsh_nn_results / bf_nn_results */
   start = high_resolution_clock::now();

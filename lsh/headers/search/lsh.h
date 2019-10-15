@@ -25,6 +25,7 @@ namespace search {
       const uint8_t L;
       const uint16_t D;
       const uint32_t N;
+      const double R;
       const std::vector<T> &feature_vector;
       const std::vector<U> &feature_vector_ids;
       std::vector<hash::AmplifiedHashFunction<T>> hash_functions;
@@ -33,9 +34,9 @@ namespace search {
       /** \brief class LSH constructor
       */
       LSH(const uint8_t K, const uint8_t L, const uint16_t D, const uint32_t N,
-          const std::vector<T> &points, const std::vector<T> &ids)
-        : K(K), L(L), D(D), N(N), feature_vector(points), feature_vector_ids(ids) {
-          w = ComputeWindow(points, N);
+          const double radius, const std::vector<T> &points, const std::vector<T> &ids)
+        : K(K), L(L), D(D), N(N), R(radius), feature_vector(points), feature_vector_ids(ids) {
+          w = 4 * R;
           m = (1ULL << 32) - 5;
           M = pow(2, 32 / K);
           table_size = N / 16;
@@ -57,39 +58,6 @@ namespace search {
         \brief class LSH default construct
       */
       ~LSH() = default;
-      //std::vector<HashTable<T>*>& CreateHashTables(utils::InputInfo&);
-      /** \brief Computes window by selecting randomly n / 1000 points from the
-          dataset and averaging its coordinates. Then window equals the average
-          of these n / 1000 points' coordinates average
-          @par const std::vector<T> &points - dataset points
-          @par int N - Number of points
-      */
-      double ComputeWindow(const std::vector<T> &points, int N) {
-        double w{};
-        // vector with sample_n ints
-        int sample_n = N / 1000;
-        std::vector<int> v(N);
-        // Fill with 0, 1, ..., N - 1
-        std::iota(std::begin(v), std::end(v), 0);
-        // shuffle vector end execute the algo
-        unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-        shuffle(v.begin(), v.end(), std::default_random_engine(seed));
-        // compute average coordinates for the sample_n points selected randomly
-        std::vector<double> avg_coord(sample_n);
-        for (int i = 0; i < sample_n; ++i) {
-          for (int j = 0; j < D; ++j) {
-            avg_coord[i] += points[v[i] * D + i];
-          }
-          avg_coord[i] /= D;
-        }
-        // average them to compute window
-        for (int i = 0; i < sample_n; ++i) {
-          w += avg_coord[i];
-        }
-        w /= double(sample_n);
-
-        return w;
-      }
       /** \brief Executes approximate Nearest tNeighbor
         @par const std::vector<T> &query_points - Pass by reference query points
         @par const int offset - Offset to get correspodent point
@@ -107,8 +75,6 @@ namespace search {
           std::unordered_map<int,std::vector<int>> &ht_i = hash_tables[i];
           // get all points in the same bucket
           std::vector<int> &bucket = ht_i[hash_functions[i].Hash(query_points,offset) % table_size];
-          // if large number of retrieved items then continue to the next hashtable
-          if (bucket.size() > 5 * L) continue;
           // iterate over all points in the buck
           for (auto const& fv_offset: bucket) {
             T dist = metric::ManhattanDistance<T>(
@@ -131,7 +97,7 @@ namespace search {
         @par const int offset - Offset to get correspodent point
       */
       std::vector<std::pair<T,U>> RadiusNearestNeighbor(const std::vector<T> &query_points,
-        const int offset, const double R) {
+        const int offset) {
 
         /* Define result vector */
         std::vector<std::pair<T,U>> result;
@@ -144,8 +110,6 @@ namespace search {
           std::unordered_map<int,std::vector<int>> &ht_i = hash_tables[i];
           // get all points in the same bucket
           std::vector<int> &bucket = ht_i[hash_functions[i].Hash(query_points,offset) % table_size];
-          // if large number of retrieved items then continue to the next hashtable
-          if (bucket.size() > 5 * L) continue;
           // iterate over all points in the buck
           for (auto const& fv_offset: bucket) {
             T dist = metric::ManhattanDistance<T>(

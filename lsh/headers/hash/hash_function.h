@@ -41,7 +41,7 @@ namespace hash {
         generator(std::chrono::system_clock::now().time_since_epoch().count()) {
 
         /* Initialize s vector of dimension D using uniform_real_distribution */
-        for(size_t i = 0; i < D; ++i) {
+        for (size_t i = 0; i < D; ++i) {
           s[i] = distribution(generator);
         }
       };
