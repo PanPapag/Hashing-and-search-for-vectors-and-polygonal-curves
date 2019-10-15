@@ -161,7 +161,7 @@ int main(int argc, char **argv) {
   total_time = duration_cast<duration<double>>(stop - start);
   std::cout << "Computing radius completed successfully." << std::endl;
   std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
-  std::cout << "Radius: " << radius << std::endl;
+  std::cout << "\nRadius: " << radius << std::endl;
 
   /* Executing Radius Nearest Neighbor using BruteForce*/
   std::vector<std::vector<std::pair<T,U>>> bf_radius_nn_results(input_info.Q);
@@ -209,10 +209,17 @@ int main(int argc, char **argv) {
   std::cout << "Executing Radius Nearest Neighbor using LSH completed successfully." << std::endl;
   std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
-  /* Compute Average Distance Error */
-  std::cout << "\nAverage Distance Error while using Brute Force and LSH: "
-            << utils::ComputeAvgDistanceError(bf_nn_results, lsh_nn_results)
-            << std::endl;
+
+  /* Compute Max and Average ratio lsh_nn_results / bf_nn_results */
+  start = high_resolution_clock::now();
+  std::cout << "\nCalculating evaluation metric.." << std::endl;
+  std::pair<double,double> metric_res = metric::EvaluationMetric(bf_nn_results, lsh_nn_results);
+  stop = high_resolution_clock::now();
+  total_time = duration_cast<duration<double>>(stop - start);
+  std::cout << "Calculating evaluation metric completed successfully." << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+  std::cout << "\nMax Af: " << std::get<0>(metric_res) << std::endl;
+  std::cout << "Average Af: " << std::get<1>(metric_res) << std::endl;
 
   /* Writing results to the output file */
   start = high_resolution_clock::now();
