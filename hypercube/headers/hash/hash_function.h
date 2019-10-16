@@ -75,27 +75,24 @@ namespace hash {
   class AmplifiedHashFunction {
     private:
       std::vector<HashFunction<T>> h;
-      const uint8_t K;
+      const uint16_t k;
       const uint16_t D;
       const uint32_t m;
       const uint32_t M;
-      // std::random_device rd;
-      // std::mt19937 gen(rd());
-      // std::uniform_int_distribution<> dis(0, 1);
       const double w;
     public:
       /** \brief AmplifiedHashFunction class constructor
         This class illustrates g(x) = [h1(x)|h2(x)| · · · |hk (x)].
-        @par K - Number of Hash Functions selected uniformly
+        @par k - Number of Hash Functions selected uniformly
         @par D - Space dimension
         @par m - parameter m in the hash function
         @par M - parameter M in the hash function
         @par w - window size
       */
-      AmplifiedHashFunction(const uint8_t K, const uint16_t D, const uint32_t m,
-        const uint32_t M, const double w): K(K), D(D), m(m), M(M), w(w) {
+      AmplifiedHashFunction(const uint16_t k, const uint16_t D, const uint32_t m,
+        const uint32_t M, const double w): k(k), D(D), m(m), M(M), w(w) {
           /* Select uniformly K hash functions */
-          for (size_t i = 0; i < K; ++i) {
+          for (size_t i = 0; i < k; ++i) {
             h.push_back(HashFunction<T>(D, m, M, w));
           }
         }
@@ -109,7 +106,7 @@ namespace hash {
       */
       uint64_t Hash(const std::vector<T>& points, int offset) {
         std::string str_value{};
-        for (size_t i = 0; i < K; ++i) {
+        for (size_t i = 0; i < k; ++i) {
           str_value += std::to_string(h[i].Hash(points,offset));
         }
         // convert str_value to uint64_t

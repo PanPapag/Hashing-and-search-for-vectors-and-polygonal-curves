@@ -16,6 +16,7 @@
 #include "../headers/utils/report_utils.h"
 #include "../headers/utils/io_utils.h"
 #include "../headers/search/hypercube.h"
+#include "../headers/search/brute_force.h"
 
 #define T int
 #define U int
@@ -132,12 +133,56 @@ int main(int argc, char **argv) {
   /* Print input info */
   input_info.Print();
 
+  /* Create BruteForce class object and a vector to store exact-NN results */
+  start = high_resolution_clock::now();
+  std::cout << "\nBuilding Brute Force.." << std::endl;
+  std::vector<std::tuple<T,U,double>> bf_nn_results(input_info.Q);
+  search::BruteForce<T,U> bf{input_info.N, input_info.D, dataset_points, dataset_ids};
+  stop = high_resolution_clock::now();
+  total_time = duration_cast<duration<double>>(stop - start);
+  std::cout << "Building Brute Force completed successfully." << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+
+  /* Executing Exact Nearest Neighbor using BruteForce */
+  start = high_resolution_clock::now();
+  std::cout << "\nExecuting Nearest Neighbor using Brute Force.." << std::endl;
+  for (int i = 0; i < input_info.Q; ++i) {
+    bf_nn_results[i] = bf.NearestNeighbor(query_points, i);
+  }
+  stop = high_resolution_clock::now();
+  total_time = duration_cast<duration<double>>(stop - start);
+  std::cout << "Executing Nearest Neighbor using Brute Force completed successfully." << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+
+  /* Computing radius */
+  start = high_resolution_clock::now();
+  std::cout << "\nComputing radius.." << std::endl;
+  double radius = utils::ComputeRadius(bf_nn_results);
+  stop = high_resolution_clock::now();
+  total_time = duration_cast<duration<double>>(stop - start);
+  std::cout << "Computing radius completed successfully." << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+  std::cout << "\nRadius: " << radius << std::endl;
+
+  /* Executing Radius Nearest Neighbor using BruteForce*/
+  std::vector<std::vector<std::pair<T,U>>> bf_radius_nn_results(input_info.Q);
+  start = high_resolution_clock::now();
+  std::cout << "\nExecuting Radius Nearest Neighbor using Brute Force.." << std::endl;
+  for (int i = 0; i < input_info.Q; ++i) {
+    bf_radius_nn_results[i] = bf.RadiusNearestNeighbor(query_points, i, radius);
+  }
+  stop = high_resolution_clock::now();
+  total_time = duration_cast<duration<double>>(stop - start);
+  std::cout << "Executing Radius Nearest Neighbor using Brute Force completed successfully." << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+
   /* Creating LSH class object and a vector to store approx-NN results */
   start = high_resolution_clock::now();
   std::cout << "\nBuilding HyperCube.." << std::endl;
   std::vector<std::tuple<T,U,double>> hypercube_nn_results(input_info.Q);
   search::HyperCube<T,U> cube{input_info.k, input_info.M, input_info.D,
-                       input_info.N, dataset_points, dataset_ids};
+                       input_info.N, radius, dataset_points, dataset_ids};
+  //cube.Print();
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
   std::cout << "Building HyperCube completed successfully." << std::endl;
