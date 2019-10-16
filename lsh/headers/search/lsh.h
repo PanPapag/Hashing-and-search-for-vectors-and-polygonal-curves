@@ -26,19 +26,19 @@ namespace search {
       const uint16_t D;
       const uint32_t N;
       const double R;
-      const std::vector<T> &feature_vector;
-      const std::vector<U> &feature_vector_ids;
+      const std::vector<T>& feature_vector;
+      const std::vector<U>& feature_vector_ids;
       std::vector<hash::AmplifiedHashFunction<T>> hash_functions;
       std::vector<std::unordered_map<int,std::vector<int>>> hash_tables;
     public:
       /** \brief class LSH constructor
       */
       LSH(const uint8_t K, const uint8_t L, const uint16_t D, const uint32_t N,
-          const double radius, const std::vector<T> &points, const std::vector<T> &ids)
+          const double radius, const std::vector<T>& points, const std::vector<T>& ids)
         : K(K), L(L), D(D), N(N), R(radius), feature_vector(points), feature_vector_ids(ids) {
           w = 4 * R;
           m = (1ULL << 32) - 5;
-          M = pow(2, 32 / K);
+          M = 1ULL << (32 / K);
           table_size = N / 16;
           // Preprocess step
           // 1) Randomly select L amplified hash functions g1 , . . . , gL .
@@ -58,11 +58,12 @@ namespace search {
         \brief class LSH default construct
       */
       ~LSH() = default;
+
       /** \brief Executes approximate Nearest tNeighbor
-        @par const std::vector<T> &query_points - Pass by reference query points
+        @par const std::vector<T>& query_points - Pass by reference query points
         @par const int offset - Offset to get correspodent point
       */
-      std::tuple<T,U,double> NearestNeighbor(const std::vector<T> &query_points,
+      std::tuple<T,U,double> NearestNeighbor(const std::vector<T>& query_points,
         const int offset) {
 
         auto start = high_resolution_clock::now();
@@ -72,9 +73,9 @@ namespace search {
         U min_id{};
         for (int i = 0; i < L; ++i) {
           // get i_th hashtable
-          std::unordered_map<int,std::vector<int>> &ht_i = hash_tables[i];
+          std::unordered_map<int,std::vector<int>>& ht_i = hash_tables[i];
           // get all points in the same bucket
-          std::vector<int> &bucket = ht_i[hash_functions[i].Hash(query_points,offset) % table_size];
+          std::vector<int>& bucket = ht_i[hash_functions[i].Hash(query_points,offset) % table_size];
           // iterate over all points in the buck
           for (auto const& fv_offset: bucket) {
             T dist = metric::ManhattanDistance<T>(
@@ -92,11 +93,12 @@ namespace search {
         /* return result as a tuple of min_dist, min_id and total_time */
         return std::make_tuple(min_dist,min_id,total_time.count());
       };
+      
       /** \brief Executes approximate Radius Nearest tNeighbor
         @par const std::vector<T> &query_points - Pass by reference query points
         @par const int offset - Offset to get correspodent point
       */
-      std::vector<std::pair<T,U>> RadiusNearestNeighbor(const std::vector<T> &query_points,
+      std::vector<std::pair<T,U>> RadiusNearestNeighbor(const std::vector<T>& query_points,
         const int offset) {
 
         /* Define result vector */
@@ -107,7 +109,7 @@ namespace search {
         U min_id{};
         for (int i = 0; i < L; ++i) {
           // get i_th hashtable
-          std::unordered_map<int,std::vector<int>> &ht_i = hash_tables[i];
+          std::unordered_map<int,std::vector<int>>& ht_i = hash_tables[i];
           // get all points in the same bucket
           std::vector<int> &bucket = ht_i[hash_functions[i].Hash(query_points,offset) % table_size];
           // iterate over all points in the buck

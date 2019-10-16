@@ -79,6 +79,9 @@ namespace hash {
       const uint16_t D;
       const uint32_t m;
       const uint32_t M;
+      // std::random_device rd;
+      // std::mt19937 gen(rd());
+      // std::uniform_int_distribution<> dis(0, 1);
       const double w;
     public:
       /** \brief AmplifiedHashFunction class constructor

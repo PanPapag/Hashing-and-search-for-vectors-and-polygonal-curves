@@ -14,8 +14,8 @@ namespace search {
     private:
       const uint32_t N;
       const uint16_t D;
-      const std::vector<T> &feature_vector;
-      const std::vector<U> &feature_vector_ids;
+      const std::vector<T>& feature_vector;
+      const std::vector<U>& feature_vector_ids;
     public:
       /** \brief class BruteForce constructor
         @par const std::vector<T> &points - Pass by reference given points
@@ -25,7 +25,7 @@ namespace search {
         @par const int R - Radius value
       */
       BruteForce(const uint32_t N, const uint16_t D,
-          const std::vector<T> &points, const std::vector<T> &ids)
+          const std::vector<T>& points, const std::vector<T>& ids)
         : N(N), D(D), feature_vector(points), feature_vector_ids(ids) {};
       /**
         \brief class BruteForce default construct
@@ -35,7 +35,7 @@ namespace search {
         @par const std::vector<T> &query_points - Pass by reference query points
         @par const int offset - Offset to get correspodent point
       */
-      std::tuple<T,U,double> NearestNeighbor(const std::vector<T> &query_points,
+      std::tuple<T,U,double> NearestNeighbor(const std::vector<T>& query_points,
         const int offset) {
 
         auto start = high_resolution_clock::now();
@@ -64,7 +64,7 @@ namespace search {
         @par const int offset - Offset to get correspodent point
       */
       std::vector<std::pair<T,U>> RadiusNearestNeighbor(
-        const std::vector<T> &query_points,
+        const std::vector<T>& query_points,
         const int offset, const double R) {
 
         /* Define result vector */
