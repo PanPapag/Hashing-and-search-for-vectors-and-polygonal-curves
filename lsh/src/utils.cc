@@ -3,7 +3,7 @@
 #include "../headers/utils/utils.h"
 
 void utils::ShowUsage(const std::string &program_name, const struct InputInfo &input_info) {
-  std::cerr << "usage: " << program_name << " [-help] [-d INPUT FILE]"
+  std::cerr << "usage: " << program_name << " [--help] [-d INPUT FILE]"
             << " [-q QUERY FILE] [-k INT] [-L INT] [-o OUTPUT FILE]"
             << "\n\n"
             << "optional arguments:\n"

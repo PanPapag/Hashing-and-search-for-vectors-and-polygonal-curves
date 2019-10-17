@@ -28,11 +28,8 @@ int main(int argc, char **argv) {
   utils::ExitCode status;
   int exit_code;
 
-  input_info.input_file = "../../datasets/vectors/input_small_id";
-  input_info.query_file = "../../datasets/vectors/query_small_id";
-  input_info.output_file = "../../results/vectors/small";
   /* Get arguments */
-  /*exit_code = utils::args::ReadArguments(argc, argv, input_info, status);
+  exit_code = utils::args::ReadArguments(argc, argv, input_info, status);
   switch (exit_code) {
     case utils::SUCCESS:
       std::cout << "\nArguments provided correctly" << std::endl;
@@ -58,7 +55,7 @@ int main(int argc, char **argv) {
       break;
     default:
       break;
-  } */
+  }
 
   /* Preprocessing input file to get number of dataset points and their dimension */
   auto start = high_resolution_clock::now();
