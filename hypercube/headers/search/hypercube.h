@@ -32,7 +32,8 @@ namespace search {
 		
 		std::vector<hash::AmplifiedHashFunction<T>> g;
 		std::unordered_map<uint32_t, std::bitset<1>> bucket_map;
-		std::vector<std::vector<std::bitset<1>>> p;
+		//std::vector<std::string> p;
+    std::unordered_map<std::string, std::vector<int>> p;
     
 		std::default_random_engine generator;
   	std::uniform_int_distribution<int> f = std::uniform_int_distribution<int>(0,1);
@@ -54,32 +55,21 @@ namespace search {
 			}
 
 			for (int i = 0; i < N; ++i) {
-				std::vector<std::bitset<1>> temp;
+				std::string str;              //TODO(Maria): size
 				for (int j = 0; j < k; ++j) {
 					uint32_t key = g[j].Hash(feature_vector,i); 
 					//project points in a cube
 					FlipCoin(key);
-					temp.push_back(bucket_map[key]);
+					str += bucket_map[key].to_string();
 				}
-				p.push_back(temp);
-				//std::cout << s << " ";
-				//std::cout << s << " " << num << std::endl;
+				p[str].push_back(i);
 			}
-			// for (auto& it: bucket_map) {
-    	// 	std::cout << it.first << " " << it.second << std::endl;
-			// }
-			// if(bucket_map.size() == k*N) {
-			// 	std::cout << "Oh No" << std::endl;
-			// } else {
-			// 	std::cout << "Bucket Size:" << bucket_map.size() << " | k*N:" << k*N << std::endl;
-			// }
-			// for (auto& i: p) {
-			// 	for (auto& j: i) {
-			// 		std::cout << j;
-			// 	}
-			// 	std::cout << std::endl;
-			// }
 		};
+
+    /**
+      \brief class HyperCube default destructor
+    */
+    ~HyperCube() = default;
 		
 		/** \brief For each gi, 
 		 * fi(gi) maps buckets to {0,1} uniformly.
@@ -92,13 +82,88 @@ namespace search {
 
 		void Print() {
 			for (auto& i: p) {
-				for (auto& j: i) {
-					std::cout << j;
-				}
-				std::cout << std::endl;
-			}
-		}
-	};
+				std::cout << i.first << " : ";
+        for (auto& j: i.second) {
+          std::cout << j << " ";
+			  }
+        std::cout << std::endl;
+		  }
+    };
+    /** \brief Executes approximate Nearest tNeighbor
+      @par const std::vector<T>& query_points - Pass by reference query points
+      @par const int offset - Offset to get correspodent point
+    */
+    std::tuple<T,U,double> NearestNeighbor(const std::vector<T>& query_points,
+      const int offset) {
+
+      auto start = high_resolution_clock::now();
+      /* Initialize min_dist to max value of type T */
+      T min_dist = std::numeric_limits<T>::max();
+      /* Initialize correspodent min_id using the C++11 way */
+      U min_id{};
+
+      std::string key;
+      for (int i = 0; i < k; ++i) {
+        uint32_t num = g[i].Hash(query_points,offset); 
+        FlipCoin(num);
+        key += bucket_map[num].to_string();
+      }
+      std::vector<int>& bucket = p[key];
+
+      for (auto const& fv_offset: bucket) {
+        T dist = metric::ManhattanDistance<T>(
+          std::next(feature_vector.begin(), fv_offset * D),
+          std::next(query_points.begin(), offset * D),
+          std::next(query_points.begin(), offset * D + D));
+        if (dist < min_dist) {
+          min_dist = dist;
+          min_id = feature_vector_ids[fv_offset];
+        }
+      }
+      auto stop = high_resolution_clock::now();
+      duration <double> total_time = duration_cast<duration<double>>(stop - start);
+      /* return result as a tuple of min_dist, min_id and total_time */
+      return std::make_tuple(min_dist,min_id,total_time.count());
+    };
+
+    /** \brief Executes approximate Radius Nearest tNeighbor
+      @par const std::vector<T> &query_points - Pass by reference query points
+      @par const int offset - Offset to get correspodent point
+    */
+    std::vector<std::pair<T,U>> RadiusNearestNeighbor(const std::vector<T>& query_points,
+      const int offset) {
+
+      /* Define result vector */
+      std::vector<std::pair<T,U>> result;
+      /* Initialize min_dist to max value of type T */
+      T min_dist = std::numeric_limits<T>::max();
+      /* Initialize correspodent min_id using the C++11 way */
+      U min_id{};
+
+      std::string key;
+      for (int i = 0; i < k; ++i) {
+        uint32_t num = g[i].Hash(query_points,offset); 
+        FlipCoin(num);
+        key += bucket_map[num].to_string();
+      }
+      std::vector<int>& bucket = p[key];
+
+      for (auto const& fv_offset: bucket) {
+        T dist = metric::ManhattanDistance<T>(
+          std::next(feature_vector.begin(), fv_offset * D),
+          std::next(query_points.begin(), offset * D),
+          std::next(query_points.begin(), offset * D + D));
+        if (dist < min_dist) {
+          min_dist = dist;
+          min_id = feature_vector_ids[fv_offset];
+        }
+        if (dist <= R) {
+          result.push_back(std::make_pair(dist,feature_vector_ids[fv_offset]));
+        }
+      }
+      return result;  //this is not correct need to be fixed
+    };
+  };
 }
 
 #endif

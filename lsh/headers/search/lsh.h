@@ -55,7 +55,7 @@ namespace search {
           }
       };
       /**
-        \brief class LSH default construct
+        \brief class LSH default destructor
       */
       ~LSH() = default;
 
