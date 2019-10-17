@@ -58,10 +58,12 @@ namespace utils {
     \brief Returns a vector of strings with max hamming distance 1
     @par key - Given string from which we extract the ones with hamming distance 1
   */
-  std::vector<std::string> GetToggledBitStrings(const std::string& key);
-  /** \brief Computes the radius as the average of the distances of each point
-    to its nearest neighbor
+  std::vector<std::string> GetToggledBitStrings(const std::string key);
+  /** 
+   * \brief random shuffle of items in a vector 
   */
+  std::vector<size_t> VectorShuffle(size_t);
+  
   template <typename T, typename U>
   double ComputeRadius(std::vector<std::tuple<T,U,double>>& exact) {
 
