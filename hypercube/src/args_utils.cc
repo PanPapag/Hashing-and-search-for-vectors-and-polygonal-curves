@@ -25,6 +25,43 @@ int utils::args::ScanArguments(struct InputInfo &input_info, utils::ExitCode &st
   std::cin >> input_buffer;
   input_info.output_file = input_buffer;
 
+  do {
+    std::cout << "Do you want to provide hyperparameters for HyperCube (y/n)? : ";
+    std::cin >> input_buffer;
+    if (input_buffer != "y" && input_buffer != "n") {
+      std::cout << "Wrong input! Try again." << std::endl;
+    }
+  } while (input_buffer != "y" && input_buffer != "n");
+
+  if (input_buffer != "n") {
+    std::cout << "Provide the number of reduced dimensions: ";
+    std::cin >> input_buffer;
+    try {
+      input_info.k = stoi(input_buffer);
+    } catch (...) {
+      status = INVALID_k;
+      return FAIL;
+    }
+
+    std::cout << "Provide the max number of candidate probes to be checked: ";
+    std::cin >> input_buffer;
+    try {
+      input_info.probes = stoi(input_buffer);
+    } catch (...) {
+      status = INVALID_probes;
+      return FAIL;
+    }
+
+    std::cout << "Provide the max number of candidate points to be checked: ";
+    std::cin >> input_buffer;
+    try {
+      input_info.M = stoi(input_buffer);
+    } catch (...) {
+      status = INVALID_M;
+      return FAIL;
+    }
+  }
+
   return SUCCESS;
 }
 
@@ -42,18 +79,13 @@ int utils::args::ReadArguments(int argc, char **argv,
     }
   }
 
-  if (argc != 13) {
-    status = INVALID_PARARAMETERS;
-    return FAIL;
-  }
-
   const char* const short_opts = "d:q:k:M:p:o:";
   const option long_opts[] = {
            {"input", required_argument, nullptr, 'd'},
            {"query", required_argument, nullptr, 'q'},
-           {"k", required_argument, nullptr, 'k'},
-           {"M", required_argument, nullptr, 'M'},
-           {"probes", required_argument, nullptr, 'p'},
+           {"k", optional_argument, nullptr, 'k'},
+           {"M", optional_argument, nullptr, 'M'},
+           {"probes", optional_argument, nullptr, 'p'},
            {"output", required_argument, nullptr, 'o'},
            {nullptr, no_argument, nullptr, 0}
   };
@@ -88,17 +120,19 @@ int utils::args::ReadArguments(int argc, char **argv,
         try {
           input_info.M = atoi(optarg);
         } catch (...) {
-          status = INVALID_L;
+          status = INVALID_M;
           return FAIL;
         }
         break;
       }
       case 'p': {
-        try {
-          input_info.probes = atoi(optarg);
-        } catch (...) {
-          status = INVALID_L;
-          return FAIL;
+        if (optarg != 0) {
+          try {
+            input_info.probes = atoi(optarg);
+          } catch (...) {
+            status = INVALID_probes;
+            return FAIL;
+          }
         }
         break;
       }

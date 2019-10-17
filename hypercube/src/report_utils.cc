@@ -6,15 +6,16 @@
 void utils::report::ReportError(const utils::ExitCode &code) {
   switch (code) {
     case INVALID_k:
-      std::cout << "\n[ERROR]: " << "Invalid value of k (number of hash functions)"
+      std::cout << "\n[ERROR]: " << "Invalid value of k (number of reduced dimensions)"
                 << std::endl;
       break;
-    case INVALID_L:
-      std::cout << "\n[ERROR]: " << "Invalid value of L (number of hash tables)"
+    case INVALID_probes:
+      std::cout << "\n[ERROR]: " << "Invalid value of probes (max number of probes to be checked)"
                 << std::endl;
       break;
-    case INVALID_PARARAMETERS:
-      std::cout << "\n[ERROR]: " << "Invalid parameters given" << std::endl;
+    case INVALID_M:
+      std::cout << "\n[ERROR]: " << "Invalid value of M (max number of candidate points to be checked)"
+                << std::endl;
       break;
     case INVALID_DATASET:
       std::cout << "\n[ERROR]: " << "Invalid dataset file name" << std::endl;
