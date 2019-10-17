@@ -197,7 +197,7 @@ int main(int argc, char **argv) {
   std::cout << "Executing Nearest Neighbor using LSH completed successfully." << std::endl;
   std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
-  /* Executing Radius Nearest Neighbor using BruteForce*/
+  /* Executing Radius Nearest Neighbor using LSH*/
   std::vector<std::vector<std::pair<T,U>>> lsh_radius_nn_results(input_info.Q);
   start = high_resolution_clock::now();
   std::cout << "\nExecuting Radius Nearest Neighbor using LSH.." << std::endl;

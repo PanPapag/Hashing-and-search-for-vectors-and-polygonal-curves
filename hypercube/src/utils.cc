@@ -1,6 +1,9 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <ctime>        
+#include <cstdlib>
 
 #include "../headers/utils/utils.h"
 
@@ -51,7 +54,7 @@ uint64_t utils::mod_exp(uint32_t base, uint16_t exp, uint32_t mod) {
   return res;
 }
 
-std::vector<std::string> GetToggledBitStrings(std::string& key) {
+std::vector<std::string> utils::GetToggledBitStrings(std::string key) {
   /* Initialize the vector to be returned */
   std::vector<std::string> result;
   /* Toggle each char of the key string to take the one with hamming distance 1*/
@@ -61,4 +64,13 @@ std::vector<std::string> GetToggledBitStrings(std::string& key) {
     result.push_back(temp);
   }
   return result;
+}
+
+std::vector<size_t> utils::VectorShuffle(size_t n) {
+  std::vector<size_t> idx; 
+  for(size_t i=0; i<n; i++) {
+    idx.push_back(i);
+  }
+  std::random_shuffle(idx.begin(), idx.end());
+  return idx;
 }

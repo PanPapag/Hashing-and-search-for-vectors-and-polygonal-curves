@@ -179,7 +179,7 @@ int main(int argc, char **argv) {
   std::cout << "\nBuilding HyperCube.." << std::endl;
   std::vector<std::tuple<T,U,double>> hypercube_nn_results(input_info.Q);
   search::HyperCube<T,U> cube{input_info.k, input_info.M, input_info.D,
-                       input_info.N, radius, dataset_points, dataset_ids};
+                       input_info.N, input_info.probes, radius, dataset_points, dataset_ids};
   //cube.Print();
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
@@ -195,6 +195,18 @@ int main(int argc, char **argv) {
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
   std::cout << "Executing Nearest Neighbor using HyperCube completed successfully." << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+
+  /* Executing Radius Nearest Neighbor using HyperCube*/
+  std::vector<std::vector<std::pair<T,U>>> cube_radius_nn_results(input_info.Q);
+  start = high_resolution_clock::now();
+  std::cout << "\nExecuting Radius Nearest Neighbor using LSH.." << std::endl;
+  for (int i = 0; i < input_info.Q; ++i) {
+    cube_radius_nn_results[i] = cube.RadiusNearestNeighbor(query_points, i);
+  }
+  stop = high_resolution_clock::now();
+  total_time = duration_cast<duration<double>>(stop - start);
+  std::cout << "Executing Radius Nearest Neighbor using LSH completed successfully." << std::endl;
   std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
   /* Compute Max and Average ratio cube_nn_results / bf_nn_results */
