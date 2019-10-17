@@ -28,9 +28,6 @@ int main(int argc, char **argv) {
   utils::ExitCode status;
   int exit_code;
 
-  input_info.input_file = "../../datasets/vectors/input_small_id";
-  input_info.query_file = "../../datasets/vectors/query_small_id";
-  input_info.output_file = "../../results/vectors/small_cube";
   /* Get arguments */
   exit_code = utils::args::ReadArguments(argc, argv, input_info, status);
   switch (exit_code) {
@@ -121,7 +118,7 @@ int main(int argc, char **argv) {
   std::vector<T> query_points(input_info.Q * input_info.D);
   std::vector<U> query_ids(input_info.Q);
   exit_code = utils::io::ReadFile<T,U>(input_info.query_file, input_info.Q,
-    input_info.D, query_points, query_ids, status);  
+    input_info.D, query_points, query_ids, status);
   if (exit_code != utils::SUCCESS) {
     utils::report::ReportError(status);
   }
@@ -176,7 +173,7 @@ int main(int argc, char **argv) {
   std::cout << "Executing Radius Nearest Neighbor using Brute Force completed successfully." << std::endl;
   std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
-  /* Creating LSH class object and a vector to store approx-NN results */
+  /* Creating HyperCube class object and a vector to store approx-NN results */
   start = high_resolution_clock::now();
   std::vector<std::tuple<T,U,double>> cube_nn_results(input_info.Q);
   std::cout << "\nBuilding HyperCube.." << std::endl;
@@ -189,7 +186,7 @@ int main(int argc, char **argv) {
   std::cout << "Building HyperCube completed successfully." << std::endl;
   std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
-  /* Executing approximate Nearest Neighbor using LSH */
+  /* Executing approximate Nearest Neighbor using HyperCube */
   start = high_resolution_clock::now();
   std::cout << "\nExecuting Nearest Neighbor using HyperCube.." << std::endl;
   for (int i = 0; i < input_info.Q; ++i) {
@@ -197,10 +194,10 @@ int main(int argc, char **argv) {
   }
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
-  std::cout << "Executing Nearest Neighbor using LSH completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;  
+  std::cout << "Executing Nearest Neighbor using HyperCube completed successfully." << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
-  /* Compute Max and Average ratio lsh_nn_results / bf_nn_results */
+  /* Compute Max and Average ratio cube_nn_results / bf_nn_results */
   start = high_resolution_clock::now();
   std::cout << "\nCalculating evaluation metric.." << std::endl;
   std::pair<double,double> metric_res = metric::EvaluationMetric(bf_nn_results, cube_nn_results);
@@ -210,6 +207,19 @@ int main(int argc, char **argv) {
   std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
   std::cout << "\nMax Af: " << std::get<0>(metric_res) << std::endl;
   std::cout << "Average Af: " << std::get<1>(metric_res) << std::endl;
+
+  /* Writing results to the output file */
+  start = high_resolution_clock::now();
+  std::cout << "\nWriting results to the output file.." << std::endl;
+  exit_code = utils::io::WriteFile<T,U>(input_info.output_file, bf_nn_results,
+    cube_nn_results, radius, bf_radius_nn_results, status);
+  if (exit_code != utils::SUCCESS) {
+    utils::report::ReportError(status);
+  }
+  stop = high_resolution_clock::now();
+  total_time = duration_cast<duration<double>>(stop - start);
+  std::cout << "Writing results to the output file completed successfully." << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
   return EXIT_SUCCESS;
 }

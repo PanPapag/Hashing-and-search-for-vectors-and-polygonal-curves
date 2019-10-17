@@ -1,4 +1,6 @@
 #include <iostream>
+#include <string>
+#include <vector>
 
 #include "../headers/utils/utils.h"
 
@@ -47,4 +49,16 @@ uint64_t utils::mod_exp(uint32_t base, uint16_t exp, uint32_t mod) {
     base = (base * base) % mod;
   }
   return res;
+}
+
+std::vector<std::string> GetToggledBitStrings(std::string& key) {
+  /* Initialize the vector to be returned */
+  std::vector<std::string> result;
+  /* Toggle each char of the key string to take the one with hamming distance 1*/
+  for (int i = 0; i < key.length(); ++i) {
+    std::string temp = key;
+    temp[i] = (key[0] == '1') ? 0 : 1;
+    result.push_back(temp);
+  }
+  return result;
 }

@@ -44,7 +44,7 @@ namespace utils {
     /** \brief WriteFile - Output prorgam results to given output file
       @par std::string &file_name - Pass by reference the path to the output file
       @par std::vector<std::tuple<T,U,double>> &exact - Results from Brute Force
-      @par std::vector<std::tuple<T,U,double>> &approx - Results from LSH
+      @par std::vector<std::tuple<T,U,double>> &approx - Results from HyperCube
       @par std::vector<std::vector<std::pair<T,U>>> &radius_nn - Results from radius NN
       @par ExitCode &statues - enumerated ExitCode provided from namespace utils
       return: SUCCESS or FAIL
@@ -65,10 +65,10 @@ namespace utils {
         for (int i = 0; i < N; ++i) {
           outfile << "Query: " << i << std::endl;
           outfile << "Nearest neighbor: " << std::get<1>(approx[i]) << std::endl;
-          outfile << "distanceLSH: " <<  std::get<0>(approx[i]) << std::endl;
+          outfile << "distanceHyperCube: " <<  std::get<0>(approx[i]) << std::endl;
           outfile << "distanceTrue: " <<  std::get<0>(exact[i]) << std::endl;
-          outfile << "tLSH: " <<  std::get<2>(approx[i]) << " seconds" << std::endl;
-          outfile << "tLSH: " <<  std::get<2>(exact[i]) << " seconds" << std::endl;
+          outfile << "tHyperCube: " <<  std::get<2>(approx[i]) << " seconds" << std::endl;
+          outfile << "tTrue: " <<  std::get<2>(exact[i]) << " seconds" << std::endl;
           outfile << R << "-near neighbors: " << std::endl;
           for (int j = 0; j < radius_nn[i].size(); ++j) {
             outfile << std::get<1>(radius_nn[i][j]) << std::endl;

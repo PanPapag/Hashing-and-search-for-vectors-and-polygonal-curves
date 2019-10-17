@@ -68,7 +68,7 @@ namespace utils {
           outfile << "distanceLSH: " <<  std::get<0>(approx[i]) << std::endl;
           outfile << "distanceTrue: " <<  std::get<0>(exact[i]) << std::endl;
           outfile << "tLSH: " <<  std::get<2>(approx[i]) << " seconds" << std::endl;
-          outfile << "tLSH: " <<  std::get<2>(exact[i]) << " seconds" << std::endl;
+          outfile << "tTrue: " <<  std::get<2>(exact[i]) << " seconds" << std::endl;
           outfile << R << "-near neighbors: " << std::endl;
           for (int j = 0; j < radius_nn[i].size(); ++j) {
             outfile << std::get<1>(radius_nn[i][j]) << std::endl;

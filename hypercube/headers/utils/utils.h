@@ -1,9 +1,10 @@
 #ifndef UTILS
 #define UTILS
 
+#include <cmath>
+#include <string>
 #include <tuple>
 #include <vector>
-#include <cmath>
 
 namespace utils {
   /* enumerated exit codes */
@@ -53,6 +54,11 @@ namespace utils {
     @par mod - modulo divisor
   */
   uint64_t mod_exp(uint32_t base, uint16_t exp, uint32_t mod);
+  /**
+    \brief Returns a vector of strings with max hamming distance 1
+    @par key - Given string from which we extract the ones with hamming distance 1
+  */
+  std::vector<std::string> GetToggledBitStrings(const std::string& key);
   /** \brief Computes the radius as the average of the distances of each point
     to its nearest neighbor
   */

@@ -1,0 +1,1446 @@
+Query: 0
+Nearest neighbor: 3616
+distanceHyperCube: 2296
+distanceTrue: 2064
+tHyperCube: 0.000395864 seconds
+tTrue: 0.000471763 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 1
+Nearest neighbor: 2493
+distanceHyperCube: 2138
+distanceTrue: 2045
+tHyperCube: 0.000268224 seconds
+tTrue: 0.000419971 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 2
+Nearest neighbor: 9973
+distanceHyperCube: 1619
+distanceTrue: 1619
+tHyperCube: 0.000169161 seconds
+tTrue: 0.000409089 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 3
+Nearest neighbor: 4098
+distanceHyperCube: 1805
+distanceTrue: 1593
+tHyperCube: 0.000168872 seconds
+tTrue: 0.000366386 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 4
+Nearest neighbor: 4004
+distanceHyperCube: 2109
+distanceTrue: 1680
+tHyperCube: 0.000226254 seconds
+tTrue: 0.000287708 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 5
+Nearest neighbor: 2116
+distanceHyperCube: 2570
+distanceTrue: 2180
+tHyperCube: 0.00013858 seconds
+tTrue: 0.000288425 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 6
+Nearest neighbor: 1683
+distanceHyperCube: 1990
+distanceTrue: 1946
+tHyperCube: 0.000173287 seconds
+tTrue: 0.000275511 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 7
+Nearest neighbor: 7587
+distanceHyperCube: 1303
+distanceTrue: 1149
+tHyperCube: 0.000141661 seconds
+tTrue: 0.000279367 seconds
+1366.77-near neighbors: 
+3110
+4598
+5448
+5869
+7587
+
+Query: 8
+Nearest neighbor: 9629
+distanceHyperCube: 1791
+distanceTrue: 1791
+tHyperCube: 0.000207455 seconds
+tTrue: 0.00027723 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 9
+Nearest neighbor: 5165
+distanceHyperCube: 1955
+distanceTrue: 1834
+tHyperCube: 0.000248521 seconds
+tTrue: 0.000277376 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 10
+Nearest neighbor: 4251
+distanceHyperCube: 2361
+distanceTrue: 2067
+tHyperCube: 0.000171817 seconds
+tTrue: 0.000277259 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 11
+Nearest neighbor: 4698
+distanceHyperCube: 1280
+distanceTrue: 1280
+tHyperCube: 0.000185689 seconds
+tTrue: 0.000273674 seconds
+1366.77-near neighbors: 
+4698
+
+Query: 12
+Nearest neighbor: 171
+distanceHyperCube: 1929
+distanceTrue: 1811
+tHyperCube: 0.000169878 seconds
+tTrue: 0.000271905 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 13
+Nearest neighbor: 2110
+distanceHyperCube: 2135
+distanceTrue: 1829
+tHyperCube: 0.000171816 seconds
+tTrue: 0.000280655 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 14
+Nearest neighbor: 1020
+distanceHyperCube: 2256
+distanceTrue: 2136
+tHyperCube: 0.000152756 seconds
+tTrue: 0.000274076 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 15
+Nearest neighbor: 6108
+distanceHyperCube: 2077
+distanceTrue: 1973
+tHyperCube: 0.000145303 seconds
+tTrue: 0.000279064 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 16
+Nearest neighbor: 320
+distanceHyperCube: 2141
+distanceTrue: 1963
+tHyperCube: 0.000145511 seconds
+tTrue: 0.000277274 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 17
+Nearest neighbor: 1371
+distanceHyperCube: 2005
+distanceTrue: 1987
+tHyperCube: 0.0001579 seconds
+tTrue: 0.000276811 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 18
+Nearest neighbor: 9517
+distanceHyperCube: 2189
+distanceTrue: 1964
+tHyperCube: 0.000164827 seconds
+tTrue: 0.000270971 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 19
+Nearest neighbor: 2177
+distanceHyperCube: 1893
+distanceTrue: 1754
+tHyperCube: 0.000197764 seconds
+tTrue: 0.000273184 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 20
+Nearest neighbor: 5558
+distanceHyperCube: 1254
+distanceTrue: 1239
+tHyperCube: 0.000193215 seconds
+tTrue: 0.000375691 seconds
+1366.77-near neighbors: 
+4761
+5558
+7028
+7218
+7420
+7463
+7724
+7932
+9068
+9841
+
+Query: 21
+Nearest neighbor: 4491
+distanceHyperCube: 486
+distanceTrue: 486
+tHyperCube: 0.000156276 seconds
+tTrue: 0.000311522 seconds
+1366.77-near neighbors: 
+4458
+4491
+8048
+
+Query: 22
+Nearest neighbor: 4743
+distanceHyperCube: 1468
+distanceTrue: 1159
+tHyperCube: 0.000147175 seconds
+tTrue: 0.00031663 seconds
+1366.77-near neighbors: 
+4587
+4604
+4648
+4680
+4740
+4778
+4785
+4854
+4958
+5019
+5086
+5409
+5526
+5556
+5653
+5719
+5820
+6491
+8722
+
+Query: 23
+Nearest neighbor: 6342
+distanceHyperCube: 1769
+distanceTrue: 1520
+tHyperCube: 0.000165599 seconds
+tTrue: 0.000469058 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 24
+Nearest neighbor: 653
+distanceHyperCube: 1747
+distanceTrue: 1068
+tHyperCube: 0.000230786 seconds
+tTrue: 0.000272996 seconds
+1366.77-near neighbors: 
+4555
+4624
+4631
+
+Query: 25
+Nearest neighbor: 6423
+distanceHyperCube: 1919
+distanceTrue: 1919
+tHyperCube: 0.000184694 seconds
+tTrue: 0.000273103 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 26
+Nearest neighbor: 1966
+distanceHyperCube: 1621
+distanceTrue: 1251
+tHyperCube: 0.000184354 seconds
+tTrue: 0.000285052 seconds
+1366.77-near neighbors: 
+6828
+9900
+
+Query: 27
+Nearest neighbor: 4840
+distanceHyperCube: 1581
+distanceTrue: 1166
+tHyperCube: 0.000223278 seconds
+tTrue: 0.000255634 seconds
+1366.77-near neighbors: 
+5866
+5964
+6162
+
+Query: 28
+Nearest neighbor: 6828
+distanceHyperCube: 1504
+distanceTrue: 1504
+tHyperCube: 0.000189564 seconds
+tTrue: 0.000254047 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 29
+Nearest neighbor: 5233
+distanceHyperCube: 964
+distanceTrue: 734
+tHyperCube: 0.000219663 seconds
+tTrue: 0.000257904 seconds
+1366.77-near neighbors: 
+5159
+5196
+5200
+5217
+5233
+5339
+5361
+5454
+5489
+5647
+5774
+5811
+5914
+5950
+6029
+6049
+6126
+6163
+6290
+6361
+6407
+6429
+6432
+6488
+6746
+6806
+6907
+6996
+7767
+
+Query: 30
+Nearest neighbor: 5946
+distanceHyperCube: 1918
+distanceTrue: 1819
+tHyperCube: 0.000168976 seconds
+tTrue: 0.000258154 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 31
+Nearest neighbor: 4319
+distanceHyperCube: 1789
+distanceTrue: 741
+tHyperCube: 0.000224963 seconds
+tTrue: 0.000257549 seconds
+1366.77-near neighbors: 
+4963
+4996
+5560
+
+Query: 32
+Nearest neighbor: 5301
+distanceHyperCube: 1210
+distanceTrue: 1210
+tHyperCube: 0.000176563 seconds
+tTrue: 0.000257803 seconds
+1366.77-near neighbors: 
+5301
+
+Query: 33
+Nearest neighbor: 2202
+distanceHyperCube: 2477
+distanceTrue: 2368
+tHyperCube: 0.000164407 seconds
+tTrue: 0.000258101 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 34
+Nearest neighbor: 8899
+distanceHyperCube: 2235
+distanceTrue: 1951
+tHyperCube: 0.00014725 seconds
+tTrue: 0.000258306 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 35
+Nearest neighbor: 3714
+distanceHyperCube: 2437
+distanceTrue: 969
+tHyperCube: 0.000148223 seconds
+tTrue: 0.000256931 seconds
+1366.77-near neighbors: 
+5842
+5867
+6708
+
+Query: 36
+Nearest neighbor: 2608
+distanceHyperCube: 2434
+distanceTrue: 865
+tHyperCube: 0.000134701 seconds
+tTrue: 0.000259109 seconds
+1366.77-near neighbors: 
+5843
+5868
+6709
+
+Query: 37
+Nearest neighbor: 8279
+distanceHyperCube: 2289
+distanceTrue: 1241
+tHyperCube: 0.000167077 seconds
+tTrue: 0.000260536 seconds
+1366.77-near neighbors: 
+5185
+
+Query: 38
+Nearest neighbor: 1321
+distanceHyperCube: 2090
+distanceTrue: 995
+tHyperCube: 0.000155851 seconds
+tTrue: 0.000333748 seconds
+1366.77-near neighbors: 
+5024
+5178
+5342
+5501
+6188
+
+Query: 39
+Nearest neighbor: 4678
+distanceHyperCube: 1243
+distanceTrue: 1200
+tHyperCube: 0.000154653 seconds
+tTrue: 0.000297303 seconds
+1366.77-near neighbors: 
+4576
+4678
+5075
+7219
+9895
+
+Query: 40
+Nearest neighbor: 8308
+distanceHyperCube: 1106
+distanceTrue: 1106
+tHyperCube: 0.000189726 seconds
+tTrue: 0.000280369 seconds
+1366.77-near neighbors: 
+4774
+4868
+8308
+
+Query: 41
+Nearest neighbor: 6615
+distanceHyperCube: 1479
+distanceTrue: 1442
+tHyperCube: 0.000165125 seconds
+tTrue: 0.00041213 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 42
+Nearest neighbor: 5225
+distanceHyperCube: 1629
+distanceTrue: 1629
+tHyperCube: 0.000227598 seconds
+tTrue: 0.000378059 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 43
+Nearest neighbor: 6303
+distanceHyperCube: 1275
+distanceTrue: 1275
+tHyperCube: 0.000175418 seconds
+tTrue: 0.000300289 seconds
+1366.77-near neighbors: 
+6303
+
+Query: 44
+Nearest neighbor: 8616
+distanceHyperCube: 1483
+distanceTrue: 1483
+tHyperCube: 0.000218285 seconds
+tTrue: 0.00033137 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 45
+Nearest neighbor: 4461
+distanceHyperCube: 1703
+distanceTrue: 1628
+tHyperCube: 0.000168228 seconds
+tTrue: 0.000305493 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 46
+Nearest neighbor: 8607
+distanceHyperCube: 1462
+distanceTrue: 646
+tHyperCube: 0.000164986 seconds
+tTrue: 0.00028335 seconds
+1366.77-near neighbors: 
+5881
+
+Query: 47
+Nearest neighbor: 2954
+distanceHyperCube: 2876
+distanceTrue: 2446
+tHyperCube: 0.000184038 seconds
+tTrue: 0.000278131 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 48
+Nearest neighbor: 8359
+distanceHyperCube: 2462
+distanceTrue: 968
+tHyperCube: 0.000158145 seconds
+tTrue: 0.000279105 seconds
+1366.77-near neighbors: 
+5214
+5751
+
+Query: 49
+Nearest neighbor: 4744
+distanceHyperCube: 1475
+distanceTrue: 849
+tHyperCube: 0.000220215 seconds
+tTrue: 0.000288077 seconds
+1366.77-near neighbors: 
+5085
+5139
+
+Query: 50
+Nearest neighbor: 5654
+distanceHyperCube: 1166
+distanceTrue: 1130
+tHyperCube: 0.000176361 seconds
+tTrue: 0.000278245 seconds
+1366.77-near neighbors: 
+5013
+5654
+
+Query: 51
+Nearest neighbor: 6124
+distanceHyperCube: 848
+distanceTrue: 848
+tHyperCube: 0.000177954 seconds
+tTrue: 0.000327218 seconds
+1366.77-near neighbors: 
+6124
+6193
+
+Query: 52
+Nearest neighbor: 5674
+distanceHyperCube: 1188
+distanceTrue: 1188
+tHyperCube: 0.00020054 seconds
+tTrue: 0.000315049 seconds
+1366.77-near neighbors: 
+5674
+
+Query: 53
+Nearest neighbor: 93
+distanceHyperCube: 1607
+distanceTrue: 1219
+tHyperCube: 0.000191347 seconds
+tTrue: 0.000290434 seconds
+1366.77-near neighbors: 
+8613
+
+Query: 54
+Nearest neighbor: 6159
+distanceHyperCube: 979
+distanceTrue: 979
+tHyperCube: 0.00016019 seconds
+tTrue: 0.000300078 seconds
+1366.77-near neighbors: 
+607
+1907
+2338
+4565
+4580
+4644
+4746
+4799
+4815
+4896
+4920
+5038
+5067
+5094
+5269
+5401
+5518
+5552
+5766
+6111
+6159
+6168
+6184
+6284
+6376
+6459
+6461
+6481
+6523
+6612
+6646
+6677
+6679
+6687
+6689
+6710
+6720
+6798
+6820
+6972
+6979
+6984
+6998
+7068
+7171
+7178
+7285
+7340
+7395
+7597
+7634
+7825
+7849
+7935
+8015
+8108
+8117
+8307
+8741
+9286
+9888
+9977
+
+Query: 55
+Nearest neighbor: 5831
+distanceHyperCube: 1042
+distanceTrue: 1042
+tHyperCube: 0.000145439 seconds
+tTrue: 0.000344557 seconds
+1366.77-near neighbors: 
+5116
+5500
+5831
+5988
+6000
+6005
+6592
+7227
+8604
+
+Query: 56
+Nearest neighbor: 4904
+distanceHyperCube: 1436
+distanceTrue: 1436
+tHyperCube: 0.000179871 seconds
+tTrue: 0.00030543 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 57
+Nearest neighbor: 9373
+distanceHyperCube: 1912
+distanceTrue: 1176
+tHyperCube: 0.000143547 seconds
+tTrue: 0.000327317 seconds
+1366.77-near neighbors: 
+5212
+
+Query: 58
+Nearest neighbor: 7238
+distanceHyperCube: 460
+distanceTrue: 460
+tHyperCube: 0.000189909 seconds
+tTrue: 0.000292347 seconds
+1366.77-near neighbors: 
+7238
+
+Query: 59
+Nearest neighbor: 6835
+distanceHyperCube: 619
+distanceTrue: 619
+tHyperCube: 0.00016267 seconds
+tTrue: 0.000306007 seconds
+1366.77-near neighbors: 
+81
+99
+1906
+2337
+4564
+4579
+4643
+4747
+4773
+4800
+4816
+4895
+4921
+5039
+5050
+5066
+5106
+5126
+5270
+5291
+5400
+5448
+5517
+5553
+5672
+5968
+6071
+6112
+6158
+6161
+6167
+6183
+6208
+6257
+6283
+6297
+6317
+6377
+6412
+6458
+6460
+6483
+6613
+6647
+6649
+6676
+6678
+6686
+6693
+6711
+6712
+6721
+6799
+6821
+6835
+6971
+6983
+6999
+7067
+7077
+7081
+7172
+7179
+7284
+7490
+7547
+7557
+7635
+7792
+7824
+7848
+7934
+7957
+8014
+8070
+8118
+8228
+8306
+8487
+8675
+9001
+9193
+9285
+9472
+9835
+9889
+9978
+
+Query: 60
+Nearest neighbor: 4491
+distanceHyperCube: 1759
+distanceTrue: 1209
+tHyperCube: 0.000161814 seconds
+tTrue: 0.000322784 seconds
+1366.77-near neighbors: 
+5279
+
+Query: 61
+Nearest neighbor: 8403
+distanceHyperCube: 732
+distanceTrue: 732
+tHyperCube: 0.00019583 seconds
+tTrue: 0.000309078 seconds
+1366.77-near neighbors: 
+8403
+8565
+
+Query: 62
+Nearest neighbor: 6561
+distanceHyperCube: 832
+distanceTrue: 832
+tHyperCube: 0.000178688 seconds
+tTrue: 0.000293809 seconds
+1366.77-near neighbors: 
+5173
+5488
+6203
+6269
+6561
+6899
+6912
+7270
+7676
+7964
+
+Query: 63
+Nearest neighbor: 6322
+distanceHyperCube: 627
+distanceTrue: 627
+tHyperCube: 0.000168033 seconds
+tTrue: 0.000389449 seconds
+1366.77-near neighbors: 
+5990
+6322
+6414
+6441
+7095
+
+Query: 64
+Nearest neighbor: 6145
+distanceHyperCube: 1669
+distanceTrue: 980
+tHyperCube: 0.000180005 seconds
+tTrue: 0.000336531 seconds
+1366.77-near neighbors: 
+5636
+
+Query: 65
+Nearest neighbor: 6474
+distanceHyperCube: 1539
+distanceTrue: 1085
+tHyperCube: 0.000143902 seconds
+tTrue: 0.000290548 seconds
+1366.77-near neighbors: 
+4580
+5505
+6406
+6713
+
+Query: 66
+Nearest neighbor: 7083
+distanceHyperCube: 1758
+distanceTrue: 1189
+tHyperCube: 0.000158872 seconds
+tTrue: 0.00030194 seconds
+1366.77-near neighbors: 
+5391
+5670
+
+Query: 67
+Nearest neighbor: 8280
+distanceHyperCube: 1661
+distanceTrue: 1205
+tHyperCube: 0.000163047 seconds
+tTrue: 0.000294431 seconds
+1366.77-near neighbors: 
+6858
+
+Query: 68
+Nearest neighbor: 5074
+distanceHyperCube: 1290
+distanceTrue: 1251
+tHyperCube: 0.000149341 seconds
+tTrue: 0.000354411 seconds
+1366.77-near neighbors: 
+1479
+5074
+5200
+6048
+6883
+7218
+7463
+9876
+9894
+
+Query: 69
+Nearest neighbor: 5770
+distanceHyperCube: 2332
+distanceTrue: 1943
+tHyperCube: 0.000151041 seconds
+tTrue: 0.000289838 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 70
+Nearest neighbor: 6125
+distanceHyperCube: 280
+distanceTrue: 280
+tHyperCube: 0.000224745 seconds
+tTrue: 0.000314288 seconds
+1366.77-near neighbors: 
+2133
+3192
+3556
+4557
+4610
+4691
+4851
+4858
+4866
+5005
+5045
+5160
+5173
+5197
+5218
+5234
+5236
+5238
+5296
+5330
+5335
+5338
+5362
+5435
+5439
+5455
+5460
+5469
+5488
+5533
+5616
+5648
+5713
+5746
+5775
+5812
+5884
+5913
+5922
+5926
+5951
+6030
+6047
+6050
+6125
+6164
+6289
+6328
+6381
+6408
+6430
+6431
+6489
+6561
+6632
+6733
+6739
+6747
+6805
+6824
+6848
+6884
+6908
+6912
+6954
+7001
+7007
+7208
+7219
+7258
+7270
+7416
+7421
+7464
+7487
+7676
+7696
+7739
+7766
+7878
+7964
+8039
+8127
+8153
+8197
+8267
+9268
+9810
+9855
+
+Query: 71
+Nearest neighbor: 5827
+distanceHyperCube: 1254
+distanceTrue: 1254
+tHyperCube: 0.000196157 seconds
+tTrue: 0.000305846 seconds
+1366.77-near neighbors: 
+5156
+5827
+
+Query: 72
+Nearest neighbor: 5146
+distanceHyperCube: 2389
+distanceTrue: 2210
+tHyperCube: 0.000176402 seconds
+tTrue: 0.000298603 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 73
+Nearest neighbor: 3240
+distanceHyperCube: 2238
+distanceTrue: 1573
+tHyperCube: 0.000220638 seconds
+tTrue: 0.000324791 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 74
+Nearest neighbor: 9547
+distanceHyperCube: 1763
+distanceTrue: 986
+tHyperCube: 0.000166792 seconds
+tTrue: 0.000293489 seconds
+1366.77-near neighbors: 
+7365
+
+Query: 75
+Nearest neighbor: 8997
+distanceHyperCube: 2343
+distanceTrue: 1416
+tHyperCube: 0.000225675 seconds
+tTrue: 0.00032832 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 76
+Nearest neighbor: 3109
+distanceHyperCube: 1898
+distanceTrue: 1648
+tHyperCube: 0.000154902 seconds
+tTrue: 0.000312289 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 77
+Nearest neighbor: 6879
+distanceHyperCube: 2519
+distanceTrue: 2177
+tHyperCube: 0.000180296 seconds
+tTrue: 0.000296805 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 78
+Nearest neighbor: 5820
+distanceHyperCube: 2257
+distanceTrue: 1551
+tHyperCube: 0.000149351 seconds
+tTrue: 0.000299071 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 79
+Nearest neighbor: 5517
+distanceHyperCube: 1614
+distanceTrue: 743
+tHyperCube: 0.000180505 seconds
+tTrue: 0.000380041 seconds
+1366.77-near neighbors: 
+5953
+5968
+6020
+6071
+6112
+6460
+6647
+6686
+6721
+6799
+6821
+6971
+6999
+7077
+7081
+7172
+7179
+7281
+7284
+7490
+7704
+7824
+7957
+8070
+8487
+
+Query: 80
+Nearest neighbor: 7189
+distanceHyperCube: 1482
+distanceTrue: 987
+tHyperCube: 0.000160258 seconds
+tTrue: 0.000319243 seconds
+1366.77-near neighbors: 
+7452
+
+Query: 81
+Nearest neighbor: 3087
+distanceHyperCube: 1969
+distanceTrue: 1969
+tHyperCube: 0.000214243 seconds
+tTrue: 0.000318322 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 82
+Nearest neighbor: 274
+distanceHyperCube: 2131
+distanceTrue: 2001
+tHyperCube: 0.000237747 seconds
+tTrue: 0.000308319 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 83
+Nearest neighbor: 7944
+distanceHyperCube: 1525
+distanceTrue: 1161
+tHyperCube: 0.000180754 seconds
+tTrue: 0.000297297 seconds
+1366.77-near neighbors: 
+6006
+6779
+
+Query: 84
+Nearest neighbor: 8895
+distanceHyperCube: 1359
+distanceTrue: 1359
+tHyperCube: 0.000187876 seconds
+tTrue: 0.000325031 seconds
+1366.77-near neighbors: 
+8895
+
+Query: 85
+Nearest neighbor: 5646
+distanceHyperCube: 2524
+distanceTrue: 1753
+tHyperCube: 0.000144804 seconds
+tTrue: 0.000304678 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 86
+Nearest neighbor: 8814
+distanceHyperCube: 1988
+distanceTrue: 1673
+tHyperCube: 0.000229591 seconds
+tTrue: 0.000306977 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 87
+Nearest neighbor: 6588
+distanceHyperCube: 1345
+distanceTrue: 683
+tHyperCube: 0.000203971 seconds
+tTrue: 0.000304964 seconds
+1366.77-near neighbors: 
+5691
+6588
+7723
+8012
+
+Query: 88
+Nearest neighbor: 7099
+distanceHyperCube: 399
+distanceTrue: 399
+tHyperCube: 0.000185011 seconds
+tTrue: 0.000347317 seconds
+1366.77-near neighbors: 
+5902
+6327
+6370
+6639
+6713
+6830
+6902
+7066
+7099
+7548
+8104
+8202
+8900
+9002
+9225
+
+Query: 89
+Nearest neighbor: 7628
+distanceHyperCube: 690
+distanceTrue: 690
+tHyperCube: 0.000192316 seconds
+tTrue: 0.000329412 seconds
+1366.77-near neighbors: 
+47
+81
+2036
+2498
+5291
+5480
+5508
+5765
+6080
+6246
+6832
+7119
+7266
+7628
+7957
+9080
+
+Query: 90
+Nearest neighbor: 9259
+distanceHyperCube: 310
+distanceTrue: 310
+tHyperCube: 0.000240938 seconds
+tTrue: 0.000338043 seconds
+1366.77-near neighbors: 
+104
+118
+205
+4605
+4640
+4646
+4647
+4679
+4726
+4741
+4776
+4854
+4856
+4926
+5003
+5087
+5260
+5320
+5431
+5432
+5527
+5651
+5863
+6492
+9259
+9418
+
+Query: 91
+Nearest neighbor: 9994
+distanceHyperCube: 1983
+distanceTrue: 1916
+tHyperCube: 0.000172238 seconds
+tTrue: 0.000413848 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 92
+Nearest neighbor: 1568
+distanceHyperCube: 2294
+distanceTrue: 954
+tHyperCube: 0.000160314 seconds
+tTrue: 0.000697199 seconds
+1366.77-near neighbors: 
+8357
+
+Query: 93
+Nearest neighbor: 8076
+distanceHyperCube: 1898
+distanceTrue: 1433
+tHyperCube: 0.00016834 seconds
+tTrue: 0.000744117 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 94
+Nearest neighbor: 8874
+distanceHyperCube: 1687
+distanceTrue: 977
+tHyperCube: 0.000153482 seconds
+tTrue: 0.00094196 seconds
+1366.77-near neighbors: 
+7679
+8100
+8420
+
+Query: 95
+Nearest neighbor: 2908
+distanceHyperCube: 2644
+distanceTrue: 2188
+tHyperCube: 0.000154037 seconds
+tTrue: 0.000538032 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 96
+Nearest neighbor: 2127
+distanceHyperCube: 2541
+distanceTrue: 2146
+tHyperCube: 0.000184585 seconds
+tTrue: 0.000390027 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 97
+Nearest neighbor: 5942
+distanceHyperCube: 2320
+distanceTrue: 1515
+tHyperCube: 0.000148817 seconds
+tTrue: 0.000369806 seconds
+1366.77-near neighbors: 
+No 1366.77-near neighbors found
+
+Query: 98
+Nearest neighbor: 5811
+distanceHyperCube: 787
+distanceTrue: 787
+tHyperCube: 0.000218959 seconds
+tTrue: 0.000760186 seconds
+1366.77-near neighbors: 
+1209
+3555
+4556
+4607
+4609
+4690
+4826
+4850
+4857
+4867
+4912
+5006
+5046
+5074
+5174
+5217
+5233
+5237
+5265
+5295
+5329
+5336
+5339
+5436
+5440
+5461
+5464
+5476
+5489
+5532
+5569
+5615
+5647
+5712
+5747
+5761
+5774
+5788
+5811
+5866
+5883
+5914
+5925
+5950
+5991
+5993
+6029
+6048
+6049
+6077
+6126
+6163
+6290
+6293
+6329
+6331
+6382
+6407
+6429
+6432
+6488
+6633
+6690
+6732
+6738
+6746
+6806
+6823
+6847
+6883
+6907
+6911
+6950
+7002
+7006
+7028
+7078
+7207
+7218
+7269
+7338
+7352
+7415
+7420
+7463
+7488
+7582
+7614
+7675
+7695
+7724
+7738
+7767
+7963
+8075
+8126
+8152
+8196
+8225
+8245
+9267
+9466
+9809
+9841
+9854
+9890
+9910
+
+Query: 99
+Nearest neighbor: 4768
+distanceHyperCube: 2249
+distanceTrue: 1246
+tHyperCube: 0.000207331 seconds
+tTrue: 0.000550204 seconds
+1366.77-near neighbors: 
+8083
+
