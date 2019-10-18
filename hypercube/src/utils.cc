@@ -2,14 +2,14 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include <ctime>        
+#include <ctime>
 #include <cstdlib>
 
 #include "../headers/utils/utils.h"
 
 void utils::ShowUsage(const std::string& program_name, const struct InputInfo& input_info) {
-  std::cerr << "usage: " << program_name << " [-help] [-d INPUT FILE]"
-            << " [-q QUERY FILE] [-k INT] [-M INT] [-probes INT] [-o OUTPUT FILE]"
+  std::cerr << "usage: " << program_name << " [--help] [-d INPUT FILE]"
+            << " [-q QUERY FILE] [-k INT] [-M INT] [--probes INT] [-o OUTPUT FILE]"
             << "\n\n"
             << "optional arguments:\n"
             << "  -help\tshow this help message and exit\n"
@@ -19,7 +19,7 @@ void utils::ShowUsage(const std::string& program_name, const struct InputInfo& i
                   << input_info.k << ")\n"
             << "  -M\tdefine max number of candidate points to be checked (default = "
                   << input_info.M << ")\n"
-            << "  -M\tdefine max number of probes (default = "
+            << "  --probes\tdefine max number of probes to be checked (default = "
                   << input_info.probes << ")\n"
             << "  -o\tdefine the output file\n"
             << std::endl;
@@ -67,8 +67,8 @@ std::vector<std::string> utils::GetToggledBitStrings(std::string key) {
 }
 
 std::vector<size_t> utils::VectorShuffle(size_t n) {
-  std::vector<size_t> idx; 
-  for(size_t i=0; i<n; i++) {
+  std::vector<size_t> idx;
+  for (size_t i = 0; i < n; ++i) {
     idx.push_back(i);
   }
   std::random_shuffle(idx.begin(), idx.end());

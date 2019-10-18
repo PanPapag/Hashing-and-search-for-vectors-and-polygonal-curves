@@ -13,8 +13,8 @@ namespace utils {
     FAIL,
     NO_ARGS,
     INVALID_k,
-    INVALID_L,
-    INVALID_PARARAMETERS,
+    INVALID_M,
+    INVALID_probes,
     INVALID_DATASET,
     INVALID_QUERY,
     INVALID_OUTPUT,
@@ -32,10 +32,10 @@ namespace utils {
     std::string output_file;     // name of the relative path to the output file
     uint8_t M = 10;              // max number of HyperCube's candidate points to be checked
     uint8_t probes = 2;          // max number of HyperCube's verteces to be checked
+    uint16_t k = 3;              // reduces dimensional space
+    uint16_t D;                  // dimension of the space
     uint32_t N;                  // number of dataset points
     uint32_t Q;                  // number of query points
-    uint16_t D;                  // dimension of the space
-    uint16_t k;                  // reduces dimensional space
     void Print(void);            // print method of the InputInfo struct
   };
   /** \brief ShowUsage - Prints the usage of the program
@@ -59,11 +59,13 @@ namespace utils {
     @par key - Given string from which we extract the ones with hamming distance 1
   */
   std::vector<std::string> GetToggledBitStrings(const std::string key);
-  /** 
-   * \brief random shuffle of items in a vector 
+  /** \brief Initializes a vector with numbers from 1 to n - 1 and
+    executes random shuffle the vector
   */
-  std::vector<size_t> VectorShuffle(size_t);
-  
+  std::vector<size_t> VectorShuffle(size_t n);
+  /** \brief Computes the radius as the average of the distances of each point
+    to its nearest neighbor
+  */
   template <typename T, typename U>
   double ComputeRadius(std::vector<std::tuple<T,U,double>>& exact) {
 

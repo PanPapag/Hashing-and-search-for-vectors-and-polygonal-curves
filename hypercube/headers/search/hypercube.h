@@ -42,6 +42,7 @@ namespace search {
     public:
       /**
         \brief class HyperCube constructor
+<<<<<<< HEAD
       */
       HyperCube(const uint16_t k, const uint16_t M, const uint16_t D, const uint32_t N,
         const uint8_t pr, const double r, const std::vector<T>& points, const std::vector<T>& ids)
@@ -67,12 +68,40 @@ namespace search {
           p[str].push_back(i);
         }
       };
+=======
+  		*/
+  		HyperCube(const uint16_t k, const uint16_t M, const uint16_t D, const uint32_t N,
+  			const uint8_t pr, const double r, const std::vector<T>& points, const std::vector<T>& ids)
+  			: k(k), M(M), D(D), N(N), probes(pr), R(r), feature_vector(points), feature_vector_ids(ids) {
+  			w = 10 * R;
+  			m = (1ULL << 32) - 5;
+  			t = 1ULL << (32 / k);
+
+  			// Preprocess step
+  			// 1) Randomly select k = logD amplified hash functions g1 , . . . , gL .
+  			for (int i = 0; i < k; ++i) {
+  				g.push_back(hash::AmplifiedHashFunction<T>(k,D,m,t,w));
+  			}
+
+  			for (int i = 0; i < N; ++i) {
+  				std::string str;
+  				for (int j = 0; j < k; ++j) {
+  					uint32_t key = g[j].Hash(feature_vector,i);
+  					//project points in a cube
+  					FlipCoin(key);
+  					str += bucket_map[key].to_string();
+  				}
+  				p[str].push_back(i);
+  			}
+  		};
+>>>>>>> 41a80c60464e1f5499183a674d0e4fd600a09ef5
 
       /**
         \brief class HyperCube default destructor
       */
       ~HyperCube() = default;
 
+<<<<<<< HEAD
       /** \brief For each gi,
        * fi(gi) maps buckets to {0,1} uniformly.
       */
@@ -92,6 +121,16 @@ namespace search {
         }
       };
 
+=======
+  		/** \brief For each gi,
+  		 * fi(gi) maps buckets to {0,1} uniformly.
+  		*/
+  		void FlipCoin(uint32_t key) {
+  			if (bucket_map.find(key) == bucket_map.end()) {
+  				bucket_map[key] = f(generator);
+  			}
+  		};
+>>>>>>> 41a80c60464e1f5499183a674d0e4fd600a09ef5
       /** \brief Executes approximate Nearest tNeighbor
         @par const std::vector<T>& query_points - Pass by reference query points
         @par const int offset - Offset to get correspodent point
@@ -128,18 +167,18 @@ namespace search {
         size_t num_vertices = vertices.size();
         std::vector<size_t> idx = utils::VectorShuffle(num_vertices);
         size_t max_vertices = (num_vertices < probes) ? num_vertices : probes;
-        
+
         // For each key map to its bucket and search
-        for(size_t i=0; i<max_vertices; ++i) {
+        for (size_t i = 0; i < max_vertices; ++i) {
           const std::string key = vertices[idx[i]];
           //Get a specific vertex
           std::vector<int>& vertex = p[key];
           size_t num_points = vertex.size();
           // Choose randomly M points from vertex
-          std::vector<size_t> points = utils::VectorShuffle(num_points); 
+          std::vector<size_t> points = utils::VectorShuffle(num_points);
           size_t max_points = (num_points < M) ? num_points : M;
           // Calculate manhattan distance between those points and queries
-          for(size_t j=0; j<max_points; ++j) {
+          for (size_t j = 0; j < max_points; ++j) {
             int fv_offset = vertex[points[j]];
             T dist = metric::ManhattanDistance<T>(
               std::next(feature_vector.begin(), fv_offset * D),
@@ -155,7 +194,7 @@ namespace search {
 
         auto stop = high_resolution_clock::now();
         duration <double> total_time = duration_cast<duration<double>>(stop - start);
-        
+
         // Return result as a tuple of min_dist, min_id and total_time
         return std::make_tuple(min_dist,min_id,total_time.count());
       };
@@ -166,7 +205,7 @@ namespace search {
       */
       std::vector<std::pair<T,U>> RadiusNearestNeighbor(const std::vector<T>& query_points,
         const int offset) {
-        
+
         std::vector<std::pair<T,U>> result;
         auto start = high_resolution_clock::now();
         T min_dist = std::numeric_limits<T>::max();
@@ -200,18 +239,18 @@ namespace search {
         size_t num_vertices = vertices.size();
         std::vector<size_t> idx = utils::VectorShuffle(num_vertices);
         size_t max_vertices = (num_vertices < probes) ? num_vertices : probes;
-        
+
         // For each key map to its bucket and search
-        for(size_t i=0; i<max_vertices; ++i) {
+        for (size_t i = 0; i < max_vertices; ++i) {
           const std::string key = vertices[idx[i]];
           //Get a specific vertex
           std::vector<int>& vertex = p[key];
           size_t num_points = vertex.size();
           // Choose randomly M points from vertex
-          std::vector<size_t> points = utils::VectorShuffle(num_points); 
+          std::vector<size_t> points = utils::VectorShuffle(num_points);
           size_t max_points = (num_points < M) ? num_points : M;
           // Calculate manhattan distance between those points and queries
-          for(size_t j=0; j<max_points; ++j) {
+          for (size_t j = 0; j < max_points; ++j) {
             int fv_offset = vertex[points[j]];
             T dist = metric::ManhattanDistance<T>(
               std::next(feature_vector.begin(), fv_offset * D),
@@ -230,7 +269,7 @@ namespace search {
 
         auto stop = high_resolution_clock::now();
         duration <double> total_time = duration_cast<duration<double>>(stop - start);
-        
+
         // Return result as a tuple of min_dist, min_id and total_time
         return result;
       };

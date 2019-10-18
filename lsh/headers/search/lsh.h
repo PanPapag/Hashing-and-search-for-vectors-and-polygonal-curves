@@ -36,10 +36,10 @@ namespace search {
       LSH(const uint8_t K, const uint8_t L, const uint16_t D, const uint32_t N,
           const double radius, const std::vector<T>& points, const std::vector<T>& ids)
         : K(K), L(L), D(D), N(N), R(radius), feature_vector(points), feature_vector_ids(ids) {
-          w = 4 * R;
+          w = 2 * R;
           m = (1ULL << 32) - 5;
           M = 1ULL << (32 / K);
-          table_size = N / 16;
+          table_size = N / 32;
           // Preprocess step
           // 1) Randomly select L amplified hash functions g1 , . . . , gL .
           for (int i = 0; i < L; ++i) {
@@ -93,7 +93,7 @@ namespace search {
         /* return result as a tuple of min_dist, min_id and total_time */
         return std::make_tuple(min_dist,min_id,total_time.count());
       };
-      
+
       /** \brief Executes approximate Radius Nearest tNeighbor
         @par const std::vector<T> &query_points - Pass by reference query points
         @par const int offset - Offset to get correspodent point

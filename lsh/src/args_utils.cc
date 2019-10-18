@@ -64,22 +64,17 @@ int utils::args::ReadArguments(int argc, char **argv,
   }
 
   if (argc == 2) {
-    if (!strcmp(argv[1],"-help")) {
+    if (!strcmp(argv[1],"--help")) {
       ShowUsage(argv[0], input_info);
     }
-  }
-
-  if (argc != 11) {
-    status = INVALID_PARARAMETERS;
-    return FAIL;
   }
 
   const char * const short_opts = "d:q:k:L:o:";
   const option long_opts[] = {
            {"input", required_argument, nullptr, 'd'},
            {"query", required_argument, nullptr, 'q'},
-           {"k", required_argument, nullptr, 'k'},
-           {"L", required_argument, nullptr, 'L'},
+           {"k", optional_argument, nullptr, 'k'},
+           {"L", optional_argument, nullptr, 'L'},
            {"help", required_argument, nullptr, 'o'},
            {nullptr, no_argument, nullptr, 0}
    };
