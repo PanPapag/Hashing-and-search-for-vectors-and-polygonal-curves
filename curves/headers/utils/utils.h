@@ -3,6 +3,8 @@
 
 #include <sstream>
 #include <tuple>
+#include <type_traits>
+#include <utility>
 #include <vector>
 
 namespace utils {
@@ -59,6 +61,23 @@ namespace utils {
     T num;
     ss >> num;
     return num;
+  }
+  /**
+    \brief Variadic templated min function
+  */
+  template <typename T>
+  T min(T&& t) {
+    return std::forward<T>(t);
+  }
+
+  template<typename T0, typename T1, typename... Ts>
+  typename std::common_type<T0, T1, Ts... >
+    ::type min(T0&& val1, T1&& val2, Ts&&... vs) {
+    if (val2 < val1) {
+      return min(val2, std::forward<Ts>(vs)...);
+    } else {
+      return min(val1, std::forward<Ts>(vs)...);
+    }
   }
 }
 
