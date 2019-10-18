@@ -42,33 +42,6 @@ namespace search {
     public:
       /**
         \brief class HyperCube constructor
-<<<<<<< HEAD
-      */
-      HyperCube(const uint16_t k, const uint16_t M, const uint16_t D, const uint32_t N,
-        const uint8_t pr, const double r, const std::vector<T>& points, const std::vector<T>& ids)
-        : k(k), M(M), D(D), N(N), probes(pr), R(r), feature_vector(points), feature_vector_ids(ids) {
-        w = 4 * R;
-        m = (1ULL << 32) - 5;
-        t = 1ULL << (32 / k);
-
-        // Preprocess step
-        // 1) Randomly select k = logD amplified hash functions g1 , . . . , gL .
-        for (int i = 0; i < k; ++i) {
-          g.push_back(hash::AmplifiedHashFunction<T>(k,D,m,t,w));
-        }
-
-        for (int i = 0; i < N; ++i) {
-          std::string str;              //TODO(Maria): size
-          for (int j = 0; j < k; ++j) {
-            uint32_t key = g[j].Hash(feature_vector,i);
-            //project points in a cube
-            FlipCoin(key);
-            str += bucket_map[key].to_string();
-          }
-          p[str].push_back(i);
-        }
-      };
-=======
   		*/
   		HyperCube(const uint16_t k, const uint16_t M, const uint16_t D, const uint32_t N,
   			const uint8_t pr, const double r, const std::vector<T>& points, const std::vector<T>& ids)
@@ -94,34 +67,12 @@ namespace search {
   				p[str].push_back(i);
   			}
   		};
->>>>>>> 41a80c60464e1f5499183a674d0e4fd600a09ef5
 
       /**
         \brief class HyperCube default destructor
       */
       ~HyperCube() = default;
 
-<<<<<<< HEAD
-      /** \brief For each gi,
-       * fi(gi) maps buckets to {0,1} uniformly.
-      */
-      void FlipCoin(uint32_t key) {
-        if (bucket_map.find(key) == bucket_map.end()) {
-          bucket_map[key] = f(generator);
-        }
-      };
-
-      void Print() {
-        for (auto& i: p) {
-          std::cout << i.first << " : ";
-          for (auto& j: i.second) {
-            std::cout << j << " ";
-          }
-          std::cout << std::endl;
-        }
-      };
-
-=======
   		/** \brief For each gi,
   		 * fi(gi) maps buckets to {0,1} uniformly.
   		*/
@@ -130,7 +81,6 @@ namespace search {
   				bucket_map[key] = f(generator);
   			}
   		};
->>>>>>> 41a80c60464e1f5499183a674d0e4fd600a09ef5
       /** \brief Executes approximate Nearest tNeighbor
         @par const std::vector<T>& query_points - Pass by reference query points
         @par const int offset - Offset to get correspodent point
