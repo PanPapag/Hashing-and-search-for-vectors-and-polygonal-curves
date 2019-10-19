@@ -18,29 +18,29 @@ namespace search {
   template <typename T, typename U>
   class HyperCube {
     private:
-  		uint32_t m;
-  		uint32_t t;
-  		double w;
+      uint32_t m;
+      uint32_t t;
+      double w;
 
-  		const uint16_t k;
-  		const uint16_t M;
-  		const uint16_t D;
-  		const uint32_t N;
+      const uint16_t k;
+      const uint16_t M;
+      const uint16_t D;
+      const uint32_t N;
       const uint8_t probes;
-  		const double R;
+      const double R;
 
-  		const std::vector<T>& feature_vector;
-  		const std::vector<U>& feature_vector_ids;
+      const std::vector<T>& feature_vector;
+      const std::vector<U>& feature_vector_ids;
 
-  		std::vector<hash::AmplifiedHashFunction<T>> g;
-  		std::unordered_map<uint32_t, std::bitset<1>> bucket_map;
+      std::vector<hash::AmplifiedHashFunction<T>> g;
+      std::unordered_map<uint32_t, std::bitset<1>> bucket_map;
 
       std::unordered_map<std::string, std::vector<int>> p;
-  		std::default_random_engine generator;
-    	std::uniform_int_distribution<int> f = std::uniform_int_distribution<int>(0,1);
+      std::default_random_engine generator;
+      std::uniform_int_distribution<int> f = std::uniform_int_distribution<int>(0,1);
 
-		public:
-  		/**
+    public:
+      /**
         \brief class HyperCube constructor
   		*/
   		HyperCube(const uint16_t k, const uint16_t M, const uint16_t D, const uint32_t N,
