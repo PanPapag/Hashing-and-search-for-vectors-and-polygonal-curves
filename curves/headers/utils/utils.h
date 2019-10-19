@@ -70,7 +70,7 @@ namespace utils {
     return std::forward<T>(t);
   }
 
-  template<typename T0, typename T1, typename... Ts>
+  template <typename T0, typename T1, typename... Ts>
   typename std::common_type<T0, T1, Ts... >
     ::type min(T0&& val1, T1&& val2, Ts&&... vs) {
     if (val2 < val1) {
