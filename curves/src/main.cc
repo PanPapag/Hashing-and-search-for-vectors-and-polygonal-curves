@@ -99,21 +99,21 @@ int main(int argc, char **argv) {
 
   input_info.Print();
 
-  /*
+  
   std::cout << metric::DTWDistance<T>(std::next(dataset_curves.begin(),dataset_offsets[0]),
     std::next(dataset_curves.begin(),dataset_offsets[0] + dataset_lengths[0]),
     std::next(dataset_curves.begin(),dataset_offsets[1]),
     std::next(dataset_curves.begin(),dataset_offsets[1] + dataset_lengths[1]))
     << std::endl;
-  */
-   /* for (int i = 0; i < input_info.N; ++i) {
+  
+  for (int i = 0; i < input_info.N; ++i) {
     std::cout << "----> Id: " << dataset_ids[i] << " Length: " << dataset_lengths[i] << std::endl;
     for (int j = 0; j < dataset_lengths[i]; ++j) {
       std::cout << "(" << std::get<0>(dataset_curves[dataset_offsets[i] + j]);
       std::cout << "," << std::get<1>(dataset_curves[dataset_offsets[i] + j])
                 << ")" << std::endl;
     }
-  } */
-
+  } 
+  
   return EXIT_SUCCESS;
 }
