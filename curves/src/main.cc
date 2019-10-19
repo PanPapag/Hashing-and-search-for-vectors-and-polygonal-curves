@@ -30,12 +30,8 @@ int main(int argc, char **argv) {
   utils::ExitCode status;
   int exit_code;
 
-  input_info.input_file = "../../datasets/curves/trajectories_dataset.txt";
-  //input_info.query_file = "../../datasets/vectors/query_small_id";
-  //input_info.output_file = "../../results/vectors/small";
-
   /* Get arguments */
-  /*exit_code = utils::args::ReadArguments(argc, argv, input_info, status);
+  exit_code = utils::args::ReadArguments(argc, argv, input_info, status);
   switch (exit_code) {
     case utils::SUCCESS:
       std::cout << "\nArguments provided correctly" << std::endl;
@@ -97,23 +93,53 @@ int main(int argc, char **argv) {
   std::cout << "Reading input file completed successfully." << std::endl;
   std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
+  /* Preprocessing query file to get number of query curves */
+  start = high_resolution_clock::now();
+  std::cout << "\nGetting number of query curves.." << std::endl;
+  exit_code = utils::io::GetDataCurves(input_info.query_file, input_info.Q, status);
+  if (exit_code != utils::SUCCESS) {
+    utils::report::ReportError(status);
+  }
+  stop = high_resolution_clock::now();
+  total_time = duration_cast<duration<double>>(stop - start);
+  std::cout << "Getting number of query curves completed successfully." << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+
+  /* Reading query file */
+  start = high_resolution_clock::now();
+  std::cout << "\nReading query file.." << std::endl;
+  std::vector<std::pair<T,T>> query_curves;
+  std::vector<U> query_ids(input_info.Q);
+  std::vector<int> query_lengths(input_info.Q);
+  std::vector<int> query_offsets(input_info.Q);
+  exit_code = utils::io::ReadFile<T,U>(input_info.query_file, input_info.Q,
+    query_curves, query_ids, query_lengths, query_offsets, status);
+  if (exit_code != utils::SUCCESS) {
+    utils::report::ReportError(status);
+  }
+  stop = high_resolution_clock::now();
+  total_time = duration_cast<duration<double>>(stop - start);
+  std::cout << "Reading query file completed successfully." << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+
+  /* Print input info */
   input_info.Print();
 
-  
   std::cout << metric::DTWDistance<T>(std::next(dataset_curves.begin(),dataset_offsets[0]),
     std::next(dataset_curves.begin(),dataset_offsets[0] + dataset_lengths[0]),
     std::next(dataset_curves.begin(),dataset_offsets[1]),
     std::next(dataset_curves.begin(),dataset_offsets[1] + dataset_lengths[1]))
     << std::endl;
-  
-  for (int i = 0; i < input_info.N; ++i) {
+
+
+  /*for (int i = 0; i < input_info.N; ++i) {
     std::cout << "----> Id: " << dataset_ids[i] << " Length: " << dataset_lengths[i] << std::endl;
     for (int j = 0; j < dataset_lengths[i]; ++j) {
       std::cout << "(" << std::get<0>(dataset_curves[dataset_offsets[i] + j]);
       std::cout << "," << std::get<1>(dataset_curves[dataset_offsets[i] + j])
                 << ")" << std::endl;
     }
-  } 
-  
+  } */
+
   return EXIT_SUCCESS;
 }

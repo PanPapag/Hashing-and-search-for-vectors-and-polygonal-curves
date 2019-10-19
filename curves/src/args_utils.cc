@@ -97,20 +97,24 @@ int utils::args::ReadArguments(int argc, char **argv,
         break;
       }
       case 'k': {
-        try {
-          input_info.K_vec = atoi(optarg);
-        } catch (...) {
-          status = INVALID_k_vec;
-          return FAIL;
+        if (optarg != 0) {
+          try {
+            input_info.K_vec = atoi(optarg);
+          } catch (...) {
+            status = INVALID_k_vec;
+            return FAIL;
+          }
         }
         break;
       }
       case 'L': {
-        try {
-          input_info.L_grid = atoi(optarg);
-        } catch (...) {
-          status = INVALID_L_grid;
-          return FAIL;
+        if (optarg != 0) {
+          try {
+            input_info.L_grid = atoi(optarg);
+          } catch (...) {
+            status = INVALID_L_grid;
+            return FAIL;
+          }
         }
         break;
       }

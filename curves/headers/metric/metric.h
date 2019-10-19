@@ -37,12 +37,10 @@ namespace metric {
     // Compute the dtw distance using dynamic programming
     for (int i = 1; i < N + 1, p < p_end; ++i, ++p) {
       for (int j = 1; j < M + 1, q < q_end; ++j, ++q) {
-        dtw_array[i * (M + 1) + j] =
-            std::abs(std::get<0>(*p) - std::get<0>(*q))         // Manhattan
-          + std::abs(std::get<1>(*p) - std::get<1>(*q))         // Distance
-          + utils::min(dtw_array[(i - 1) * (M + 1) + j],        // increment
-                       dtw_array[i * (M + 1) + j - 1],          // deletion
-                       dtw_array[(i - 1) * (M + 1) + j - 1]);   // match
+        T dist = std::abs(std::get<0>(*p) - std::get<0>(*q)) + std::abs(std::get<1>(*p) - std::get<1>(*q));
+        dtw_array[i * (M + 1) + j] = dist + utils::min(dtw_array[(i - 1) * (M + 1) + j],        // increment
+                                              dtw_array[i * (M + 1) + j - 1],          // deletion
+                                              dtw_array[(i - 1) * (M + 1) + j - 1]);   // match
       }
       // reset query curve iterator
       q = q_start;
