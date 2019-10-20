@@ -123,7 +123,7 @@ int main(int argc, char **argv) {
   std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
   /* Print input info */
-  input_info.Print();
+  //input_info.Print();
 
   std::cout << metric::DTWDistance<T>(std::next(dataset_curves.begin(),dataset_offsets[0]),
     std::next(dataset_curves.begin(),dataset_offsets[0] + dataset_lengths[0]),
@@ -140,6 +140,7 @@ int main(int argc, char **argv) {
                 << ")" << std::endl;
     }
   } */
+  vectorization::Projection<T,U> test {dataset_curves,dataset_offsets, dataset_lengths, dataset_ids};
 
   return EXIT_SUCCESS;
 }
