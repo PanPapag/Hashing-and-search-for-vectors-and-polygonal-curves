@@ -123,16 +123,33 @@ int main(int argc, char **argv) {
   std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
   /* Print input info */
-  //input_info.Print();
+  input_info.Print();
 
-  std::cout << metric::DTWDistance<T>(std::next(dataset_curves.begin(),dataset_offsets[0]),
-    std::next(dataset_curves.begin(),dataset_offsets[0] + dataset_lengths[0]),
-    std::next(dataset_curves.begin(),dataset_offsets[1]),
-    std::next(dataset_curves.begin(),dataset_offsets[1] + dataset_lengths[1]))
-    << std::endl;
+  /* Create BruteForce class object and a vector to store exact-NN results */
+  start = high_resolution_clock::now();
+  std::cout << "\nBuilding Brute Force.." << std::endl;
+  std::vector<std::tuple<T,U,double>> bf_nn_results(input_info.Q);
+  search::curves::BruteForce<T,U> bf{dataset_curves, dataset_ids,
+                                     dataset_lengths, dataset_offsets};
+  stop = high_resolution_clock::now();
+  total_time = duration_cast<duration<double>>(stop - start);
+  std::cout << "Building Brute Force completed successfully." << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+
+  /* Executing Exact Nearest Neighbor using BruteForce */
+  start = high_resolution_clock::now();
+  std::cout << "\nExecuting Nearest Neighbor using Brute Force.." << std::endl;
+  for (int i = 0; i < input_info.Q; ++i) {
+    bf_nn_results[i] = bf.NearestNeighbor(query_curves, query_lengths,
+                                          query_offsets, i);
+  }
+  stop = high_resolution_clock::now();
+  total_time = duration_cast<duration<double>>(stop - start);
+  std::cout << "Executing Nearest Neighbor using Brute Force completed successfully." << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
 
-  /*for (int i = 0; i < input_info.N; ++i) {
+  /* for (int i = 0; i < dataset_ids.size(); ++i) {
     std::cout << "----> Id: " << dataset_ids[i] << " Length: " << dataset_lengths[i] << std::endl;
     for (int j = 0; j < dataset_lengths[i]; ++j) {
       std::cout << "(" << std::get<0>(dataset_curves[dataset_offsets[i] + j]);
@@ -140,7 +157,17 @@ int main(int argc, char **argv) {
                 << ")" << std::endl;
     }
   } */
-  vectorization::Projection<T,U> test {dataset_curves,dataset_offsets, dataset_lengths, dataset_ids};
+  /*
+  std::cout << "QUERY" << std::endl;
+  for (int i = 0; i < query_ids.size(); ++i) {
+    std::cout << "----> Id: " << query_ids[i] << " Length: " << query_lengths[i] << std::endl;
+    for (int j = 0; j < query_lengths[i]; ++j) {
+      std::cout << "(" << std::get<0>(query_curves[query_offsets[i] + j]);
+      std::cout << "," << std::get<1>(query_curves[query_offsets[i] + j])
+                << ")" << std::endl;
+    }
+  } */
+  //vectorization::Projection<T,U> test {dataset_curves, dataset_offsets, dataset_lengths, dataset_ids};
 
   return EXIT_SUCCESS;
 }

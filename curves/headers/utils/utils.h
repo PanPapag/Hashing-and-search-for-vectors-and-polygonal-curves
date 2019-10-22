@@ -25,7 +25,6 @@ namespace utils {
   /**
     InputInfo - Group all input parameters of curve_grid_lsh in a struct
   */
-
   struct InputInfo {
     std::string input_file;      // name of the relative path to the input file
     std::string query_file;      // name of the relative path to the query file
