@@ -74,21 +74,21 @@ namespace metric {
     // save up start iterator of query curve
     iterator q_start = q;
     // Get correspodent lengths of the two curves
-    int N = std::distance(p,p_end);
-    int M = std::distance(q,q_end);
-    int dtw_size = (N + 1) * (M + 1);
+    size_t N = std::distance(p,p_end);
+    size_t M = std::distance(q,q_end);
+    size_t dtw_size = (N + 1) * (M + 1);
     // Initialize the dtw 2D array using 1D notation
     auto dtw_array = new T [dtw_size];
     dtw_array[0] = 0;
     for (size_t i = 1; i < N + 1; ++i) {
       dtw_array[i * (M + 1)] = std::numeric_limits<T>::max();
     }
-    for (int i = 1; i < M + 1; ++i) {
+    for (size_t i = 1; i < M + 1; ++i) {
       dtw_array[i] = std::numeric_limits<T>::max();
     }
     // Compute the dtw distance using dynamic programming
     for (size_t i = 1; i < N + 1, p < p_end; ++i, ++p) {
-      for (int j = 1; j < M + 1, q < q_end; ++j, ++q) {
+      for (size_t j = 1; j < M + 1, q < q_end; ++j, ++q) {
         T dist = _2DEuclidianDistance(*p, *q);
         dtw_array[i * (M + 1) + j] = dist +
           utils::min(dtw_array[(i - 1) * (M + 1) + j],      // increment
