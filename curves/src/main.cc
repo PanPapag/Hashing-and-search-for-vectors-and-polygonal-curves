@@ -11,6 +11,7 @@
 
 #include "../headers/hash/hash_function.h"
 #include "../headers/metric/metric.h"
+#include "../headers/search/grid_search.h"
 #include "../headers/search/lsh.h"
 #include "../headers/search/brute_force.h"
 #include "../headers/utils/utils.h"
@@ -119,11 +120,12 @@ int main(int argc, char **argv) {
   start = high_resolution_clock::now();
   std::cout << "\nReading query file.." << std::endl;
   std::vector<std::pair<T,T>> query_curves;
-  std::vector<U> query_ids(input_info.Q);
-  std::vector<int> query_lengths(input_info.Q);
-  std::vector<int> query_offsets(input_info.Q);
+  std::vector<U> query_curves_ids(input_info.Q);
+  std::vector<int> query_curves_lengths(input_info.Q);
+  std::vector<int> query_curves_offsets(input_info.Q);
   exit_code = utils::io::ReadFile<T,U>(input_info.query_file, input_info.Q,
-    query_curves, query_ids, query_lengths, query_offsets, status);
+    query_curves, query_curves_ids, query_curves_lengths,
+    query_curves_offsets, status);
   if (exit_code != utils::SUCCESS) {
     utils::report::ReportError(status);
   }
@@ -153,8 +155,8 @@ int main(int argc, char **argv) {
   start = high_resolution_clock::now();
   std::cout << "\nExecuting Nearest Neighbor using Brute Force.." << std::endl;
   for (int i = 0; i < input_info.Q; ++i) {
-    bf_nn_results[i] = bf.NearestNeighbor(query_curves, query_lengths,
-                                          query_offsets, i);
+    bf_nn_results[i] = bf.NearestNeighbor(query_curves, query_curves_lengths,
+                                          query_curves_offsets, i);
   }
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
@@ -198,9 +200,9 @@ int main(int argc, char **argv) {
   /* For each curve find an equivalent vector. Do this for L_grid grids */
   start = high_resolution_clock::now();
   std::cout << "\nVectorizing dataset curves using grid method.." << std::endl;
-  std::vector<std::vector<double>> L_grid_vectors(input_info.L_grid);
+  std::vector<std::vector<double>> L_grid_dataset_vectors(input_info.L_grid);
   for (size_t i = 0; i < input_info.L_grid; ++i) {
-    L_grid_vectors[i] = grids[i].Vectorize();
+    L_grid_dataset_vectors[i] = grids[i].Vectorize();
   }
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
@@ -231,7 +233,7 @@ int main(int argc, char **argv) {
                                          dataset_curves_ids,
                                          dataset_curves_lengths,
                                          dataset_curves_offsets,
-                                         L_grid_vectors[i]));
+                                         L_grid_dataset_vectors[i]));
   }
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
@@ -240,30 +242,67 @@ int main(int argc, char **argv) {
   std::cout << "Time elapsed: " << total_time.count() << " seconds"
             << std::endl;
 
-  //std::cout << "Delta: " << delta << std::endl;
-  //std::cout << "Window: " << r << std::endl;
+  /* Vectorizing query curves */
+  start = high_resolution_clock::now();
+  std::cout << "\nVectorizing query curves using grid method.." << std::endl;
+  std::vector<std::vector<double>> L_grid_query_vectors(input_info.L_grid);
+  for (size_t i = 0; i < input_info.L_grid; ++i) {
+    L_grid_query_vectors[i] = grids[i].Vectorize(input_info.Q, query_curves,
+                                                 query_curves_lengths,
+                                                 query_curves_offsets);
+  }
+  stop = high_resolution_clock::now();
+  total_time = duration_cast<duration<double>>(stop - start);
+  std::cout << "Vectorizing query curves using grid method completed."
+            << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds"
+            << std::endl;
 
-  /* for (int i = 0; i < input_info.Q ;++i) {
-    std::cout << std::get<0>(bf_nn_results[i]) << " " << std::get<1>(bf_nn_results[i]) << std::endl;
-  } */
-  /* for (int i = 0; i < dataset_curves_ids.size(); ++i) {
-    std::cout << "----> Id: " << dataset_curves_ids[i] << " Length: " << dataset_curves_lengths[i] << std::endl;
-    for (int j = 0; j < dataset_curves_lengths[i]; ++j) {
-      std::cout << "(" << std::get<0>(dataset_curves[dataset_curves_offsets[i] + j]);
-      std::cout << "," << std::get<1>(dataset_curves[dataset_curves_offsets[i] + j])
-                << ")" << std::endl;
-    }
-  } */
-  /*
-  std::cout << "QUERY" << std::endl;
-  for (int i = 0; i < query_ids.size(); ++i) {
-    std::cout << "----> Id: " << query_ids[i] << " Length: " << query_lengths[i] << std::endl;
-    for (int j = 0; j < query_lengths[i]; ++j) {
-      std::cout << "(" << std::get<0>(query_curves[query_offsets[i] + j]);
-      std::cout << "," << std::get<1>(query_curves[query_offsets[i] + j])
-                << ")" << std::endl;
-    }
-  } */
+  /* Executing approximate Nearest Neighbor using LSH */
+  start = high_resolution_clock::now();
+  std::cout << "\nExecuting Nearest Neighbor using LSH.." << std::endl;
+  std::vector<std::tuple<T,U,double>> approx_nn_results(input_info.Q);
+  for (size_t i = 0; i < input_info.Q; ++i) {
+    approx_nn_results[i] = search::curves::lsh_grid_search(input_info.L_grid,
+                                                lsh_structures, query_curves,
+                                                query_curves_lengths,
+                                                query_curves_offsets,
+                                                L_grid_query_vectors, i);
+  }
+  stop = high_resolution_clock::now();
+  total_time = duration_cast<duration<double>>(stop - start);
+  std::cout << "Executing Nearest Neighbor using LSH completed successfully."
+            << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds"
+            << std::endl;
+
+  /* Compute Max and Average ratio lsh_nn_results / bf_nn_results */
+  start = high_resolution_clock::now();
+  std::cout << "\nCalculating evaluation metric.." << std::endl;
+  std::pair<double,double> metric_res = metric::EvaluationMetric(bf_nn_results,
+                                                            approx_nn_results);
+  stop = high_resolution_clock::now();
+  total_time = duration_cast<duration<double>>(stop - start);
+  std::cout << "Calculating evaluation metric completed successfully."
+            << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds"
+            << std::endl;
+  std::cout << "\nMax Af: " << std::get<0>(metric_res) << std::endl;
+  std::cout << "Average Af: " << std::get<1>(metric_res) << std::endl;
+
+  /* Writing results to the output file */
+  start = high_resolution_clock::now();
+  std::cout << "\nWriting results to the output file.." << std::endl;
+  exit_code = utils::io::WriteFile<T,U>(input_info.output_file,
+    query_curves_ids, bf_nn_results, approx_nn_results, status);
+  if (exit_code != utils::SUCCESS) {
+    utils::report::ReportError(status);
+  }
+  stop = high_resolution_clock::now();
+  total_time = duration_cast<duration<double>>(stop - start);
+  std::cout << "Writing results to the output file completed successfully." << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+
   //vectorization::Projection<T,U> test {dataset_curves, dataset_curves_offsets, dataset_curves_lengths, dataset_curves_ids};
 
   return EXIT_SUCCESS;

@@ -59,6 +59,52 @@ namespace utils {
       infile.close();
       return SUCCESS;
     }
+    /** \brief WriteFile - Output prorgam results to given output file
+      @par std::string &file_name - Pass by reference the path to the output file
+      @par std::vector<std::tuple<T,U,double>> &exact - Results from Brute Force
+      @par std::vector<std::tuple<T,U,double>> &approx - Results from LSH
+      @par std::vector<std::vector<std::pair<T,U>>> &radius_nn - Results from radius NN
+      @par ExitCode &statues - enumerated ExitCode provided from namespace utils
+      return: SUCCESS or FAIL
+    */
+    template <typename T, typename U>
+    int WriteFile(std::string &file_name, std::vector<U>& query_curves_ids,
+      std::vector<std::tuple<T,U,double>> &exact,
+      std::vector<std::tuple<T,U,double>> &approx, utils::ExitCode &status) {
+
+      // Open file
+      std::ofstream outfile;
+      outfile.open(file_name);
+      // Check if file is opened
+      if (outfile.is_open()) {
+        /* Get number of queries executed */
+        const int Q = query_curves_ids.size();
+        /* Print info for each query */
+        for (int i = 0; i < Q; ++i) {
+          outfile << "Query: " << query_curves_ids[i] << std::endl;
+          outfile << "Method: Grid" << std::endl;
+          outfile << "HashFunction: LSH" << std::endl;
+          outfile << "Found Nearest Neighbor: " << std::get<1>(approx[i])
+                  << std::endl;
+          outfile << "True Nearest Neighbor: " << std::get<1>(exact[i])
+                  << std::endl;
+          outfile << "distanceFound: " << std::get<0>(approx[i]) << std::endl;
+          outfile << "distanceTrue: " << std::get<0>(exact[i]) << std::endl;
+          outfile << "tLSH: " << std::get<2>(approx[i]) << " seconds"
+                  << std::endl;
+          outfile << "tTrue: " << std::get<2>(exact[i]) << " seconds"
+                  << std::endl;
+          outfile << std::endl;
+        }
+
+      } else {
+        status = INVALID_OUTPUT;
+        return FAIL;
+      }
+      // close file
+      outfile.close();
+      return SUCCESS;
+    }
     /** \brief GetDataCurves - Get the number of file data curves
       @par std::string& file_name - Path to file
       @par int& no_vectors - Pass by reference the number of curves to be returned

@@ -119,11 +119,13 @@ namespace metric {
     double max_af = std::numeric_limits<double>::min();
 
     for (int i = 0; i < N; ++i) {
-      distance_error = (double) std::get<0>(approx[i]) / std::get<0>(exact[i]);
-      if (distance_error > max_af) {
-        max_af = distance_error;
+      if (std::get<0>(approx[i]) != 0 && std::get<0>(exact[i]) != 0) {
+        distance_error = (double) std::get<0>(approx[i]) / std::get<0>(exact[i]);
+        if (distance_error > max_af) {
+          max_af = distance_error;
+        }
+        af += distance_error;
       }
-      af += distance_error;
     }
     avg_af = af / N ;
 

@@ -71,10 +71,11 @@ namespace search {
           @par const std::vector<T>& query_points - Pass by reference query points
           @par const int offset - Offset to get correspodent point
         */
-        std::tuple<T,U,double> NearestNeighbor(const std::vector<T>& query_points,
-          const int offset) {
+        std::pair<T,U> NearestNeighbor(const std::vector<T>& query_points,
+          const int offset, const std::vector<std::pair<T,T>>& query_curves,
+          const std::vector<int>& query_curves_lengths,
+          const std::vector<int>& query_curves_offsets) {
 
-          auto start = high_resolution_clock::now();
           /* Initialize min_dist to max value of type T */
           T min_dist = std::numeric_limits<T>::max();
           /* Initialize correspodent min_id using the C++11 way */
@@ -84,22 +85,22 @@ namespace search {
             std::unordered_map<int,std::vector<int>> &ht_i = hash_tables[i];
             // get all curves in the same bucket
             std::vector<int> &bucket = ht_i[hash_functions[i].Hash(query_points,offset) % table_size];
-            // iterate over all points in the buck
+            // iterate over all curves in the bucket
             for (auto const& fv_offset: bucket) {
-              T dist = metric::ManhattanDistance<T>(
-                std::next(feature_vector.begin(), fv_offset * D),
-                std::next(query_points.begin(), offset * D),
-                std::next(query_points.begin(), offset * D + D));
+              T dist =  metric::DTWDistance<T>(
+                std::next(input_curves.begin(),input_curves_offsets[fv_offset]),
+                std::next(input_curves.begin(),input_curves_offsets[fv_offset] + input_curves_lengths[fv_offset]),
+                std::next(query_curves.begin(),query_curves_offsets[offset]),
+                std::next(query_curves.begin(),query_curves_offsets[offset] + query_curves_lengths[offset]));
               if (dist < min_dist) {
                 min_dist = dist;
                 min_id = input_curves_ids[fv_offset];
               }
             }
           }
-          auto stop = high_resolution_clock::now();
-          duration <double> total_time = duration_cast<duration<double>>(stop - start);
-          /* return result as a tuple of min_dist, min_id and total_time */
-          return std::make_tuple(min_dist,min_id,total_time.count());
+
+          /* return result as a tuple of min_dist and min_id */
+          return std::make_pair(min_dist,min_id);
         };
 
 

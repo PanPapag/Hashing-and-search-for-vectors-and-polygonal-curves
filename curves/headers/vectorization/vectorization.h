@@ -27,11 +27,11 @@ namespace vectorization {
         Initializing private members
       */
       Grid(const std::vector<std::pair<T,T>>& curves,
-        const std::vector<int>& lenghts, const std::vector<int>& offsets,
+        const std::vector<int>& lengths, const std::vector<int>& offsets,
         const uint32_t N, const uint32_t D, double delta) :
-          N(N), D(D), delta(delta), distribution(0,delta),
+          N(N), D(D), delta(delta / 2), distribution(0,delta),
           generator(std::chrono::system_clock::now().time_since_epoch().count()),
-          input_curves(curves), input_curves_lengths(lenghts),
+          input_curves(curves), input_curves_lengths(lengths),
           input_curves_offsets(offsets) {
           // t is selected uniformly between 0 - delta
           t.first = distribution(generator);
@@ -81,7 +81,41 @@ namespace vectorization {
         }
         return result;
       }
-
+      /**
+        \brief Given the query curves perform vectorization as above
+      */
+      std::vector<double> Vectorize(const int Q,
+        const std::vector<std::pair<T,T>>& query_curves,
+        const std::vector<int>& query_curves_lengths,
+        const std::vector<int>& query_curves_offsets) {
+        /**
+          Vectorize each query curve and store the corresponding vector to
+          an 1D array. Each vector is of dimension D (max curve length) and
+          we have in total_time Q query curves, and so Q vectors.
+        */
+        std::vector<double> result(D * Q);
+        /* Iterave over each curve to compute its vector */
+        for (size_t i = 0; i < Q; ++i) {
+          size_t idx = 0;
+          for (size_t j = 0; j < query_curves_lengths[i]; ++j) {
+            double x_1 = std::get<0>(query_curves[query_curves_offsets[i] + j]);
+            double t_1 = std::get<0>(t);
+            double x_2 = std::get<1>(query_curves[query_curves_offsets[i] + j]);
+            double t_2 = std::get<1>(t);
+            double a_1 = round((x_1 - t_1) / delta);
+            double a_2 = round((x_2 - t_2) / delta);
+            double s_1 = a_1 * delta + t_1;
+            double s_2 = a_1 * delta + t_1;
+            result[i * D + (idx++)] = s_1;
+            result[i * D + (idx++)] = s_2;
+          }
+          // Fill with pading coordinates to have eqaal length vectors
+          for (size_t j = idx; j < D; ++j) {
+            result[i * D + j] = std::numeric_limits<T>::max();
+          }
+        }
+        return result;
+      }
   };
 
   template <typename T, typename U>
