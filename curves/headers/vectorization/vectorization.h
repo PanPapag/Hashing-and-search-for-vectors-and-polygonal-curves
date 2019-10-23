@@ -5,6 +5,8 @@
 #include <iostream>
 #include <tuple>
 #include <vector>
+#include <random>
+#include <set>
 
 namespace vectorization {
 
@@ -94,49 +96,132 @@ namespace vectorization {
       uint32_t M;
       float eps;
       size_t K;
+      std::default_random_engine generator;
+      std::normal_distribution<double> distr = std::normal_distribution<double> {0,1};
     public:
       /* \brief
           Just a constructor
       */
       Projection(std::vector<std::pair<T,T>>& dataset_curves, std::vector<int>& dataset_offsets,
                 std::vector<int>& dataset_lengths, std::vector<U>& dataset_ids) : eps(0.5), d(2) {
-        // Get max length from all curves and
-        // store all relevant traversals at an M * M array
-        M = *max_element(std::begin(dataset_lengths), std::end(dataset_lengths));
+        // Get max length from all curves and 
+        // store all relevant traversals at an M * M array 
+        //M = *max_element(std::begin(dataset_lengths), std::end(dataset_lengths));
+        M = 10;
         K = d * (-1) * log(eps) / (eps*eps);
 
         // Computing relevant traversals
         // only for upper diagonal cells
         // to reduce memory space
-        size_t size = (M+1)*(M+1);
-        std::vector<std::vector<std::pair<int,int>>> relevant_traversals (size);
-        for(size_t i=1; i<M+1; i++) {
-          for(size_t j=i; j<M+1; j++) {
-            size_t max = (i>j) ? i:j;
-            relevant_traversals[i*M+j] = ComputeNeighbors(max, relevant_traversals[i*M+j]);
+        size_t size = M*M;
+        std::vector<std::vector<std::vector<std::pair<int,int>>>> relevant_traversals (size);
+        int count = 0;
+        for(size_t i=0; i<M; i++) {
+          for(size_t j=0; j<M; j++) {
+            //if(abs(i-j < 4)) { //change this
+              relevant_traversals[i*M+j] = RelevantTraversals(i,j);
+              count+=relevant_traversals[i*M+j].size();
+            //}
           }
         }
-        size = K*d*K*d;
+        std::cout << count << std::endl;
+        size = K*d*K*d;  
         std::vector<double> G (size);
-
+        for(size_t i=0; i<size; i++) {
+          G[i] = distr(generator);
+        }
+        for(size_t i=0; i<M; i++) {
+          for(size_t j=0; j<M; j++) {
+            for(auto& rt:relevant_traversals[i*M+j]) {
+              std::vector<std::vector<T>> x;
+              for(auto& ui:rt) {
+                std::vector<T> xi; 
+                for(int k=0; k<size; k+=2) {
+                  xi.push_back(ui.first*(G[k]+G[k+1]));
+                }
+                x.push_back(xi);
+              }
+            }
+          }
+        }
       };
 
-      /* \brief
-          Find neighbor cells of diagonal
-        - these are the relevant traversals of dist 1
+      std::vector<std::vector<std::pair<int,int>>> RelevantTraversals(int i, int j) {
+        std::set<std::pair<int,int>> diag_cells;
+        std::set<std::pair<int,int>> rel_cells;
+        diag_cells = DrawLineSegment(i, j, i+1, j+1);
+        rel_cells = FindNeighbors(diag_cells,i,j);
+        std::vector<std::pair<int,int>> path;
+        std::vector<std::vector<std::pair<int,int>>> paths;
+        FindTraversals(path,paths,rel_cells,0,0,i+1,j+1);
+        return paths; 
+      }
+
+      /* \brief 
+          Find cells that are crossed by main diagonal line segment
       */
-      std::vector<std::pair<int,int>>& ComputeNeighbors(int l, std::vector<std::pair<int,int>>& vect) {
-        if (l==1) {
-          vect.push_back(std::make_pair(1, 1));
-          return vect;
+      std::set<std::pair<int,int>> DrawLineSegment(int x, int y, int m, int n) { 
+        std::set<std::pair<int,int>> diag_cells;
+        for (int xi = 0; xi <= x; xi++) {
+          int yi = n/m * xi;
+          diag_cells.insert(std::make_pair(xi,yi));
         }
-        for(int i=2; i<=l; i++) {
-          vect.push_back(std::make_pair(i-1, i-1));
-          vect.push_back(std::make_pair(i-1, i));
-          vect.push_back(std::make_pair(i, i-1));
-          vect.push_back(std::make_pair(i, i));
+        for (int yi = 0; yi <= y; yi++) {
+          int xi = m/n * yi;
+          diag_cells.insert(std::make_pair(xi,yi));
         }
-        return vect;
+        return diag_cells;
+      }
+
+      /* \brief 
+          Find cells that are crossed by main diagonal line segment
+      */
+      std::set<std::pair<int,int>> FindNeighbors(std::set<std::pair<int,int>>& diag_cells, int m, int n) {
+        std::set<std::pair<int,int>> rel_cells (diag_cells);
+        for(auto& p:diag_cells) {
+          if(p.first != 0) {
+            rel_cells.insert(std::make_pair(p.first-1,p.second));
+          }
+          // if(p.first != m) {
+          //   rel_cells.insert(std::make_pair(p.first+1,p.second));
+          // }
+        }
+        return rel_cells;
+      }
+
+      /* \brief 
+          A path is relevant when it consists of cells that are either on 
+          main diagonal line segment or have a distance of 1. 
+      */
+      const bool isRelevant(std::set<std::pair<int,int>>& s, int i, int j, int m, int n) {
+        const bool is_in = s.find(std::make_pair(i,j)) != s.end();
+        return (i >= 0 && i < m && j >= 0 && j < n && is_in);
+      }
+
+      void FindTraversals(std::vector<std::pair<int,int>>& path, std::vector<std::vector<std::pair<int,int>>>& paths,
+                     std::set<std::pair<int,int>>& s, int i, int j, int m, int n) {
+        //destination point reached
+        if ((i == m-1) && (j == n-1)) {
+          path.push_back(std::make_pair(i,j));
+          paths.push_back(path);
+          path.pop_back();
+          return;
+        }
+        //add curr cell to path
+        path.push_back(std::make_pair(i,j));  
+        //move right
+        if (isRelevant(s, i+1, j, m, n)) {
+          FindTraversals(path, paths, s, i+1, j, m, n);
+        }
+        //move left
+        if (isRelevant(s, i, j+1, m, n)) {
+          FindTraversals(path, paths, s, i, j+1, m, n);
+        }
+        if (isRelevant(s, i+1, j+1, m, n)) {
+          FindTraversals(path, paths, s, i+1, j+1, m, n);
+        }
+        //delete last pair
+        path.pop_back();
       }
   };
 }

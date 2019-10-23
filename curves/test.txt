@@ -1,0 +1,70 @@
+mkdir -p build/./src/
+g++ -c -w -O3 -std=c++11 src/main.cc -o build/./src/main.cc.o
+mkdir -p build/./src/
+g++ -c -w -O3 -std=c++11 src/args_utils.cc -o build/./src/args_utils.cc.o
+mkdir -p build/./src/
+g++ -c -w -O3 -std=c++11 src/report_utils.cc -o build/./src/report_utils.cc.o
+mkdir -p build/./src/
+g++ -c -w -O3 -std=c++11 src/utils.cc -o build/./src/utils.cc.o
+mkdir -p build/./src/
+g++ -c -w -O3 -std=c++11 src/io_utils.cc -o build/./src/io_utils.cc.o
+g++ ./build/./src/main.cc.o ./build/./src/args_utils.cc.o ./build/./src/report_utils.cc.o ./build/./src/utils.cc.o ./build/./src/io_utils.cc.o -o build/curve_grid_lsh 
+
+Arguments provided correctly
+
+Getting number of dataset curves..
+Getting number of dataset curves completed successfully.
+Time elapsed: 0.0998896 seconds
+
+Reading input file..
+Reading input file completed successfully.
+Time elapsed: 1.47293 seconds
+
+Getting number of query curves..
+Getting number of query curves completed successfully.
+Time elapsed: 0.00112932 seconds
+
+Reading query file..
+Reading query file completed successfully.
+Time elapsed: 0.0142572 seconds
+-6.37276
+0,0
+...
+0,0 
+
+0,1
+...
+0,0 0,1 
+
+0,2
+...
+0,0 0,1 0,2 
+
+1,0
+...
+0,0 1,0 
+
+1,1
+...
+0,0 0,1 1,0 1,1 
+0,0 0,1 1,1 
+
+1,2
+...
+
+2,0
+...
+0,0 1,0 2,0 
+
+2,1
+...
+
+2,2
+...
+0,0 0,1 1,1 1,0 1,1 1,2 2,1 2,2 
+0,0 0,1 1,1 1,0 1,1 1,2 2,2 
+0,0 0,1 1,1 1,2 2,1 2,2 
+0,0 0,1 1,1 1,2 2,2 
+
+11
+rm -f -r ./build
