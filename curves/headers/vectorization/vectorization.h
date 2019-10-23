@@ -104,8 +104,8 @@ namespace vectorization {
       */
       Projection(std::vector<std::pair<T,T>>& dataset_curves, std::vector<int>& dataset_offsets,
                 std::vector<int>& dataset_lengths, std::vector<U>& dataset_ids) : eps(0.5), d(2) {
-        // Get max length from all curves and 
-        // store all relevant traversals at an M * M array 
+        // Get max length from all curves and
+        // store all relevant traversals at an M * M array
         //M = *max_element(std::begin(dataset_lengths), std::end(dataset_lengths));
         M = 10;
         K = d * (-1) * log(eps) / (eps*eps);
@@ -125,7 +125,7 @@ namespace vectorization {
           }
         }
         std::cout << count << std::endl;
-        size = K*d*K*d;  
+        size = K*d*K*d;
         std::vector<double> G (size);
         for(size_t i=0; i<size; i++) {
           G[i] = distr(generator);
@@ -135,7 +135,7 @@ namespace vectorization {
             for(auto& rt:relevant_traversals[i*M+j]) {
               std::vector<std::vector<T>> x;
               for(auto& ui:rt) {
-                std::vector<T> xi; 
+                std::vector<T> xi;
                 for(int k=0; k<size; k+=2) {
                   xi.push_back(ui.first*(G[k]+G[k+1]));
                 }
@@ -154,13 +154,13 @@ namespace vectorization {
         std::vector<std::pair<int,int>> path;
         std::vector<std::vector<std::pair<int,int>>> paths;
         FindTraversals(path,paths,rel_cells,0,0,i+1,j+1);
-        return paths; 
+        return paths;
       }
 
-      /* \brief 
+      /* \brief
           Find cells that are crossed by main diagonal line segment
       */
-      std::set<std::pair<int,int>> DrawLineSegment(int x, int y, int m, int n) { 
+      std::set<std::pair<int,int>> DrawLineSegment(int x, int y, int m, int n) {
         std::set<std::pair<int,int>> diag_cells;
         for (int xi = 0; xi <= x; xi++) {
           int yi = n/m * xi;
@@ -173,7 +173,7 @@ namespace vectorization {
         return diag_cells;
       }
 
-      /* \brief 
+      /* \brief
           Find cells that are crossed by main diagonal line segment
       */
       std::set<std::pair<int,int>> FindNeighbors(std::set<std::pair<int,int>>& diag_cells, int m, int n) {
@@ -189,9 +189,9 @@ namespace vectorization {
         return rel_cells;
       }
 
-      /* \brief 
-          A path is relevant when it consists of cells that are either on 
-          main diagonal line segment or have a distance of 1. 
+      /* \brief
+          A path is relevant when it consists of cells that are either on
+          main diagonal line segment or have a distance of 1.
       */
       const bool isRelevant(std::set<std::pair<int,int>>& s, int i, int j, int m, int n) {
         const bool is_in = s.find(std::make_pair(i,j)) != s.end();
@@ -208,7 +208,7 @@ namespace vectorization {
           return;
         }
         //add curr cell to path
-        path.push_back(std::make_pair(i,j));  
+        path.push_back(std::make_pair(i,j));
         //move right
         if (isRelevant(s, i+1, j, m, n)) {
           FindTraversals(path, paths, s, i+1, j, m, n);

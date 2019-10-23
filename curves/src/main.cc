@@ -28,6 +28,7 @@ using namespace std::chrono;
 int main(int argc, char **argv) {
   utils::InputInfo input_info;
   utils::ExitCode status;
+  double r, delta;
   int exit_code;
 
   /* Get arguments */
@@ -148,11 +149,34 @@ int main(int argc, char **argv) {
   std::cout << "Executing Nearest Neighbor using Brute Force completed successfully." << std::endl;
   std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
+  /* Computing delta parameter for grid */
+  start = high_resolution_clock::now();
+  std::cout << "\nComputing delta.." << std::endl;
+  delta = utils::ComputeDelta(dataset_curves, dataset_lengths, dataset_offsets);
+  stop = high_resolution_clock::now();
+  total_time = duration_cast<duration<double>>(stop - start);
+  std::cout << "Computing delta completed successfully." << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
   vectorization::Grid<T,U> grid{dataset_curves, dataset_ids,
-                                dataset_lengths, dataset_offsets, 0.1};
+                                dataset_lengths, dataset_offsets, delta};
                                 grid.Vectorize();
 
+  /* Comptuing window parameter as k * R used by LSH and HyperCube */
+  start = high_resolution_clock::now();
+  std::cout << "\nComputing window parameter.." << std::endl;
+  r = utils::ComputeParameterR(bf_nn_results);
+  stop = high_resolution_clock::now();
+  total_time = duration_cast<duration<double>>(stop - start);
+  std::cout << "Computing window parameter completed successfully." << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+
+  std::cout << "Delta: " << delta << std::endl;
+  std::cout << "Window: " << r << std::endl;
+
+  /* for (int i = 0; i < input_info.Q ;++i) {
+    std::cout << std::get<0>(bf_nn_results[i]) << " " << std::get<1>(bf_nn_results[i]) << std::endl;
+  } */
   /* for (int i = 0; i < dataset_ids.size(); ++i) {
     std::cout << "----> Id: " << dataset_ids[i] << " Length: " << dataset_lengths[i] << std::endl;
     for (int j = 0; j < dataset_lengths[i]; ++j) {
