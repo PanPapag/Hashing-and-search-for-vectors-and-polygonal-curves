@@ -28,6 +28,7 @@ using namespace std::chrono;
 int main(int argc, char **argv) {
   utils::InputInfo input_info;
   utils::ExitCode status;
+  uint32_t D_vec;
   double r, delta;
   int exit_code;
 
@@ -63,48 +64,56 @@ int main(int argc, char **argv) {
   /* Preprocessing input file to get number of dataset curves */
   auto start = high_resolution_clock::now();
   std::cout << "\nGetting number of dataset curves.." << std::endl;
-  exit_code = utils::io::GetDataCurves(input_info.input_file, input_info.N, status);
+  exit_code = utils::io::GetDataCurves(input_info.input_file,
+                                       input_info.N, status);
   if (exit_code != utils::SUCCESS) {
     utils::report::ReportError(status);
   }
   auto stop = high_resolution_clock::now();
   duration <double> total_time = duration_cast<duration<double>>(stop - start);
-  std::cout << "Getting number of dataset curves completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+  std::cout << "Getting number of dataset curves completed successfully."
+            << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds"
+            << std::endl;
 
   /*
-    Read dataset and create 1D vector of pairs which stores sequentially each curve
-    of lenth m_i. Also create 1D vector that stores curves' ids and curves' length.
-    1D vector of curves representation support cache efficiency and as a result
-    faster computations
+    Read dataset and create 1D vector of pairs which stores sequentially each
+    curve of lenth m_i. Also create 1D vector that stores curves' ids and
+    curves' length. 1D vector of curves representation support cache efficiency
+    and as a result, faster computations
   */
   start = high_resolution_clock::now();
   std::cout << "\nReading input file.." << std::endl;
   std::vector<std::pair<T,T>> dataset_curves;
-  std::vector<U> dataset_ids(input_info.N);
-  std::vector<int> dataset_lengths(input_info.N);
-  std::vector<int> dataset_offsets(input_info.N);
+  std::vector<U> dataset_curves_ids(input_info.N);
+  std::vector<int> dataset_curves_lengths(input_info.N);
+  std::vector<int> dataset_curves_offsets(input_info.N);
   exit_code = utils::io::ReadFile<T,U>(input_info.input_file, input_info.N,
-    dataset_curves, dataset_ids, dataset_lengths, dataset_offsets, status);
+    dataset_curves, dataset_curves_ids, dataset_curves_lengths,
+    dataset_curves_offsets, status);
   if (exit_code != utils::SUCCESS) {
     utils::report::ReportError(status);
   }
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
   std::cout << "Reading input file completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds"
+            << std::endl;
 
   /* Preprocessing query file to get number of query curves */
   start = high_resolution_clock::now();
   std::cout << "\nGetting number of query curves.." << std::endl;
-  exit_code = utils::io::GetDataCurves(input_info.query_file, input_info.Q, status);
+  exit_code = utils::io::GetDataCurves(input_info.query_file,
+                                       input_info.Q, status);
   if (exit_code != utils::SUCCESS) {
     utils::report::ReportError(status);
   }
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
-  std::cout << "Getting number of query curves completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+  std::cout << "Getting number of query curves completed successfully."
+            << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds"
+            << std::endl;
 
   /* Reading query file */
   start = high_resolution_clock::now();
@@ -121,7 +130,8 @@ int main(int argc, char **argv) {
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
   std::cout << "Reading query file completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds"
+            << std::endl;
 
   /* Print input info */
   input_info.Print();
@@ -130,12 +140,14 @@ int main(int argc, char **argv) {
   start = high_resolution_clock::now();
   std::cout << "\nBuilding Brute Force.." << std::endl;
   std::vector<std::tuple<T,U,double>> bf_nn_results(input_info.Q);
-  search::curves::BruteForce<T,U> bf{dataset_curves, dataset_ids,
-                                     dataset_lengths, dataset_offsets};
+  search::curves::BruteForce<T,U> bf{dataset_curves, dataset_curves_ids,
+                                     dataset_curves_lengths,
+                                     dataset_curves_offsets};
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
   std::cout << "Building Brute Force completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds"
+            << std::endl;
 
   /* Executing Exact Nearest Neighbor using BruteForce */
   start = high_resolution_clock::now();
@@ -146,21 +158,56 @@ int main(int argc, char **argv) {
   }
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
-  std::cout << "Executing Nearest Neighbor using Brute Force completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+  std::cout << "Executing Nearest Neighbor using Brute Force completed successfully."
+            << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds"
+            << std::endl;
 
   /* Computing delta parameter for grid */
   start = high_resolution_clock::now();
-  std::cout << "\nComputing delta.." << std::endl;
-  delta = utils::ComputeDelta(dataset_curves, dataset_lengths, dataset_offsets);
+  std::cout << "\nComputing grid hyperparameters.." << std::endl;
+  delta = utils::ComputeDelta(dataset_curves, dataset_curves_lengths,
+                              dataset_curves_offsets);
+  D_vec = 2 * *max_element(std::begin(dataset_curves_lengths),
+                           std::end(dataset_curves_lengths));
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
-  std::cout << "Computing delta completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+  std::cout << "Computing grid hyperparameters completed successfully."
+            << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds"
+            << std::endl;
 
-  vectorization::Grid<T,U> grid{dataset_curves, dataset_ids,
-                                dataset_lengths, dataset_offsets, delta};
-                                grid.Vectorize();
+  /* Building L_grid Grids */
+  start = high_resolution_clock::now();
+  std::cout << "\nBuilding " << static_cast<unsigned int>(input_info.L_grid)
+            << " grids.." << std::endl;
+  std::vector<vectorization::Grid<T>> grids;
+  for (size_t i = 0; i < input_info.L_grid; ++i) {
+    grids.push_back(vectorization::Grid<T>(dataset_curves,
+                                           dataset_curves_lengths,
+                                           dataset_curves_offsets,
+                                           input_info.N, D_vec, delta));
+  }
+  stop = high_resolution_clock::now();
+  total_time = duration_cast<duration<double>>(stop - start);
+  std::cout << "Building " << static_cast<unsigned int>(input_info.L_grid)
+            << " grids completed successfully." << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds"
+            << std::endl;
+
+  /* For each curve find an equivalent vector. Do this for L_grid grids */
+  start = high_resolution_clock::now();
+  std::cout << "\nVectorizing dataset curves using grid method.." << std::endl;
+  std::vector<std::vector<double>> L_grid_vectors(input_info.L_grid);
+  for (size_t i = 0; i < input_info.L_grid; ++i) {
+    L_grid_vectors[i] = grids[i].Vectorize();
+  }
+  stop = high_resolution_clock::now();
+  total_time = duration_cast<duration<double>>(stop - start);
+  std::cout << "Vectorizing dataset curves using grid method completed."
+            << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds"
+            << std::endl;
 
   /* Comptuing window parameter as k * R used by LSH and HyperCube */
   start = high_resolution_clock::now();
@@ -168,20 +215,42 @@ int main(int argc, char **argv) {
   r = utils::ComputeParameterR(bf_nn_results);
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
-  std::cout << "Computing window parameter completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+  std::cout << "Computing window parameter completed successfully."
+            << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds"
+            << std::endl;
 
-  std::cout << "Delta: " << delta << std::endl;
-  std::cout << "Window: " << r << std::endl;
+  /* Bulding LSH structures */
+  start = high_resolution_clock::now();
+  std::cout << "\nBuilding LSH structures.." << std::endl;
+  std::vector<search::curves::LSH<T,U>> lsh_structures;
+  for (size_t i = 0; i < input_info.L_grid; ++i) {
+    lsh_structures.
+      push_back(search::curves::LSH<T,U>(input_info.K_vec, 1, D_vec,
+                                         input_info.N, r, dataset_curves,
+                                         dataset_curves_ids,
+                                         dataset_curves_lengths,
+                                         dataset_curves_offsets,
+                                         L_grid_vectors[i]));
+  }
+  stop = high_resolution_clock::now();
+  total_time = duration_cast<duration<double>>(stop - start);
+  std::cout << "Building LSH structures completed successfully."
+            << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds"
+            << std::endl;
+
+  //std::cout << "Delta: " << delta << std::endl;
+  //std::cout << "Window: " << r << std::endl;
 
   /* for (int i = 0; i < input_info.Q ;++i) {
     std::cout << std::get<0>(bf_nn_results[i]) << " " << std::get<1>(bf_nn_results[i]) << std::endl;
   } */
-  /* for (int i = 0; i < dataset_ids.size(); ++i) {
-    std::cout << "----> Id: " << dataset_ids[i] << " Length: " << dataset_lengths[i] << std::endl;
-    for (int j = 0; j < dataset_lengths[i]; ++j) {
-      std::cout << "(" << std::get<0>(dataset_curves[dataset_offsets[i] + j]);
-      std::cout << "," << std::get<1>(dataset_curves[dataset_offsets[i] + j])
+  /* for (int i = 0; i < dataset_curves_ids.size(); ++i) {
+    std::cout << "----> Id: " << dataset_curves_ids[i] << " Length: " << dataset_curves_lengths[i] << std::endl;
+    for (int j = 0; j < dataset_curves_lengths[i]; ++j) {
+      std::cout << "(" << std::get<0>(dataset_curves[dataset_curves_offsets[i] + j]);
+      std::cout << "," << std::get<1>(dataset_curves[dataset_curves_offsets[i] + j])
                 << ")" << std::endl;
     }
   } */
@@ -195,7 +264,7 @@ int main(int argc, char **argv) {
                 << ")" << std::endl;
     }
   } */
-  //vectorization::Projection<T,U> test {dataset_curves, dataset_offsets, dataset_lengths, dataset_ids};
+  //vectorization::Projection<T,U> test {dataset_curves, dataset_curves_offsets, dataset_curves_lengths, dataset_curves_ids};
 
   return EXIT_SUCCESS;
 }

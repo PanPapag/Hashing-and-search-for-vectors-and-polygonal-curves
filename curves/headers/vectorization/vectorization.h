@@ -10,13 +10,12 @@
 
 namespace vectorization {
 
-  template <typename T, typename U>
+  template <typename T>
   class Grid {
     private:
-      uint32_t D;
       uint32_t N;
+      uint32_t D;
       const std::vector<std::pair<T,T>>& input_curves;
-      const std::vector<U>& input_curves_ids;
       const std::vector<int>& input_curves_lengths;
       const std::vector<int>& input_curves_offsets;
       const double delta;
@@ -28,19 +27,15 @@ namespace vectorization {
         Initializing private members
       */
       Grid(const std::vector<std::pair<T,T>>& curves,
-        const std::vector<U>& ids, const std::vector<int>& lenghts,
-        const std::vector<int>& offsets, double delta)
-        : delta(delta), distribution(0,delta),
+        const std::vector<int>& lenghts, const std::vector<int>& offsets,
+        const uint32_t N, const uint32_t D, double delta) :
+          N(N), D(D), delta(delta), distribution(0,delta),
           generator(std::chrono::system_clock::now().time_since_epoch().count()),
-          input_curves(curves), input_curves_ids(ids),
-          input_curves_lengths(lenghts), input_curves_offsets(offsets) {
+          input_curves(curves), input_curves_lengths(lenghts),
+          input_curves_offsets(offsets) {
           // t is selected uniformly between 0 - delta
           t.first = distribution(generator);
           t.second = distribution(generator);
-          // D is the dimension of the equivalent vector which represents a curve
-          D = 2 * *max_element(std::begin(input_curves_lengths),std::end(input_curves_lengths));
-          // N stands for the number of input curves
-          N = input_curves_ids.size();
       }
       /**
         \brief class Grid default constructor
@@ -59,13 +54,13 @@ namespace vectorization {
       */
       std::vector<double> Vectorize(void) {
         /**
-          Vectorize each curve and store the corresponding vector to an 1D array
-          Each vector is of dimension D (max curve length) and we have in total_time
-          N curves, and so N vectors.
+          Vectorize each input curve and store the corresponding vector to
+          an 1D array. Each vector is of dimension D (max curve length) and
+          we have in total_time N curves, and so N vectors.
         */
         std::vector<double> result(D * N);
         /* Iterave over each curve to compute its vector */
-        for (size_t i = 0; i < input_curves_ids.size(); ++i) {
+        for (size_t i = 0; i < N; ++i) {
           size_t idx = 0;
           for (size_t j = 0; j < input_curves_lengths[i]; ++j) {
             double x_1 = std::get<0>(input_curves[input_curves_offsets[i] + j]);
