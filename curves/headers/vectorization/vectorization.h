@@ -29,7 +29,7 @@ namespace vectorization {
       Grid(const std::vector<std::pair<T,T>>& curves,
         const std::vector<int>& lengths, const std::vector<int>& offsets,
         const uint32_t N, const uint32_t D, double delta) :
-          N(N), D(D), delta(delta / 2), distribution(0,delta),
+          N(N), D(D), delta(delta), distribution(0,delta),
           generator(std::chrono::system_clock::now().time_since_epoch().count()),
           input_curves(curves), input_curves_lengths(lengths),
           input_curves_offsets(offsets) {
@@ -74,8 +74,13 @@ namespace vectorization {
             result[i * D + (idx++)] = s_1;
             result[i * D + (idx++)] = s_2;
           }
-          // Fill with pading coordinates to have eqaal length vectors
-          for (size_t j = idx; j < D; ++j) {
+          // remove duplicates
+          std::vector<double>::iterator ip;
+          ip = std::unique(result.begin() + i * D, result.begin() + i * D + idx);
+          result.resize(std::distance(result.begin() + i * D, ip));
+          // Fill with pading coordinates to have equal length vectors
+          size_t start = std::distance(result.begin() + i * D, ip);
+          for (size_t j = start; j < D; ++j) {
             result[i * D + j] = std::numeric_limits<T>::max();
           }
         }
@@ -109,8 +114,14 @@ namespace vectorization {
             result[i * D + (idx++)] = s_1;
             result[i * D + (idx++)] = s_2;
           }
+          // remove duplicates
+          std::vector<double>::iterator ip;
+          ip = std::unique(result.begin() + i * D, result.begin() + i * D + idx);
+          result.resize(std::distance(result.begin() + i * D, ip));
+          // Fill with pading coordinates to have equal length vectors
+          size_t start = std::distance(result.begin() + i * D, ip);
           // Fill with pading coordinates to have eqaal length vectors
-          for (size_t j = idx; j < D; ++j) {
+          for (size_t j = start; j < D; ++j) {
             result[i * D + j] = std::numeric_limits<T>::max();
           }
         }

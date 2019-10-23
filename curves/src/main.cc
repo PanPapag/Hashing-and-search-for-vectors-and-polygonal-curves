@@ -30,6 +30,7 @@ int main(int argc, char **argv) {
   utils::InputInfo input_info;
   utils::ExitCode status;
   uint32_t D_vec;
+  const uint8_t factor = 10;
   double r, delta;
   int exit_code;
 
@@ -188,7 +189,7 @@ int main(int argc, char **argv) {
     grids.push_back(vectorization::Grid<T>(dataset_curves,
                                            dataset_curves_lengths,
                                            dataset_curves_offsets,
-                                           input_info.N, D_vec, delta));
+                                           input_info.N, D_vec, factor * delta));
   }
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
@@ -279,7 +280,7 @@ int main(int argc, char **argv) {
   /* Compute Max and Average ratio lsh_nn_results / bf_nn_results */
   start = high_resolution_clock::now();
   std::cout << "\nCalculating evaluation metric.." << std::endl;
-  std::pair<double,double> metric_res = metric::EvaluationMetric(bf_nn_results,
+  std::tuple<double,double,int> metric_res = metric::EvaluationMetric(bf_nn_results,
                                                             approx_nn_results);
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
@@ -289,6 +290,7 @@ int main(int argc, char **argv) {
             << std::endl;
   std::cout << "\nMax Af: " << std::get<0>(metric_res) << std::endl;
   std::cout << "Average Af: " << std::get<1>(metric_res) << std::endl;
+  std::cout << "Not found: " << std::get<2>(metric_res) << std::endl;
 
   /* Writing results to the output file */
   start = high_resolution_clock::now();
@@ -302,8 +304,6 @@ int main(int argc, char **argv) {
   total_time = duration_cast<duration<double>>(stop - start);
   std::cout << "Writing results to the output file completed successfully." << std::endl;
   std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
-
-  //vectorization::Projection<T,U> test {dataset_curves, dataset_curves_offsets, dataset_curves_lengths, dataset_curves_ids};
 
   return EXIT_SUCCESS;
 }

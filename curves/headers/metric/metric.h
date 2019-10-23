@@ -109,10 +109,11 @@ namespace metric {
     \brief Computes average and max distance ratio appox_dists / exact_dists
   */
   template <typename T, typename U>
-  std::pair<double,double> EvaluationMetric(std::vector<std::tuple<T,U,double>> &exact,
+  std::tuple<double,double,int> EvaluationMetric(std::vector<std::tuple<T,U,double>> &exact,
     std::vector<std::tuple<T,U,double>> &approx) {
 
     int N = exact.size();
+    int cnt_not_found{};
     double distance_error;
     double af{};
     double avg_af{};
@@ -120,6 +121,10 @@ namespace metric {
 
     for (int i = 0; i < N; ++i) {
       if (std::get<0>(approx[i]) != 0 && std::get<0>(exact[i]) != 0) {
+        if (std::get<0>(approx[i]) == std::numeric_limits<T>::max()) {
+          cnt_not_found++;
+          continue;
+        }
         distance_error = (double) std::get<0>(approx[i]) / std::get<0>(exact[i]);
         if (distance_error > max_af) {
           max_af = distance_error;
@@ -127,9 +132,9 @@ namespace metric {
         af += distance_error;
       }
     }
-    avg_af = af / N ;
+    avg_af = af / (N - cnt_not_found) ;
 
-    return std::make_pair(max_af,avg_af);
+    return std::make_tuple(max_af,avg_af,cnt_not_found);
   }
 }
 
