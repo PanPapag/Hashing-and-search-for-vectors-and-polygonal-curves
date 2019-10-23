@@ -136,7 +136,7 @@ int main(int argc, char **argv) {
   std::cout << "Building Brute Force completed successfully." << std::endl;
   std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
-  /* Executing Exact Nearest Neighbor using BruteForce */ /*
+  /* Executing Exact Nearest Neighbor using BruteForce */
   start = high_resolution_clock::now();
   std::cout << "\nExecuting Nearest Neighbor using Brute Force.." << std::endl;
   for (int i = 0; i < input_info.Q; ++i) {
@@ -148,10 +148,11 @@ int main(int argc, char **argv) {
   std::cout << "Executing Nearest Neighbor using Brute Force completed successfully." << std::endl;
   std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
-  */
+
   vectorization::Grid<T,U> grid{dataset_curves, dataset_ids,
                                 dataset_lengths, dataset_offsets, 0.1};
                                 grid.Vectorize();
+
   /* for (int i = 0; i < dataset_ids.size(); ++i) {
     std::cout << "----> Id: " << dataset_ids[i] << " Length: " << dataset_lengths[i] << std::endl;
     for (int j = 0; j < dataset_lengths[i]; ++j) {

@@ -26,10 +26,10 @@ namespace search {
             to given curves to have access on them
         */
         BruteForce(const std::vector<std::pair<T,T>>& curves,
-          const std::vector<U>& ids, const std::vector<int>& lenghts,
+          const std::vector<U>& ids, const std::vector<int>& lengths,
           const std::vector<int>& offsets)
           : input_curves(curves), input_curves_ids(ids),
-            input_curves_lengths(lenghts), input_curves_offsets(offsets) {};
+            input_curves_lengths(lengths), input_curves_offsets(offsets) {};
         /**
           \brief class BruteForce default construct
         */

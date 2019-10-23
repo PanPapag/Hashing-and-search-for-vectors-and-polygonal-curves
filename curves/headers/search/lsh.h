@@ -92,37 +92,8 @@ namespace search {
         /* return result as a tuple of min_dist, min_id and total_time */
         return std::make_tuple(min_dist,min_id,total_time.count());
       };
-      /** \brief Executes approximate Radius Nearest tNeighbor
-        @par const std::vector<T> &query_points - Pass by reference query points
-        @par const int offset - Offset to get correspodent point
-      */
-      std::vector<std::pair<T,U>> RadiusNearestNeighbor(const std::vector<T> &query_points,
-        const int offset) {
 
-        /* Define result vector */
-        std::vector<std::pair<T,U>> result;
-        /* Initialize min_dist to max value of type T */
-        T min_dist = std::numeric_limits<T>::max();
-        /* Initialize correspodent min_id using the C++11 way */
-        U min_id{};
-        for (int i = 0; i < L; ++i) {
-          // get i_th hashtable
-          std::unordered_map<int,std::vector<int>> &ht_i = hash_tables[i];
-          // get all points in the same bucket
-          std::vector<int> &bucket = ht_i[hash_functions[i].Hash(query_points,offset) % table_size];
-          // iterate over all points in the buck
-          for (auto const& fv_offset: bucket) {
-            T dist = metric::ManhattanDistance<T>(
-              std::next(feature_vector.begin(), fv_offset * D),
-              std::next(query_points.begin(), offset * D),
-              std::next(query_points.begin(), offset * D + D));
-            if (dist <= R) {
-              result.push_back(std::make_pair(dist,feature_vector_ids[fv_offset]));
-            }
-          }
-        }
-        return result;
-      };
+
   };
 }
 

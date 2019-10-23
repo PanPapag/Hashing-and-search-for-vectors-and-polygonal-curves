@@ -77,6 +77,7 @@ namespace vectorization {
             result[i * D + (idx++)] = s_1;
             result[i * D + (idx++)] = s_2;
           }
+          // Fill with pading coordinates to have eqaal length vectors
           for (size_t j = idx; j < D; ++j) {
             result[i * D + j] = std::numeric_limits<T>::max();
           }
