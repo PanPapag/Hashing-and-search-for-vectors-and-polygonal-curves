@@ -26,7 +26,8 @@ namespace utils {
     template <typename T, typename K>
     int ReadFile(std::string& file_name, const int no_curves,
       std::vector<std::pair<T,T>>& curves, std::vector<K>& ids,
-      std::vector<int>& lengths, std::vector<int>& offsets, utils::ExitCode& status) {
+      std::vector<int>& lengths, std::vector<int>& offsets,
+      utils::ExitCode& status) {
 
       // Open file
       std::ifstream infile;
@@ -47,7 +48,8 @@ namespace utils {
           infile >> buffer_x;
           infile >> buffer_y;
           // remove noise characters such as '(', to convert successuflly to T
-          buffer_x.erase(std::remove(buffer_x.begin(),buffer_x.end(),'('), buffer_x.end());
+          buffer_x.erase(std::remove(buffer_x.begin(),buffer_x.end(),'('),
+                         buffer_x.end());
           T point_x = convert_to<T>(buffer_x);
           T point_y = convert_to<T>(buffer_y);
           curves.push_back(std::make_pair(point_x,point_y));
@@ -60,10 +62,12 @@ namespace utils {
       return SUCCESS;
     }
     /** \brief WriteFile - Output prorgam results to given output file
-      @par std::string &file_name - Pass by reference the path to the output file
+      @par std::string &file_name - Pass by reference the path to the
+        output file
       @par std::vector<std::tuple<T,U,double>> &exact - Results from Brute Force
       @par std::vector<std::tuple<T,U,double>> &approx - Results from LSH
-      @par std::vector<std::vector<std::pair<T,U>>> &radius_nn - Results from radius NN
+      @par std::vector<std::vector<std::pair<T,U>>> &radius_nn - Results from
+        radius NN
       @par ExitCode &statues - enumerated ExitCode provided from namespace utils
       return: SUCCESS or FAIL
     */
@@ -111,7 +115,8 @@ namespace utils {
       @par ExitCode& statues - enumerated ExitCode provided from namespace utils
       return: SUCCESS or FAIL
     */
-    int GetDataCurves(std::string& file_name, uint32_t& no_vectors, ExitCode& status);
+    int GetDataCurves(std::string& file_name, uint32_t& no_vectors,
+      ExitCode& status);
   }
 }
 
