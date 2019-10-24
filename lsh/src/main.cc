@@ -15,11 +15,10 @@
 #include "../../core/search/brute_force.h"
 #include "../../core/utils/utils.h"
 
-#include "../headers/utils/lsh_args_utils.h"
-#include "../headers/utils/lsh_report_utils.h"
-#include "../headers/utils/lsh_utils.h"
-
-#include "../headers/utils/io_utils.h"
+#include "../lsh_headers/lsh_args_utils.h"
+#include "../lsh_headers/lsh_io_utils.h"
+#include "../lsh_headers/lsh_report_utils.h"
+#include "../lsh_headers/lsh_utils.h"
 
 #define T int
 #define U int

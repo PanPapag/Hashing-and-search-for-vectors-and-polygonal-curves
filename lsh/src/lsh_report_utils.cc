@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "../headers/utils/lsh_utils.h"
-#include "../headers/utils/lsh_report_utils.h"
+#include "../lsh_headers/lsh_utils.h"
+#include "../lsh_headers/lsh_report_utils.h"
 
 void utils::report::ReportError(const utils::ExitCode &code) {
   switch (code) {

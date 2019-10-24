@@ -5,7 +5,7 @@
 #include <vector>
 
 namespace utils {
-  /* enumerated exit codes */
+  /* enumerated general exit codes */
   typedef enum ExitCode{
     SUCCESS,
     FAIL,
@@ -23,7 +23,6 @@ namespace utils {
   /**
     InputInfo - Group all input parameters of LSH in a struct
   */
-
   struct InputInfo {
     std::string input_file;      // name of the relative path to the input file
     std::string query_file;      // name of the relative path to the query file
