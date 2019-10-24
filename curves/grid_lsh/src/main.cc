@@ -157,7 +157,7 @@ int main(int argc, char **argv) {
   /* Executing Exact Nearest Neighbor using BruteForce */
   start = high_resolution_clock::now();
   std::cout << "\nExecuting Nearest Neighbor using Brute Force.." << std::endl;
-  for (int i = 0; i < input_info.Q; ++i) {
+  for (size_t i = 0; i < input_info.Q; ++i) {
     bf_nn_results[i] = bf.NearestNeighbor(query_curves, query_curves_lengths,
                                           query_curves_offsets, i);
   }
@@ -266,7 +266,7 @@ int main(int argc, char **argv) {
   std::cout << "\nExecuting Nearest Neighbor using LSH.." << std::endl;
   std::vector<std::tuple<T,U,double>> approx_nn_results(input_info.Q);
   for (size_t i = 0; i < input_info.Q; ++i) {
-    approx_nn_results[i] = search::curves::lsh_grid_search(input_info.L_grid,
+    approx_nn_results[i] = search::curves::grid_search(input_info.L_grid,
                                                 lsh_structures, query_curves,
                                                 query_curves_lengths,
                                                 query_curves_offsets,

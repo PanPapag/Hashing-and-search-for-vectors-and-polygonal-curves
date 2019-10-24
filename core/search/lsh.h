@@ -118,8 +118,8 @@ namespace search {
           @par const std::vector<T>& query_points - Pass by reference query points
           @par const int offset - Offset to get correspodent point
         */
-        std::vector<std::pair<T,U>> RadiusNearestNeighbor(const std::vector<T>& query_points,
-          const int offset) {
+        std::vector<std::pair<T,U>> RadiusNearestNeighbor(
+          const std::vector<T>& query_points, const int offset) {
 
           /* Define result as a vector of pairs of min_dist and min_id */
           std::vector<std::pair<T,U>> result;

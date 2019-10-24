@@ -28,6 +28,8 @@ using namespace std::chrono;
 int main(int argc, char **argv) {
   utils::InputInfo input_info;
   utils::ExitCode status;
+  std::string input_buffer;
+  double radius = 0.0;
   int exit_code;
 
   /* Get arguments */
@@ -159,7 +161,7 @@ int main(int argc, char **argv) {
   /* Executing Exact Nearest Neighbor using BruteForce */
   start = high_resolution_clock::now();
   std::cout << "\nExecuting Nearest Neighbor using Brute Force.." << std::endl;
-  for (int i = 0; i < input_info.Q; ++i) {
+  for (size_t i = 0; i < input_info.Q; ++i) {
     bf_nn_results[i] = bf.NearestNeighbor(query_points, i);
   }
   stop = high_resolution_clock::now();
@@ -169,30 +171,14 @@ int main(int argc, char **argv) {
   std::cout << "Time elapsed: " << total_time.count() << " seconds"
             << std::endl;
 
-  /* Computing radius */
+  /* Computing window */
   start = high_resolution_clock::now();
-  std::cout << "\nComputing radius.." << std::endl;
-  double radius = utils::ComputeParameterR(bf_nn_results);
+  std::cout << "\nComputing window parameter.." << std::endl;
+  double r = utils::ComputeParameterR(bf_nn_results);
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
-  std::cout << "Computing radius completed successfully." << std::endl;
+  std::cout << "Computing window completed successfully." << std::endl;
   std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
-  std::cout << "\nRadius: " << radius << std::endl;
-
-  /* Executing Radius Nearest Neighbor using BruteForce*/
-  std::vector<std::vector<std::pair<T,U>>> bf_radius_nn_results(input_info.Q);
-  start = high_resolution_clock::now();
-  std::cout << "\nExecuting Radius Nearest Neighbor using Brute Force.."
-            << std::endl;
-  for (size_t i = 0; i < input_info.Q; ++i) {
-    bf_radius_nn_results[i] = bf.RadiusNearestNeighbor(query_points, i, radius);
-  }
-  stop = high_resolution_clock::now();
-  total_time = duration_cast<duration<double>>(stop - start);
-  std::cout << "Executing Radius Nearest Neighbor using Brute Force completed successfully."
-            << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds"
-            << std::endl;
 
   /* Creating HyperCube class object and a vector to store approx-NN results */
   start = high_resolution_clock::now();
@@ -222,20 +208,54 @@ int main(int argc, char **argv) {
   std::cout << "Time elapsed: " << total_time.count() << " seconds"
             << std::endl;
 
-  /* Executing Radius Nearest Neighbor using HyperCube*/
+  /* Read radius if user select to run range search */
+  do {
+    std::cout << "\nDo you want to run range search? (y/n)? : ";
+    std::cin >> input_buffer;
+    if (input_buffer != "y" && input_buffer != "n") {
+      std::cout << "Wrong input! Try again." << std::endl;
+    }
+  } while (input_buffer != "y" && input_buffer != "n");
+  /* Define vectors to store radius NN results */
+  std::vector<std::vector<std::pair<T,U>>> bf_radius_nn_results(input_info.Q);
   std::vector<std::vector<std::pair<T,U>>> cube_radius_nn_results(input_info.Q);
-  start = high_resolution_clock::now();
-  std::cout << "\nExecuting Radius Nearest Neighbor using HyperCube.."
-            << std::endl;
-  for (size_t i = 0; i < input_info.Q; ++i) {
-    cube_radius_nn_results[i] = cube.RadiusNearestNeighbor(query_points, i);
+  /* Check input */
+  if (input_buffer != "n") {
+    std::cout << "Provide the radius: ";
+    std::cin >> input_buffer;
+    try {
+      radius = stoi(input_buffer);
+    } catch (...) {
+      return EXIT_FAILURE;
+    }
+    /* Executing Radius Nearest Neighbor using BruteForce*/
+    start = high_resolution_clock::now();
+    std::cout << "\nExecuting Radius Nearest Neighbor using Brute Force.."
+              << std::endl;
+    for (size_t i = 0; i < input_info.Q; ++i) {
+      bf_radius_nn_results[i] = bf.RadiusNearestNeighbor(query_points, i, radius);
+    }
+    stop = high_resolution_clock::now();
+    total_time = duration_cast<duration<double>>(stop - start);
+    std::cout << "Executing Radius Nearest Neighbor using Brute Force completed successfully."
+              << std::endl;
+    std::cout << "Time elapsed: " << total_time.count() << " seconds"
+              << std::endl;
+
+    /* Executing Radius Nearest Neighbor using HyperCube*/
+    start = high_resolution_clock::now();
+    std::cout << "\nExecuting Radius Nearest Neighbor using HyperCube.."
+              << std::endl;
+    for (size_t i = 0; i < input_info.Q; ++i) {
+      cube_radius_nn_results[i] = cube.RadiusNearestNeighbor(query_points, i);
+    }
+    stop = high_resolution_clock::now();
+    total_time = duration_cast<duration<double>>(stop - start);
+    std::cout << "Executing Radius Nearest Neighbor using HyperCube completed successfully."
+              << std::endl;
+    std::cout << "Time elapsed: " << total_time.count() << " seconds"
+              << std::endl;
   }
-  stop = high_resolution_clock::now();
-  total_time = duration_cast<duration<double>>(stop - start);
-  std::cout << "Executing Radius Nearest Neighbor using HyperCube completed successfully."
-            << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds"
-            << std::endl;
 
   /* Compute Max and Average ratio cube_nn_results / bf_nn_results */
   start = high_resolution_clock::now();

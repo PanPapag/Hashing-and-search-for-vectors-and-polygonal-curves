@@ -4,6 +4,7 @@
 #include <tuple>
 
 #include "../../../core/search/lsh.h"
+#include "../../../core/search/hypercube.h"
 
 namespace search {
   namespace curves {
@@ -16,7 +17,7 @@ namespace search {
       @par idx - index to current query
     */
     template <typename T, typename U>
-    std::tuple<T,U,double> lsh_grid_search(const uint8_t L_grid,
+    std::tuple<T,U,double> grid_search(const uint8_t L_grid,
       std::vector<search::curves::LSH<T,U>>& lsh_structures,
       const std::vector<std::pair<T,T>>& query_curves,
       const std::vector<int>& query_curves_lengths,

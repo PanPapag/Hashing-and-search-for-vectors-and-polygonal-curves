@@ -62,19 +62,21 @@ namespace utils {
         /* Get number of queries executed */
         int N = exact.size();
         /* Print info for each query */
-        for (int i = 0; i < N; ++i) {
+        for (size_t i = 0; i < N; ++i) {
           outfile << "Query: " << i << std::endl;
           outfile << "Nearest neighbor: " << std::get<1>(approx[i]) << std::endl;
           outfile << "distanceHyperCube: " <<  std::get<0>(approx[i]) << std::endl;
           outfile << "distanceTrue: " <<  std::get<0>(exact[i]) << std::endl;
           outfile << "tHyperCube: " <<  std::get<2>(approx[i]) << " seconds" << std::endl;
           outfile << "tTrue: " <<  std::get<2>(exact[i]) << " seconds" << std::endl;
-          outfile << R << "-near neighbors: " << std::endl;
-          for (int j = 0; j < radius_nn[i].size(); ++j) {
-            outfile << std::get<1>(radius_nn[i][j]) << std::endl;
-          }
-          if (!radius_nn[i].size()) {
-            outfile << "No " << R << "-near neighbors found" << std::endl;
+          if (R != 0.0) {
+            outfile << R << "-near neighbors: " << std::endl;
+            for (int j = 0; j < radius_nn[i].size(); ++j) {
+              outfile << std::get<1>(radius_nn[i][j]) << std::endl;
+            }
+            if (!radius_nn[i].size()) {
+              outfile << "No " << R << "-near neighbors found" << std::endl;
+            }
           }
           outfile << std::endl;
         }
