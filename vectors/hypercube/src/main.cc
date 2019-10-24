@@ -111,181 +111,203 @@ int main(int argc, char **argv) {
   std::cout << "Time elapsed: " << total_time.count() << " seconds"
             << std::endl;
 
-  /* Preprocessing query file */
-  start = high_resolution_clock::now();
-  std::cout << "\nGetting number of query points.." << std::endl;
-  exit_code = utils::io::GetDataPoints(input_info.query_file,
-                                       input_info.Q, status);
-  if (exit_code != utils::SUCCESS) {
-    utils::report::ReportError(status);
-  }
-  stop = high_resolution_clock::now();
-  total_time = duration_cast<duration<double>>(stop - start);
-  std::cout << "Getting number of query points completed successfully."
-            << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds"
-            << std::endl;
-
-  /* Reading query file */
-  start = high_resolution_clock::now();
-  std::cout << "\nReading query file.." << std::endl;
-  std::vector<T> query_points(input_info.Q * input_info.D);
-  std::vector<U> query_ids(input_info.Q);
-  exit_code = utils::io::ReadFile<T,U>(input_info.query_file, input_info.Q,
-                                       input_info.D, query_points,
-                                       query_ids, status);
-  if (exit_code != utils::SUCCESS) {
-    utils::report::ReportError(status);
-  }
-  stop = high_resolution_clock::now();
-  total_time = duration_cast<duration<double>>(stop - start);
-  std::cout << "Reading query file completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds"
-           << std::endl;
-
-  /* Print input info */
-  input_info.Print();
-
-  /* Create BruteForce class object and a vector to store exact-NN results */
-  start = high_resolution_clock::now();
-  std::cout << "\nBuilding Brute Force.." << std::endl;
-  std::vector<std::tuple<T,U,double>> bf_nn_results(input_info.Q);
-  search::vectors::BruteForce<T,U> bf{input_info.N, input_info.D,
-                                      dataset_points, dataset_ids};
-  stop = high_resolution_clock::now();
-  total_time = duration_cast<duration<double>>(stop - start);
-  std::cout << "Building Brute Force completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds"
-            << std::endl;
-
-  /* Executing Exact Nearest Neighbor using BruteForce */
-  start = high_resolution_clock::now();
-  std::cout << "\nExecuting Nearest Neighbor using Brute Force.." << std::endl;
-  for (size_t i = 0; i < input_info.Q; ++i) {
-    bf_nn_results[i] = bf.NearestNeighbor(query_points, i);
-  }
-  stop = high_resolution_clock::now();
-  total_time = duration_cast<duration<double>>(stop - start);
-  std::cout << "Executing Nearest Neighbor using Brute Force completed successfully."
-            << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds"
-            << std::endl;
-
-  /* Computing window */
-  start = high_resolution_clock::now();
-  std::cout << "\nComputing window parameter.." << std::endl;
-  double r = utils::ComputeParameterR(bf_nn_results);
-  stop = high_resolution_clock::now();
-  total_time = duration_cast<duration<double>>(stop - start);
-  std::cout << "Computing window completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
-
-  /* Creating HyperCube class object and a vector to store approx-NN results */
-  start = high_resolution_clock::now();
-  std::vector<std::tuple<T,U,double>> cube_nn_results(input_info.Q);
-  std::cout << "\nBuilding HyperCube.." << std::endl;
-  std::vector<std::tuple<T,U,double>> hypercube_nn_results(input_info.Q);
-  search::vectors::HyperCube<T,U> cube{input_info.k, input_info.M, input_info.D,
-                                       input_info.N, input_info.probes, radius,
-                                       dataset_points, dataset_ids};
-
-  stop = high_resolution_clock::now();
-  total_time = duration_cast<duration<double>>(stop - start);
-  std::cout << "Building HyperCube completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds"
-            << std::endl;
-
-  /* Executing approximate Nearest Neighbor using HyperCube */
-  start = high_resolution_clock::now();
-  std::cout << "\nExecuting Nearest Neighbor using HyperCube.." << std::endl;
-  for (size_t i = 0; i < input_info.Q; ++i) {
-    cube_nn_results[i] = cube.NearestNeighbor(query_points, i);
-  }
-  stop = high_resolution_clock::now();
-  total_time = duration_cast<duration<double>>(stop - start);
-  std::cout << "Executing Nearest Neighbor using HyperCube completed successfully."
-            << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds"
-            << std::endl;
-
-  /* Read radius if user select to run range search */
   do {
-    std::cout << "\nDo you want to run range search? (y/n)? : ";
-    std::cin >> input_buffer;
-    if (input_buffer != "y" && input_buffer != "n") {
-      std::cout << "Wrong input! Try again." << std::endl;
-    }
-  } while (input_buffer != "y" && input_buffer != "n");
-  /* Define vectors to store radius NN results */
-  std::vector<std::vector<std::pair<T,U>>> bf_radius_nn_results(input_info.Q);
-  std::vector<std::vector<std::pair<T,U>>> cube_radius_nn_results(input_info.Q);
-  /* Check input */
-  if (input_buffer != "n") {
-    std::cout << "Provide the radius: ";
-    std::cin >> input_buffer;
-    try {
-      radius = stoi(input_buffer);
-    } catch (...) {
-      return EXIT_FAILURE;
-    }
-    /* Executing Radius Nearest Neighbor using BruteForce*/
+    /* Preprocessing query file */
     start = high_resolution_clock::now();
-    std::cout << "\nExecuting Radius Nearest Neighbor using Brute Force.."
-              << std::endl;
-    for (size_t i = 0; i < input_info.Q; ++i) {
-      bf_radius_nn_results[i] = bf.RadiusNearestNeighbor(query_points, i, radius);
+    std::cout << "\nGetting number of query points.." << std::endl;
+    exit_code = utils::io::GetDataPoints(input_info.query_file,
+                                         input_info.Q, status);
+    if (exit_code != utils::SUCCESS) {
+      utils::report::ReportError(status);
     }
     stop = high_resolution_clock::now();
     total_time = duration_cast<duration<double>>(stop - start);
-    std::cout << "Executing Radius Nearest Neighbor using Brute Force completed successfully."
+    std::cout << "Getting number of query points completed successfully."
               << std::endl;
     std::cout << "Time elapsed: " << total_time.count() << " seconds"
               << std::endl;
 
-    /* Executing Radius Nearest Neighbor using HyperCube*/
+    /* Reading query file */
     start = high_resolution_clock::now();
-    std::cout << "\nExecuting Radius Nearest Neighbor using HyperCube.."
-              << std::endl;
-    for (size_t i = 0; i < input_info.Q; ++i) {
-      cube_radius_nn_results[i] = cube.RadiusNearestNeighbor(query_points, i);
+    std::cout << "\nReading query file.." << std::endl;
+    std::vector<T> query_points(input_info.Q * input_info.D);
+    std::vector<U> query_ids(input_info.Q);
+    exit_code = utils::io::ReadFile<T,U>(input_info.query_file, input_info.Q,
+                                         input_info.D, query_points,
+                                         query_ids, status);
+    if (exit_code != utils::SUCCESS) {
+      utils::report::ReportError(status);
     }
     stop = high_resolution_clock::now();
     total_time = duration_cast<duration<double>>(stop - start);
-    std::cout << "Executing Radius Nearest Neighbor using HyperCube completed successfully."
+    std::cout << "Reading query file completed successfully." << std::endl;
+    std::cout << "Time elapsed: " << total_time.count() << " seconds"
+             << std::endl;
+
+    /* Print input info */
+    input_info.Print();
+
+    /* Create BruteForce class object and a vector to store exact-NN results */
+    start = high_resolution_clock::now();
+    std::cout << "\nBuilding Brute Force.." << std::endl;
+    std::vector<std::tuple<T,U,double>> bf_nn_results(input_info.Q);
+    search::vectors::BruteForce<T,U> bf{input_info.N, input_info.D,
+                                        dataset_points, dataset_ids};
+    stop = high_resolution_clock::now();
+    total_time = duration_cast<duration<double>>(stop - start);
+    std::cout << "Building Brute Force completed successfully." << std::endl;
+    std::cout << "Time elapsed: " << total_time.count() << " seconds"
+              << std::endl;
+
+    /* Executing Exact Nearest Neighbor using BruteForce */
+    start = high_resolution_clock::now();
+    std::cout << "\nExecuting Nearest Neighbor using Brute Force.." << std::endl;
+    for (size_t i = 0; i < input_info.Q; ++i) {
+      bf_nn_results[i] = bf.NearestNeighbor(query_points, i);
+    }
+    stop = high_resolution_clock::now();
+    total_time = duration_cast<duration<double>>(stop - start);
+    std::cout << "Executing Nearest Neighbor using Brute Force completed successfully."
               << std::endl;
     std::cout << "Time elapsed: " << total_time.count() << " seconds"
               << std::endl;
-  }
 
-  /* Compute Max and Average ratio cube_nn_results / bf_nn_results */
-  start = high_resolution_clock::now();
-  std::cout << "\nCalculating evaluation metric.." << std::endl;
-  std::tuple<double,double,int> metric_res{};
-   metric_res = metric::EvaluationMetric(bf_nn_results, cube_nn_results);
-  stop = high_resolution_clock::now();
-  total_time = duration_cast<duration<double>>(stop - start);
-  std::cout << "Calculating evaluation metric completed successfully."
-            << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds"
-            << std::endl;
-  std::cout << "\nMax Af: " << std::get<0>(metric_res) << std::endl;
-  std::cout << "Average Af: " << std::get<1>(metric_res) << std::endl;
-  std::cout << "Not found: " << std::get<2>(metric_res) << std::endl;
+    /* Computing window */
+    start = high_resolution_clock::now();
+    std::cout << "\nComputing window parameter.." << std::endl;
+    double r = utils::ComputeParameterR(bf_nn_results);
+    stop = high_resolution_clock::now();
+    total_time = duration_cast<duration<double>>(stop - start);
+    std::cout << "Computing window completed successfully." << std::endl;
+    std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
-  /* Writing results to the output file */
-  start = high_resolution_clock::now();
-  std::cout << "\nWriting results to the output file.." << std::endl;
-  exit_code = utils::io::WriteFile<T,U>(input_info.output_file, bf_nn_results,
-    cube_nn_results, radius, bf_radius_nn_results, status);
-  if (exit_code != utils::SUCCESS) {
-    utils::report::ReportError(status);
-  }
-  stop = high_resolution_clock::now();
-  total_time = duration_cast<duration<double>>(stop - start);
-  std::cout << "Writing results to the output file completed successfully."
-            << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds"
-            << std::endl;
+    /* Creating HyperCube class object and a vector to store approx-NN results */
+    start = high_resolution_clock::now();
+    std::vector<std::tuple<T,U,double>> cube_nn_results(input_info.Q);
+    std::cout << "\nBuilding HyperCube.." << std::endl;
+    std::vector<std::tuple<T,U,double>> hypercube_nn_results(input_info.Q);
+    search::vectors::HyperCube<T,U> cube{input_info.k, input_info.M, input_info.D,
+                                         input_info.N, input_info.probes, radius,
+                                         dataset_points, dataset_ids};
+
+    stop = high_resolution_clock::now();
+    total_time = duration_cast<duration<double>>(stop - start);
+    std::cout << "Building HyperCube completed successfully." << std::endl;
+    std::cout << "Time elapsed: " << total_time.count() << " seconds"
+              << std::endl;
+
+    /* Executing approximate Nearest Neighbor using HyperCube */
+    start = high_resolution_clock::now();
+    std::cout << "\nExecuting Nearest Neighbor using HyperCube.." << std::endl;
+    for (size_t i = 0; i < input_info.Q; ++i) {
+      cube_nn_results[i] = cube.NearestNeighbor(query_points, i);
+    }
+    stop = high_resolution_clock::now();
+    total_time = duration_cast<duration<double>>(stop - start);
+    std::cout << "Executing Nearest Neighbor using HyperCube completed successfully."
+              << std::endl;
+    std::cout << "Time elapsed: " << total_time.count() << " seconds"
+              << std::endl;
+
+    /* Read radius if user select to run range search */
+    do {
+      std::cout << "\nDo you want to run range search? (y/n)? : ";
+      std::cin >> input_buffer;
+      if (input_buffer != "y" && input_buffer != "n") {
+        std::cout << "Wrong input! Try again." << std::endl;
+      }
+    } while (input_buffer != "y" && input_buffer != "n");
+    /* Define vectors to store radius NN results */
+    std::vector<std::vector<std::pair<T,U>>> bf_radius_nn_results(input_info.Q);
+    std::vector<std::vector<std::pair<T,U>>> cube_radius_nn_results(input_info.Q);
+    /* Check input */
+    if (input_buffer != "n") {
+      std::cout << "Provide the radius: ";
+      std::cin >> input_buffer;
+      try {
+        radius = stoi(input_buffer);
+      } catch (...) {
+        return EXIT_FAILURE;
+      }
+      /* Executing Radius Nearest Neighbor using BruteForce*/
+      start = high_resolution_clock::now();
+      std::cout << "\nExecuting Radius Nearest Neighbor using Brute Force.."
+                << std::endl;
+      for (size_t i = 0; i < input_info.Q; ++i) {
+        bf_radius_nn_results[i] = bf.RadiusNearestNeighbor(query_points, i, radius);
+      }
+      stop = high_resolution_clock::now();
+      total_time = duration_cast<duration<double>>(stop - start);
+      std::cout << "Executing Radius Nearest Neighbor using Brute Force completed successfully."
+                << std::endl;
+      std::cout << "Time elapsed: " << total_time.count() << " seconds"
+                << std::endl;
+
+      /* Executing Radius Nearest Neighbor using HyperCube*/
+      start = high_resolution_clock::now();
+      std::cout << "\nExecuting Radius Nearest Neighbor using HyperCube.."
+                << std::endl;
+      for (size_t i = 0; i < input_info.Q; ++i) {
+        cube_radius_nn_results[i] = cube.RadiusNearestNeighbor(query_points, i, radius);
+      }
+      stop = high_resolution_clock::now();
+      total_time = duration_cast<duration<double>>(stop - start);
+      std::cout << "Executing Radius Nearest Neighbor using HyperCube completed successfully."
+                << std::endl;
+      std::cout << "Time elapsed: " << total_time.count() << " seconds"
+                << std::endl;
+    }
+
+    /* Compute Max and Average ratio cube_nn_results / bf_nn_results */
+    start = high_resolution_clock::now();
+    std::cout << "\nCalculating evaluation metric.." << std::endl;
+    std::tuple<double,double,int> metric_res{};
+     metric_res = metric::EvaluationMetric(bf_nn_results, cube_nn_results);
+    stop = high_resolution_clock::now();
+    total_time = duration_cast<duration<double>>(stop - start);
+    std::cout << "Calculating evaluation metric completed successfully."
+              << std::endl;
+    std::cout << "Time elapsed: " << total_time.count() << " seconds"
+              << std::endl;
+    std::cout << "\nMax Af: " << std::get<0>(metric_res) << std::endl;
+    std::cout << "Average Af: " << std::get<1>(metric_res) << std::endl;
+    std::cout << "Not found: " << std::get<2>(metric_res) << std::endl;
+
+    /* Writing results to the output file */
+    start = high_resolution_clock::now();
+    std::cout << "\nWriting results to the output file.." << std::endl;
+    exit_code = utils::io::WriteFile<T,U>(input_info.output_file, bf_nn_results,
+      cube_nn_results, radius, bf_radius_nn_results, status);
+    if (exit_code != utils::SUCCESS) {
+      utils::report::ReportError(status);
+    }
+    stop = high_resolution_clock::now();
+    total_time = duration_cast<duration<double>>(stop - start);
+    std::cout << "Writing results to the output file completed successfully."
+              << std::endl;
+    std::cout << "Time elapsed: " << total_time.count() << " seconds"
+              << std::endl;
+
+    /* Ask user if he want to repeat with a different query file */
+    do {
+      std::cout << "\nDo you want to provide a different query file (y/n)? : ";
+      std::cin >> input_buffer;
+      if (input_buffer != "y" && input_buffer != "n") {
+        std::cout << "Wrong input! Try again." << std::endl;
+      }
+    } while (input_buffer != "y" && input_buffer != "n");
+
+    if (input_buffer != "n") {
+      std::string path_name;
+      std::cout << "Provide the relative path for the query file: ";
+      std::cin >> path_name;
+      input_info.query_file = path_name;
+
+      std::cout << "Provide the relative path for the output file: ";
+      std::cin >> path_name;
+      input_info.output_file = path_name;
+    }
+  } while (input_buffer == "y");
 
   return EXIT_SUCCESS;
 }

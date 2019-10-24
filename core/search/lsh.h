@@ -119,7 +119,8 @@ namespace search {
           @par const int offset - Offset to get correspodent point
         */
         std::vector<std::pair<T,U>> RadiusNearestNeighbor(
-          const std::vector<T>& query_points, const int offset) {
+          const std::vector<T>& query_points, const int offset,
+          const int radius) {
 
           /* Define result as a vector of pairs of min_dist and min_id */
           std::vector<std::pair<T,U>> result;
@@ -138,7 +139,7 @@ namespace search {
                 std::next(feature_vector.begin(), fv_offset * D),
                 std::next(query_points.begin(), offset * D),
                 std::next(query_points.begin(), offset * D + D));
-              if (dist <= R) {
+              if (dist <= radius) {
                 result.push_back(std::make_pair(dist,feature_vector_ids[fv_offset]));
               }
             }
