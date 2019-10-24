@@ -87,14 +87,14 @@ namespace utils {
         for (int i = 0; i < Q; ++i) {
           outfile << "Query: " << query_curves_ids[i] << std::endl;
           outfile << "Method: Grid" << std::endl;
-          outfile << "HashFunction: LSH" << std::endl;
+          outfile << "HashFunction: Hypercube" << std::endl;
           outfile << "Found Nearest Neighbor: " << std::get<1>(approx[i])
                   << std::endl;
           outfile << "True Nearest Neighbor: " << std::get<1>(exact[i])
                   << std::endl;
           outfile << "distanceFound: " << std::get<0>(approx[i]) << std::endl;
           outfile << "distanceTrue: " << std::get<0>(exact[i]) << std::endl;
-          outfile << "tLSH: " << std::get<2>(approx[i]) << " seconds"
+          outfile << "tHypercube: " << std::get<2>(approx[i]) << " seconds"
                   << std::endl;
           outfile << "tTrue: " << std::get<2>(exact[i]) << " seconds"
                   << std::endl;

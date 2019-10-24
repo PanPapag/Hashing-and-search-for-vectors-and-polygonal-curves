@@ -12,7 +12,7 @@
 #include "../../../core/hash/hash_function.h"
 #include "../../../core/metric/metric.h"
 #include "../../../core/search/brute_force.h"
-#include "../../../core/search/lsh.h"
+#include "../../../core/search/hypercube.h"
 #include "../../../core/utils/utils.h"
 
 #include "../../core/vectorization/vectorization.h"
@@ -157,7 +157,7 @@ int main(int argc, char **argv) {
   /* Executing Exact Nearest Neighbor using BruteForce */
   start = high_resolution_clock::now();
   std::cout << "\nExecuting Nearest Neighbor using Brute Force.." << std::endl;
-  for (int i = 0; i < input_info.Q; ++i) {
+  for (size_t i = 0; i < input_info.Q; ++i) {
     bf_nn_results[i] = bf.NearestNeighbor(query_curves, query_curves_lengths,
                                           query_curves_offsets, i);
   }
@@ -225,19 +225,21 @@ int main(int argc, char **argv) {
   std::cout << "Time elapsed: " << total_time.count() << " seconds"
             << std::endl;
 
-  /* Bulding LSH structures */
+  /* Bulding HyperCube structures */
   start = high_resolution_clock::now();
   std::cout << "\nBuilding HyperCube structures.." << std::endl;
-  /*std::vector<search::curves::LSH<T,U>> lsh_structures;
+  std::vector<search::curves::HyperCube<T,U>> hypercube_structures;
   for (size_t i = 0; i < input_info.L_grid; ++i) {
-    lsh_structures.
-      push_back(search::curves::LSH<T,U>(input_info.K_vec, 1, D_vec,
-                                         input_info.N, r, dataset_curves,
-                                         dataset_curves_ids,
-                                         dataset_curves_lengths,
-                                         dataset_curves_offsets,
-                                         L_grid_dataset_vectors[i]));
-  } */
+    hypercube_structures.
+      push_back(search::curves::HyperCube<T,U>(input_info.k_hypercube,
+                                               input_info.M, D_vec, input_info.N,
+                                               input_info.probes, r,
+                                               dataset_curves,
+                                               dataset_curves_ids,
+                                               dataset_curves_lengths,
+                                               dataset_curves_offsets,
+                                               L_grid_dataset_vectors[i]));
+  }
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
   std::cout << "Building HyperCube structures completed successfully."
@@ -261,17 +263,18 @@ int main(int argc, char **argv) {
   std::cout << "Time elapsed: " << total_time.count() << " seconds"
             << std::endl;
 
-  /* Executing approximate Nearest Neighbor using LSH */
+  /* Executing approximate Nearest Neighbor using HyperCube */
   start = high_resolution_clock::now();
   std::cout << "\nExecuting Nearest Neighbor using HyperCube.." << std::endl;
   std::vector<std::tuple<T,U,double>> approx_nn_results(input_info.Q);
-/*  for (size_t i = 0; i < input_info.Q; ++i) {
-    approx_nn_results[i] = search::curves::lsh_grid_search(input_info.L_grid,
-                                                lsh_structures, query_curves,
+  for (size_t i = 0; i < input_info.Q; ++i) {
+    approx_nn_results[i] = search::curves::grid_search(input_info.L_grid,
+                                                hypercube_structures,
+                                                query_curves,
                                                 query_curves_lengths,
                                                 query_curves_offsets,
                                                 L_grid_query_vectors, i);
-  } */
+  }
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
   std::cout << "Executing Nearest Neighbor using HyperCube completed successfully."
@@ -279,7 +282,7 @@ int main(int argc, char **argv) {
   std::cout << "Time elapsed: " << total_time.count() << " seconds"
             << std::endl;
 
-  /* Compute Max and Average ratio lsh_nn_results / bf_nn_results */
+  /* Compute Max and Average ratio hypercube_nn_results / bf_nn_results */
   start = high_resolution_clock::now();
   std::cout << "\nCalculating evaluation metric.." << std::endl;
   std::tuple<double,double,int> metric_res{};

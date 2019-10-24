@@ -15,7 +15,7 @@ using namespace std::chrono;
 namespace search {
   /** \brief General LSH parameters
     @par table_size - a virtual size of unordered_map to have more colissions
-      in each hashtable of LSH
+      in each bucket of LSH
     @par m - parameter used by Hash Functions
     @par M - parameter used by Hash Functions
     @par w - window size used by Hash Functions
@@ -51,9 +51,11 @@ namespace search {
       public:
         /** \brief class LSH constructor
         */
-        LSH(const uint8_t K, const uint8_t L, const uint16_t D, const uint32_t N,
-            const double radius, const std::vector<T>& points, const std::vector<T>& ids)
-          : K(K), L(L), D(D), N(N), R(radius), feature_vector(points), feature_vector_ids(ids) {
+        LSH(const uint8_t K, const uint8_t L, const uint16_t D,
+            const uint32_t N, const double radius, const std::vector<T>& points,
+            const std::vector<T>& ids) : K(K), L(L), D(D), N(N), R(radius),
+            feature_vector(points), feature_vector_ids(ids) {
+
             w = 2.5 * R;
             m = (1ULL << 32) - 5;
             M = 1ULL << (32 / K);
@@ -177,10 +179,11 @@ namespace search {
         LSH(const uint8_t K, const uint8_t L, const uint16_t D, const uint32_t N,
             const double r, const std::vector<std::pair<T,T>>& curves,
             const std::vector<U> &ids, const std::vector<int>& lengths,
-            const std::vector<int>& offsets, const std::vector<T> &points)
-          : K(K), L(L), D(D), N(N), R(r), input_curves(curves),
+            const std::vector<int>& offsets, const std::vector<T> &points) :
+            K(K), L(L), D(D), N(N), R(r), input_curves(curves),
             input_curves_ids(ids), input_curves_lengths(lengths),
             input_curves_offsets(offsets), feature_vector(points) {
+
             w = 4 * R;
             m = (1ULL << 32) - 5;
             M = pow(2, 32 / K);

@@ -27,7 +27,7 @@ int utils::args::ScanArguments(struct InputInfo& input_info,
   input_info.output_file = input_buffer;
 
   do {
-    std::cout << "Do you want to provide hyperparameters for LSH (y/n)? : ";
+    std::cout << "Do you want to provide hyperparameters for HyperCube (y/n)? : ";
     std::cin >> input_buffer;
     if (input_buffer != "y" && input_buffer != "n") {
       std::cout << "Wrong input! Try again." << std::endl;
@@ -75,12 +75,12 @@ int utils::args::ReadArguments(int argc, char **argv,
   }
 
   if (argc == 2) {
-    if (!strcmp(argv[1],"-help")) {
+    if (!strcmp(argv[1],"--help")) {
       ShowUsage(argv[0], input_info);
     }
   }
 
-  const char * const short_opts = "d:q:k:L:o:";
+  const char * const short_opts = "d:q:k:M:p:L:o:";
   const option long_opts[] = {
            {"input", required_argument, nullptr, 'd'},
            {"query", required_argument, nullptr, 'q'},
