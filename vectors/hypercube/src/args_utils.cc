@@ -6,11 +6,10 @@
 #include <string>
 #include <string.h>
 
-#include "../lsh_headers/lsh_utils.h"
-#include "../lsh_headers/lsh_args_utils.h"
+#include "../includes/utils.h"
+#include "../includes/args_utils.h"
 
-int utils::args::ScanArguments(struct InputInfo &input_info,
-  utils::ExitCode &status) {
+int utils::args::ScanArguments(struct InputInfo &input_info, utils::ExitCode &status) {
 
   std::string input_buffer;
 
@@ -27,7 +26,7 @@ int utils::args::ScanArguments(struct InputInfo &input_info,
   input_info.output_file = input_buffer;
 
   do {
-    std::cout << "Do you want to provide hyperparameters for LSH (y/n)? : ";
+    std::cout << "Do you want to provide hyperparameters for HyperCube (y/n)? : ";
     std::cin >> input_buffer;
     if (input_buffer != "y" && input_buffer != "n") {
       std::cout << "Wrong input! Try again." << std::endl;
@@ -35,29 +34,39 @@ int utils::args::ScanArguments(struct InputInfo &input_info,
   } while (input_buffer != "y" && input_buffer != "n");
 
   if (input_buffer != "n") {
-    std::cout << "Provide the number of LSH hash functions: ";
+    std::cout << "Provide the number of reduced dimensions: ";
     std::cin >> input_buffer;
     try {
-      input_info.K = stoi(input_buffer);
+      input_info.k = stoi(input_buffer);
     } catch (...) {
       status = INVALID_k;
       return FAIL;
     }
 
-    std::cout << "Provide the number of LSH hash tables: ";
+    std::cout << "Provide the max number of candidate probes to be checked: ";
     std::cin >> input_buffer;
     try {
-      input_info.L = stoi(input_buffer);
+      input_info.probes = stoi(input_buffer);
     } catch (...) {
-      status = INVALID_L;
+      status = INVALID_probes;
+      return FAIL;
+    }
+
+    std::cout << "Provide the max number of candidate points to be checked: ";
+    std::cin >> input_buffer;
+    try {
+      input_info.M = stoi(input_buffer);
+    } catch (...) {
+      status = INVALID_M;
       return FAIL;
     }
   }
+
   return SUCCESS;
 }
 
 int utils::args::ReadArguments(int argc, char **argv,
-  struct InputInfo &input_info, utils::ExitCode &status) {
+  struct InputInfo& input_info, utils::ExitCode& status) {
 
   if (argc == 1) {
     status = NO_ARGS;
@@ -65,31 +74,32 @@ int utils::args::ReadArguments(int argc, char **argv,
   }
 
   if (argc == 2) {
-    if (!strcmp(argv[1],"--help")) {
+    if (!strcmp(argv[1],"-help")) {
       ShowUsage(argv[0], input_info);
     }
   }
 
-  const char * const short_opts = "d:q:k:L:o:";
+  const char* const short_opts = "d:q:k:M:p:o:";
   const option long_opts[] = {
            {"input", required_argument, nullptr, 'd'},
            {"query", required_argument, nullptr, 'q'},
            {"k", optional_argument, nullptr, 'k'},
-           {"L", optional_argument, nullptr, 'L'},
-           {"help", required_argument, nullptr, 'o'},
+           {"M", optional_argument, nullptr, 'M'},
+           {"probes", optional_argument, nullptr, 'p'},
+           {"output", required_argument, nullptr, 'o'},
            {nullptr, no_argument, nullptr, 0}
-   };
+  };
 
-   while (true) {
+  while (true) {
 
-     const auto opt = getopt_long(argc, argv, short_opts, long_opts, nullptr);
+    const auto opt = getopt_long(argc, argv, short_opts, long_opts, nullptr);
 
-     if (-1 == opt) {
-       break;
-     }
+    if (-1 == opt) {
+      break;
+    }
 
-     switch (opt) {
-       case 'd': {
+    switch (opt) {
+      case 'd': {
         input_info.input_file = optarg;
         break;
       }
@@ -99,19 +109,30 @@ int utils::args::ReadArguments(int argc, char **argv,
       }
       case 'k': {
         try {
-          input_info.K = atoi(optarg);
+          input_info.k = atoi(optarg);
         } catch (...) {
           status = INVALID_k;
           return FAIL;
         }
         break;
       }
-      case 'L': {
+      case 'M': {
         try {
-          input_info.L = atoi(optarg);
+          input_info.M = atoi(optarg);
         } catch (...) {
-          status = INVALID_L;
+          status = INVALID_M;
           return FAIL;
+        }
+        break;
+      }
+      case 'p': {
+        if (optarg != 0) {
+          try {
+            input_info.probes = atoi(optarg);
+          } catch (...) {
+            status = INVALID_probes;
+            return FAIL;
+          }
         }
         break;
       }
@@ -125,5 +146,6 @@ int utils::args::ReadArguments(int argc, char **argv,
         abort();
     }
   }
+
   return SUCCESS;
 }

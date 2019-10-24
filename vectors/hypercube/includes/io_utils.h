@@ -1,5 +1,5 @@
-#ifndef IO_UTILS
-#define IO_UTILS
+#ifndef HYPERCUBE_IO_UTILS
+#define HYPERCUBE_IO_UTILS
 
 #include <iostream>
 #include <fstream>

@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "../lsh_headers/lsh_utils.h"
+#include "../includes/utils.h"
 
 void utils::ShowUsage(const std::string &program_name,
   const struct InputInfo &input_info) {

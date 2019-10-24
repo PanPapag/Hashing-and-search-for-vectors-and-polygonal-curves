@@ -1,7 +1,7 @@
 #ifndef LSH_REPORT_UTILS
 #define LSH_REPORT_UTILS
 
-#include "./lsh_utils.h"
+#include "./utils.h"
 
 namespace utils {
   namespace report {

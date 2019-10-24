@@ -1,5 +1,7 @@
-#ifndef REPORT_UTILS
-#define REPORT_UTILS
+#ifndef HYPERCUBE_REPORT_UTILS
+#define HYPERCUBE_REPORT_UTILS
+
+#include "./utils.h"
 
 namespace utils {
   namespace report {

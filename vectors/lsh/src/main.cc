@@ -9,16 +9,16 @@
 #include <utility>
 #include <vector>
 
-#include "../../core/hash/hash_function.h"
-#include "../../core/metric/metric.h"
-#include "../../core/search/lsh.h"
-#include "../../core/search/brute_force.h"
-#include "../../core/utils/utils.h"
+#include "../../../core/hash/hash_function.h"
+#include "../../../core/metric/metric.h"
+#include "../../../core/search/brute_force.h"
+#include "../../../core/search/lsh.h"
+#include "../../../core/utils/utils.h"
 
-#include "../lsh_headers/lsh_args_utils.h"
-#include "../lsh_headers/lsh_io_utils.h"
-#include "../lsh_headers/lsh_report_utils.h"
-#include "../lsh_headers/lsh_utils.h"
+#include "../includes/args_utils.h"
+#include "../includes/io_utils.h"
+#include "../includes/report_utils.h"
+#include "../includes/utils.h"
 
 #define T int
 #define U int

@@ -1,7 +1,7 @@
-#ifndef LSH_ARGS_UTILS
-#define LSH_ARGS_UTILS
+#ifndef HYPERCUBE_ARGS_UTILS
+#define HYPERCUBE_ARGS_UTILS
 
-#include "./lsh_utils.h"
+#include "./utils.h"
 
 namespace utils {
   namespace args {
@@ -11,11 +11,9 @@ namespace utils {
       @par ExitCode &statues - enumerated ExitCode provided from namespace utils
       return: SUCCESS or FAIL
     */
-    int ReadArguments(int argc, char **argv, struct InputInfo &input_info,
-                      ExitCode &status);
+    int ReadArguments(int argc, char **argv, struct InputInfo &input_info, ExitCode &status);
     /** \brief ScanArguments - Reads arguments given by user in the stdin
-      @par const ExitCode &statues - enumerated ExitCode provided from
-        namespace utils
+      @par const ExitCode &statues - enumerated ExitCode provided from namespace utils
       return: SUCCESS or FAIL
     */
     int ScanArguments(struct InputInfo &input_info, ExitCode &status);

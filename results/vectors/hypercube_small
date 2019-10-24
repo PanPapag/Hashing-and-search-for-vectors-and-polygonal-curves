@@ -1,9 +1,9 @@
 Query: 0
-Nearest neighbor: 2838
-distanceHyperCube: 2071
+Nearest neighbor: 2177
+distanceHyperCube: 2064
 distanceTrue: 2064
-tHyperCube: 0.000362205 seconds
-tTrue: 0.000421919 seconds
+tHyperCube: 0.000447064 seconds
+tTrue: 0.000329619 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
@@ -11,44 +11,44 @@ Query: 1
 Nearest neighbor: 2782
 distanceHyperCube: 2045
 distanceTrue: 2045
-tHyperCube: 0.000350061 seconds
-tTrue: 0.000398944 seconds
+tHyperCube: 0.000328449 seconds
+tTrue: 0.000285116 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
 Query: 2
-Nearest neighbor: 5233
-distanceHyperCube: 1654
+Nearest neighbor: 2708
+distanceHyperCube: 1630
 distanceTrue: 1619
-tHyperCube: 0.000177356 seconds
-tTrue: 0.000508004 seconds
+tHyperCube: 0.000259591 seconds
+tTrue: 0.000287756 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
 Query: 3
-Nearest neighbor: 9844
-distanceHyperCube: 1593
+Nearest neighbor: 9575
+distanceHyperCube: 1661
 distanceTrue: 1593
-tHyperCube: 0.000274525 seconds
-tTrue: 0.000393107 seconds
+tHyperCube: 0.000274111 seconds
+tTrue: 0.000295152 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
 Query: 4
-Nearest neighbor: 5165
-distanceHyperCube: 1680
+Nearest neighbor: 4720
+distanceHyperCube: 1877
 distanceTrue: 1680
-tHyperCube: 0.000208278 seconds
-tTrue: 0.000440526 seconds
+tHyperCube: 9.1324e-05 seconds
+tTrue: 0.000263271 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
 Query: 5
-Nearest neighbor: 3228
-distanceHyperCube: 2261
+Nearest neighbor: 1240
+distanceHyperCube: 2180
 distanceTrue: 2180
-tHyperCube: 0.000186198 seconds
-tTrue: 0.000416659 seconds
+tHyperCube: 0.000153133 seconds
+tTrue: 0.00026658 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
@@ -56,17 +56,17 @@ Query: 6
 Nearest neighbor: 2775
 distanceHyperCube: 1946
 distanceTrue: 1946
-tHyperCube: 0.00017483 seconds
-tTrue: 0.000418384 seconds
+tHyperCube: 0.000242232 seconds
+tTrue: 0.000264664 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
 Query: 7
-Nearest neighbor: 5448
-distanceHyperCube: 1184
+Nearest neighbor: 5869
+distanceHyperCube: 1149
 distanceTrue: 1149
-tHyperCube: 9.4395e-05 seconds
-tTrue: 0.000371941 seconds
+tHyperCube: 0.00020392 seconds
+tTrue: 0.000399527 seconds
 1366.77-near neighbors: 
 3110
 4598
@@ -75,74 +75,74 @@ tTrue: 0.000371941 seconds
 7587
 
 Query: 8
-Nearest neighbor: 9629
-distanceHyperCube: 1791
+Nearest neighbor: 1099
+distanceHyperCube: 1894
 distanceTrue: 1791
-tHyperCube: 0.000190187 seconds
-tTrue: 0.000571113 seconds
+tHyperCube: 0.000103739 seconds
+tTrue: 0.000310576 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
 Query: 9
-Nearest neighbor: 4716
-distanceHyperCube: 1843
+Nearest neighbor: 4720
+distanceHyperCube: 1834
 distanceTrue: 1834
-tHyperCube: 0.00018348 seconds
-tTrue: 0.000456253 seconds
+tHyperCube: 8.93e-05 seconds
+tTrue: 0.000269126 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
 Query: 10
-Nearest neighbor: 1615
-distanceHyperCube: 2288
+Nearest neighbor: 694
+distanceHyperCube: 2067
 distanceTrue: 2067
-tHyperCube: 0.000136537 seconds
-tTrue: 0.000455605 seconds
+tHyperCube: 0.000121506 seconds
+tTrue: 0.00027425 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
 Query: 11
-Nearest neighbor: 6490
-distanceHyperCube: 1606
+Nearest neighbor: 4698
+distanceHyperCube: 1280
 distanceTrue: 1280
-tHyperCube: 0.000203366 seconds
-tTrue: 0.000456294 seconds
+tHyperCube: 0.000235429 seconds
+tTrue: 0.000286738 seconds
 1366.77-near neighbors: 
 4698
 
 Query: 12
-Nearest neighbor: 507
-distanceHyperCube: 1811
+Nearest neighbor: 131
+distanceHyperCube: 1862
 distanceTrue: 1811
-tHyperCube: 0.000234192 seconds
-tTrue: 0.000445267 seconds
+tHyperCube: 0.000247915 seconds
+tTrue: 0.000267681 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
 Query: 13
-Nearest neighbor: 3610
-distanceHyperCube: 1855
+Nearest neighbor: 9816
+distanceHyperCube: 1829
 distanceTrue: 1829
-tHyperCube: 0.000197634 seconds
-tTrue: 0.000425662 seconds
+tHyperCube: 0.000200784 seconds
+tTrue: 0.000294324 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
 Query: 14
-Nearest neighbor: 70
-distanceHyperCube: 2202
+Nearest neighbor: 798
+distanceHyperCube: 2136
 distanceTrue: 2136
-tHyperCube: 0.000183805 seconds
-tTrue: 0.000427334 seconds
+tHyperCube: 0.000124713 seconds
+tTrue: 0.000299426 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
 Query: 15
-Nearest neighbor: 410
-distanceHyperCube: 1973
+Nearest neighbor: 5850
+distanceHyperCube: 1997
 distanceTrue: 1973
-tHyperCube: 0.000178965 seconds
-tTrue: 0.000429037 seconds
+tHyperCube: 0.00021013 seconds
+tTrue: 0.000301525 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
@@ -150,8 +150,8 @@ Query: 16
 Nearest neighbor: 471
 distanceHyperCube: 1963
 distanceTrue: 1963
-tHyperCube: 0.000217298 seconds
-tTrue: 0.000427615 seconds
+tHyperCube: 0.000193998 seconds
+tTrue: 0.000293164 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
@@ -159,35 +159,35 @@ Query: 17
 Nearest neighbor: 4097
 distanceHyperCube: 1987
 distanceTrue: 1987
-tHyperCube: 0.000182487 seconds
-tTrue: 0.000474645 seconds
+tHyperCube: 0.000189626 seconds
+tTrue: 0.00029257 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
 Query: 18
-Nearest neighbor: 1422
-distanceHyperCube: 2123
+Nearest neighbor: 482
+distanceHyperCube: 2427
 distanceTrue: 1964
-tHyperCube: 0.00018173 seconds
-tTrue: 0.000302526 seconds
+tHyperCube: 9.1553e-05 seconds
+tTrue: 0.000301849 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
 Query: 19
-Nearest neighbor: 9807
-distanceHyperCube: 1754
+Nearest neighbor: 9526
+distanceHyperCube: 2097
 distanceTrue: 1754
-tHyperCube: 0.000184555 seconds
-tTrue: 0.000315639 seconds
+tHyperCube: 7.9923e-05 seconds
+tTrue: 0.000345235 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
 Query: 20
-Nearest neighbor: 5558
-distanceHyperCube: 1254
+Nearest neighbor: 7028
+distanceHyperCube: 1239
 distanceTrue: 1239
-tHyperCube: 0.000197346 seconds
-tTrue: 0.000297216 seconds
+tHyperCube: 0.000193439 seconds
+tTrue: 0.000419213 seconds
 1366.77-near neighbors: 
 4761
 5558
@@ -204,19 +204,19 @@ Query: 21
 Nearest neighbor: 4491
 distanceHyperCube: 486
 distanceTrue: 486
-tHyperCube: 0.000171628 seconds
-tTrue: 0.000294287 seconds
+tHyperCube: 0.000220592 seconds
+tTrue: 0.000411343 seconds
 1366.77-near neighbors: 
 4458
 4491
 8048
 
 Query: 22
-Nearest neighbor: 4958
-distanceHyperCube: 1159
+Nearest neighbor: 207
+distanceHyperCube: 1402
 distanceTrue: 1159
-tHyperCube: 0.000152397 seconds
-tTrue: 0.000310028 seconds
+tHyperCube: 0.000220333 seconds
+tTrue: 0.000484014 seconds
 1366.77-near neighbors: 
 4587
 4604
@@ -239,11 +239,11 @@ tTrue: 0.000310028 seconds
 8722
 
 Query: 23
-Nearest neighbor: 8336
-distanceHyperCube: 1610
+Nearest neighbor: 5759
+distanceHyperCube: 1556
 distanceTrue: 1520
-tHyperCube: 0.000236776 seconds
-tTrue: 0.000300036 seconds
+tHyperCube: 0.000200608 seconds
+tTrue: 0.000354785 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
@@ -251,49 +251,49 @@ Query: 24
 Nearest neighbor: 4631
 distanceHyperCube: 1068
 distanceTrue: 1068
-tHyperCube: 0.000195125 seconds
-tTrue: 0.000307714 seconds
+tHyperCube: 0.000216616 seconds
+tTrue: 0.000318668 seconds
 1366.77-near neighbors: 
 4555
 4624
 4631
 
 Query: 25
-Nearest neighbor: 3012
-distanceHyperCube: 1994
+Nearest neighbor: 4560
+distanceHyperCube: 2128
 distanceTrue: 1919
-tHyperCube: 0.000234367 seconds
-tTrue: 0.000306695 seconds
+tHyperCube: 0.000103127 seconds
+tTrue: 0.000306101 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
 Query: 26
-Nearest neighbor: 4684
-distanceHyperCube: 1391
+Nearest neighbor: 5541
+distanceHyperCube: 1656
 distanceTrue: 1251
-tHyperCube: 0.00017332 seconds
-tTrue: 0.00029624 seconds
+tHyperCube: 8.336e-05 seconds
+tTrue: 0.000296647 seconds
 1366.77-near neighbors: 
 6828
 9900
 
 Query: 27
-Nearest neighbor: 5970
-distanceHyperCube: 1431
+Nearest neighbor: 5964
+distanceHyperCube: 1166
 distanceTrue: 1166
-tHyperCube: 0.000179137 seconds
-tTrue: 0.000291685 seconds
+tHyperCube: 0.000229133 seconds
+tTrue: 0.000357481 seconds
 1366.77-near neighbors: 
 5866
 5964
 6162
 
 Query: 28
-Nearest neighbor: 5542
-distanceHyperCube: 1514
+Nearest neighbor: 6828
+distanceHyperCube: 1504
 distanceTrue: 1504
-tHyperCube: 0.000234215 seconds
-tTrue: 0.000289274 seconds
+tHyperCube: 0.000212221 seconds
+tTrue: 0.000413634 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
@@ -301,8 +301,8 @@ Query: 29
 Nearest neighbor: 5454
 distanceHyperCube: 734
 distanceTrue: 734
-tHyperCube: 0.000147883 seconds
-tTrue: 0.000295412 seconds
+tHyperCube: 0.000229878 seconds
+tTrue: 0.000410197 seconds
 1366.77-near neighbors: 
 5159
 5196
@@ -335,40 +335,40 @@ tTrue: 0.000295412 seconds
 7767
 
 Query: 30
-Nearest neighbor: 4778
-distanceHyperCube: 1819
+Nearest neighbor: 5729
+distanceHyperCube: 2109
 distanceTrue: 1819
-tHyperCube: 0.000197216 seconds
-tTrue: 0.000350712 seconds
+tHyperCube: 7.8092e-05 seconds
+tTrue: 0.00041705 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
 Query: 31
-Nearest neighbor: 5560
-distanceHyperCube: 741
+Nearest neighbor: 4996
+distanceHyperCube: 857
 distanceTrue: 741
-tHyperCube: 0.000242185 seconds
-tTrue: 0.000490216 seconds
+tHyperCube: 0.000130397 seconds
+tTrue: 0.00043986 seconds
 1366.77-near neighbors: 
 4963
 4996
 5560
 
 Query: 32
-Nearest neighbor: 5301
-distanceHyperCube: 1210
+Nearest neighbor: 8664
+distanceHyperCube: 1767
 distanceTrue: 1210
-tHyperCube: 0.000198792 seconds
-tTrue: 0.00038123 seconds
+tHyperCube: 0.000213998 seconds
+tTrue: 0.000339724 seconds
 1366.77-near neighbors: 
 5301
 
 Query: 33
-Nearest neighbor: 7278
-distanceHyperCube: 2423
+Nearest neighbor: 670
+distanceHyperCube: 2515
 distanceTrue: 2368
-tHyperCube: 0.000185796 seconds
-tTrue: 0.000304233 seconds
+tHyperCube: 0.000215472 seconds
+tTrue: 0.000326993 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
@@ -376,8 +376,8 @@ Query: 34
 Nearest neighbor: 7059
 distanceHyperCube: 1951
 distanceTrue: 1951
-tHyperCube: 0.000151493 seconds
-tTrue: 0.000328228 seconds
+tHyperCube: 0.000155437 seconds
+tTrue: 0.00040555 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
@@ -385,8 +385,8 @@ Query: 35
 Nearest neighbor: 5842
 distanceHyperCube: 969
 distanceTrue: 969
-tHyperCube: 0.000209488 seconds
-tTrue: 0.000315195 seconds
+tHyperCube: 0.000275125 seconds
+tTrue: 0.000371985 seconds
 1366.77-near neighbors: 
 5842
 5867
@@ -396,19 +396,19 @@ Query: 36
 Nearest neighbor: 5843
 distanceHyperCube: 865
 distanceTrue: 865
-tHyperCube: 0.000196982 seconds
-tTrue: 0.000296558 seconds
+tHyperCube: 0.000141242 seconds
+tTrue: 0.000412863 seconds
 1366.77-near neighbors: 
 5843
 5868
 6709
 
 Query: 37
-Nearest neighbor: 5185
-distanceHyperCube: 1241
+Nearest neighbor: 2842
+distanceHyperCube: 2132
 distanceTrue: 1241
-tHyperCube: 0.00025187 seconds
-tTrue: 0.000329697 seconds
+tHyperCube: 0.000104099 seconds
+tTrue: 0.00042537 seconds
 1366.77-near neighbors: 
 5185
 
@@ -416,8 +416,8 @@ Query: 38
 Nearest neighbor: 5501
 distanceHyperCube: 995
 distanceTrue: 995
-tHyperCube: 0.000240298 seconds
-tTrue: 0.000305954 seconds
+tHyperCube: 0.000234887 seconds
+tTrue: 0.000413847 seconds
 1366.77-near neighbors: 
 5024
 5178
@@ -426,11 +426,11 @@ tTrue: 0.000305954 seconds
 6188
 
 Query: 39
-Nearest neighbor: 7219
-distanceHyperCube: 1316
+Nearest neighbor: 683
+distanceHyperCube: 1467
 distanceTrue: 1200
-tHyperCube: 0.000250475 seconds
-tTrue: 0.00031309 seconds
+tHyperCube: 0.000115796 seconds
+tTrue: 0.000419691 seconds
 1366.77-near neighbors: 
 4576
 4678
@@ -439,49 +439,49 @@ tTrue: 0.00031309 seconds
 9895
 
 Query: 40
-Nearest neighbor: 4774
-distanceHyperCube: 1249
+Nearest neighbor: 8308
+distanceHyperCube: 1106
 distanceTrue: 1106
-tHyperCube: 0.000178747 seconds
-tTrue: 0.000312872 seconds
+tHyperCube: 0.000215546 seconds
+tTrue: 0.00040675 seconds
 1366.77-near neighbors: 
 4774
 4868
 8308
 
 Query: 41
-Nearest neighbor: 9345
-distanceHyperCube: 1621
+Nearest neighbor: 4644
+distanceHyperCube: 1442
 distanceTrue: 1442
-tHyperCube: 0.00024303 seconds
-tTrue: 0.000403774 seconds
+tHyperCube: 0.000327252 seconds
+tTrue: 0.000418266 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
 Query: 42
-Nearest neighbor: 5225
-distanceHyperCube: 1629
+Nearest neighbor: 5205
+distanceHyperCube: 2010
 distanceTrue: 1629
-tHyperCube: 0.000170761 seconds
-tTrue: 0.000413653 seconds
+tHyperCube: 0.000234046 seconds
+tTrue: 0.000508401 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
 Query: 43
-Nearest neighbor: 5145
-distanceHyperCube: 1398
+Nearest neighbor: 6303
+distanceHyperCube: 1275
 distanceTrue: 1275
-tHyperCube: 0.000183289 seconds
-tTrue: 0.000351958 seconds
+tHyperCube: 0.000208537 seconds
+tTrue: 0.000523214 seconds
 1366.77-near neighbors: 
 6303
 
 Query: 44
-Nearest neighbor: 469
-distanceHyperCube: 1626
+Nearest neighbor: 8616
+distanceHyperCube: 1483
 distanceTrue: 1483
-tHyperCube: 0.000254423 seconds
-tTrue: 0.000376745 seconds
+tHyperCube: 0.000182441 seconds
+tTrue: 0.000365547 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
@@ -489,8 +489,8 @@ Query: 45
 Nearest neighbor: 5561
 distanceHyperCube: 1719
 distanceTrue: 1628
-tHyperCube: 0.000172517 seconds
-tTrue: 0.000399693 seconds
+tHyperCube: 0.000167452 seconds
+tTrue: 0.000369338 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
@@ -498,17 +498,17 @@ Query: 46
 Nearest neighbor: 5881
 distanceHyperCube: 646
 distanceTrue: 646
-tHyperCube: 0.000234386 seconds
-tTrue: 0.000412278 seconds
+tHyperCube: 0.000261738 seconds
+tTrue: 0.000329354 seconds
 1366.77-near neighbors: 
 5881
 
 Query: 47
-Nearest neighbor: 5642
-distanceHyperCube: 2446
+Nearest neighbor: 4243
+distanceHyperCube: 2708
 distanceTrue: 2446
-tHyperCube: 0.000195256 seconds
-tTrue: 0.000412936 seconds
+tHyperCube: 0.000132641 seconds
+tTrue: 0.000314977 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
@@ -516,28 +516,28 @@ Query: 48
 Nearest neighbor: 5214
 distanceHyperCube: 968
 distanceTrue: 968
-tHyperCube: 0.000163414 seconds
-tTrue: 0.000377673 seconds
+tHyperCube: 0.000145204 seconds
+tTrue: 0.000292405 seconds
 1366.77-near neighbors: 
 5214
 5751
 
 Query: 49
-Nearest neighbor: 6401
-distanceHyperCube: 1492
+Nearest neighbor: 5085
+distanceHyperCube: 849
 distanceTrue: 849
-tHyperCube: 0.000116955 seconds
-tTrue: 0.000434118 seconds
+tHyperCube: 0.000101165 seconds
+tTrue: 0.00028163 seconds
 1366.77-near neighbors: 
 5085
 5139
 
 Query: 50
-Nearest neighbor: 5013
-distanceHyperCube: 1130
+Nearest neighbor: 5654
+distanceHyperCube: 1166
 distanceTrue: 1130
-tHyperCube: 0.000198964 seconds
-tTrue: 0.00036853 seconds
+tHyperCube: 0.00021196 seconds
+tTrue: 0.000282744 seconds
 1366.77-near neighbors: 
 5013
 5654
@@ -546,36 +546,36 @@ Query: 51
 Nearest neighbor: 6193
 distanceHyperCube: 1266
 distanceTrue: 848
-tHyperCube: 0.000172642 seconds
-tTrue: 0.000393176 seconds
+tHyperCube: 0.000179507 seconds
+tTrue: 0.000289833 seconds
 1366.77-near neighbors: 
 6124
 6193
 
 Query: 52
-Nearest neighbor: 7146
-distanceHyperCube: 1452
+Nearest neighbor: 5674
+distanceHyperCube: 1188
 distanceTrue: 1188
-tHyperCube: 0.000122855 seconds
-tTrue: 0.000454789 seconds
+tHyperCube: 0.000162316 seconds
+tTrue: 0.00028747 seconds
 1366.77-near neighbors: 
 5674
 
 Query: 53
-Nearest neighbor: 8613
-distanceHyperCube: 1219
+Nearest neighbor: 2641
+distanceHyperCube: 1540
 distanceTrue: 1219
-tHyperCube: 0.000177102 seconds
-tTrue: 0.000547395 seconds
+tHyperCube: 0.000159159 seconds
+tTrue: 0.000287713 seconds
 1366.77-near neighbors: 
 8613
 
 Query: 54
-Nearest neighbor: 6159
-distanceHyperCube: 979
+Nearest neighbor: 4799
+distanceHyperCube: 992
 distanceTrue: 979
-tHyperCube: 0.000146278 seconds
-tTrue: 0.000515131 seconds
+tHyperCube: 0.000156869 seconds
+tTrue: 0.000344812 seconds
 1366.77-near neighbors: 
 607
 1907
@@ -641,11 +641,11 @@ tTrue: 0.000515131 seconds
 9977
 
 Query: 55
-Nearest neighbor: 5116
-distanceHyperCube: 1317
+Nearest neighbor: 5831
+distanceHyperCube: 1042
 distanceTrue: 1042
-tHyperCube: 0.000110755 seconds
-tTrue: 0.000358336 seconds
+tHyperCube: 0.000158885 seconds
+tTrue: 0.000286468 seconds
 1366.77-near neighbors: 
 5116
 5500
@@ -661,8 +661,8 @@ Query: 56
 Nearest neighbor: 5979
 distanceHyperCube: 1547
 distanceTrue: 1436
-tHyperCube: 0.000164284 seconds
-tTrue: 0.000369006 seconds
+tHyperCube: 0.000157717 seconds
+tTrue: 0.000276263 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
@@ -670,8 +670,8 @@ Query: 57
 Nearest neighbor: 5212
 distanceHyperCube: 1176
 distanceTrue: 1176
-tHyperCube: 0.000238222 seconds
-tTrue: 0.000355463 seconds
+tHyperCube: 0.000252493 seconds
+tTrue: 0.000285079 seconds
 1366.77-near neighbors: 
 5212
 
@@ -679,8 +679,8 @@ Query: 58
 Nearest neighbor: 7238
 distanceHyperCube: 460
 distanceTrue: 460
-tHyperCube: 0.000162987 seconds
-tTrue: 0.000383351 seconds
+tHyperCube: 0.000242299 seconds
+tTrue: 0.000261954 seconds
 1366.77-near neighbors: 
 7238
 
@@ -688,8 +688,8 @@ Query: 59
 Nearest neighbor: 6613
 distanceHyperCube: 654
 distanceTrue: 619
-tHyperCube: 9.2124e-05 seconds
-tTrue: 0.000314055 seconds
+tHyperCube: 0.000210387 seconds
+tTrue: 0.000261344 seconds
 1366.77-near neighbors: 
 81
 99
@@ -783,8 +783,8 @@ Query: 60
 Nearest neighbor: 5279
 distanceHyperCube: 1209
 distanceTrue: 1209
-tHyperCube: 0.000130807 seconds
-tTrue: 0.00035149 seconds
+tHyperCube: 0.000217808 seconds
+tTrue: 0.000268093 seconds
 1366.77-near neighbors: 
 5279
 
@@ -792,8 +792,8 @@ Query: 61
 Nearest neighbor: 8403
 distanceHyperCube: 732
 distanceTrue: 732
-tHyperCube: 0.000141221 seconds
-tTrue: 0.000338881 seconds
+tHyperCube: 0.000201051 seconds
+tTrue: 0.000247036 seconds
 1366.77-near neighbors: 
 8403
 8565
@@ -802,8 +802,8 @@ Query: 62
 Nearest neighbor: 6561
 distanceHyperCube: 832
 distanceTrue: 832
-tHyperCube: 0.000183982 seconds
-tTrue: 0.000308263 seconds
+tHyperCube: 9.2846e-05 seconds
+tTrue: 0.00024455 seconds
 1366.77-near neighbors: 
 5173
 5488
@@ -817,11 +817,11 @@ tTrue: 0.000308263 seconds
 7964
 
 Query: 63
-Nearest neighbor: 6414
-distanceHyperCube: 844
+Nearest neighbor: 5864
+distanceHyperCube: 1502
 distanceTrue: 627
-tHyperCube: 0.000132528 seconds
-tTrue: 0.000336916 seconds
+tHyperCube: 0.000132434 seconds
+tTrue: 0.000243612 seconds
 1366.77-near neighbors: 
 5990
 6322
@@ -833,8 +833,8 @@ Query: 64
 Nearest neighbor: 5636
 distanceHyperCube: 980
 distanceTrue: 980
-tHyperCube: 0.000153865 seconds
-tTrue: 0.000386071 seconds
+tHyperCube: 0.000190646 seconds
+tTrue: 0.000242466 seconds
 1366.77-near neighbors: 
 5636
 
@@ -842,8 +842,8 @@ Query: 65
 Nearest neighbor: 6406
 distanceHyperCube: 1085
 distanceTrue: 1085
-tHyperCube: 0.00017674 seconds
-tTrue: 0.000352525 seconds
+tHyperCube: 0.000169781 seconds
+tTrue: 0.000242 seconds
 1366.77-near neighbors: 
 4580
 5505
@@ -851,30 +851,30 @@ tTrue: 0.000352525 seconds
 6713
 
 Query: 66
-Nearest neighbor: 5391
-distanceHyperCube: 1189
+Nearest neighbor: 7339
+distanceHyperCube: 1713
 distanceTrue: 1189
-tHyperCube: 0.00014013 seconds
-tTrue: 0.000361239 seconds
+tHyperCube: 0.000103644 seconds
+tTrue: 0.000289038 seconds
 1366.77-near neighbors: 
 5391
 5670
 
 Query: 67
-Nearest neighbor: 6858
-distanceHyperCube: 1205
+Nearest neighbor: 7537
+distanceHyperCube: 1629
 distanceTrue: 1205
-tHyperCube: 0.000156561 seconds
-tTrue: 0.000363663 seconds
+tHyperCube: 0.000132828 seconds
+tTrue: 0.000308424 seconds
 1366.77-near neighbors: 
 6858
 
 Query: 68
-Nearest neighbor: 7218
-distanceHyperCube: 1251
+Nearest neighbor: 1479
+distanceHyperCube: 1296
 distanceTrue: 1251
-tHyperCube: 0.000139417 seconds
-tTrue: 0.00035495 seconds
+tHyperCube: 0.000192593 seconds
+tTrue: 0.000258997 seconds
 1366.77-near neighbors: 
 1479
 5074
@@ -887,11 +887,11 @@ tTrue: 0.00035495 seconds
 9894
 
 Query: 69
-Nearest neighbor: 3050
-distanceHyperCube: 2056
+Nearest neighbor: 5878
+distanceHyperCube: 1943
 distanceTrue: 1943
-tHyperCube: 0.000245162 seconds
-tTrue: 0.000422844 seconds
+tHyperCube: 0.000129631 seconds
+tTrue: 0.00025537 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
@@ -899,8 +899,8 @@ Query: 70
 Nearest neighbor: 6125
 distanceHyperCube: 280
 distanceTrue: 280
-tHyperCube: 0.00013907 seconds
-tTrue: 0.0003797 seconds
+tHyperCube: 0.000186974 seconds
+tTrue: 0.000258556 seconds
 1366.77-near neighbors: 
 2133
 3192
@@ -996,18 +996,18 @@ Query: 71
 Nearest neighbor: 5827
 distanceHyperCube: 1254
 distanceTrue: 1254
-tHyperCube: 0.000185828 seconds
-tTrue: 0.000385475 seconds
+tHyperCube: 0.000166971 seconds
+tTrue: 0.000254432 seconds
 1366.77-near neighbors: 
 5156
 5827
 
 Query: 72
-Nearest neighbor: 934
-distanceHyperCube: 2210
+Nearest neighbor: 9770
+distanceHyperCube: 2327
 distanceTrue: 2210
-tHyperCube: 0.000128007 seconds
-tTrue: 0.000372992 seconds
+tHyperCube: 0.000159866 seconds
+tTrue: 0.000241813 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
@@ -1015,17 +1015,17 @@ Query: 73
 Nearest neighbor: 6854
 distanceHyperCube: 1573
 distanceTrue: 1573
-tHyperCube: 0.000239198 seconds
-tTrue: 0.000359933 seconds
+tHyperCube: 0.000245351 seconds
+tTrue: 0.000239485 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
 Query: 74
-Nearest neighbor: 7365
-distanceHyperCube: 986
+Nearest neighbor: 9547
+distanceHyperCube: 1763
 distanceTrue: 986
-tHyperCube: 0.000169631 seconds
-tTrue: 0.000830946 seconds
+tHyperCube: 0.000191259 seconds
+tTrue: 0.000240276 seconds
 1366.77-near neighbors: 
 7365
 
@@ -1033,8 +1033,8 @@ Query: 75
 Nearest neighbor: 6554
 distanceHyperCube: 1416
 distanceTrue: 1416
-tHyperCube: 0.000186149 seconds
-tTrue: 0.00068783 seconds
+tHyperCube: 0.000101677 seconds
+tTrue: 0.000240147 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
@@ -1042,35 +1042,35 @@ Query: 76
 Nearest neighbor: 7904
 distanceHyperCube: 1648
 distanceTrue: 1648
-tHyperCube: 0.000143938 seconds
-tTrue: 0.000440865 seconds
+tHyperCube: 0.000129728 seconds
+tTrue: 0.000245801 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
 Query: 77
-Nearest neighbor: 2011
+Nearest neighbor: 3970
 distanceHyperCube: 2374
 distanceTrue: 2177
-tHyperCube: 0.000151198 seconds
-tTrue: 0.000401172 seconds
+tHyperCube: 8.9528e-05 seconds
+tTrue: 0.000315916 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
 Query: 78
-Nearest neighbor: 9209
-distanceHyperCube: 1551
+Nearest neighbor: 9793
+distanceHyperCube: 1648
 distanceTrue: 1551
-tHyperCube: 0.000154897 seconds
-tTrue: 0.000474711 seconds
+tHyperCube: 0.000195575 seconds
+tTrue: 0.000277118 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
 Query: 79
-Nearest neighbor: 8070
-distanceHyperCube: 743
+Nearest neighbor: 5953
+distanceHyperCube: 1149
 distanceTrue: 743
-tHyperCube: 8.9634e-05 seconds
-tTrue: 0.000481061 seconds
+tHyperCube: 0.000171305 seconds
+tTrue: 0.000278303 seconds
 1366.77-near neighbors: 
 5953
 5968
@@ -1099,11 +1099,11 @@ tTrue: 0.000481061 seconds
 8487
 
 Query: 80
-Nearest neighbor: 7452
-distanceHyperCube: 987
+Nearest neighbor: 7189
+distanceHyperCube: 1482
 distanceTrue: 987
-tHyperCube: 0.000143596 seconds
-tTrue: 0.000357512 seconds
+tHyperCube: 0.000120315 seconds
+tTrue: 0.000280042 seconds
 1366.77-near neighbors: 
 7452
 
@@ -1111,17 +1111,17 @@ Query: 81
 Nearest neighbor: 3087
 distanceHyperCube: 1969
 distanceTrue: 1969
-tHyperCube: 0.000134085 seconds
-tTrue: 0.000347668 seconds
+tHyperCube: 0.000246809 seconds
+tTrue: 0.000286892 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
 Query: 82
-Nearest neighbor: 52
-distanceHyperCube: 2009
+Nearest neighbor: 91
+distanceHyperCube: 2001
 distanceTrue: 2001
-tHyperCube: 0.000233776 seconds
-tTrue: 0.000397155 seconds
+tHyperCube: 0.000200285 seconds
+tTrue: 0.000277319 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
@@ -1129,18 +1129,18 @@ Query: 83
 Nearest neighbor: 6006
 distanceHyperCube: 1161
 distanceTrue: 1161
-tHyperCube: 0.000163045 seconds
-tTrue: 0.000368153 seconds
+tHyperCube: 0.000173018 seconds
+tTrue: 0.000274832 seconds
 1366.77-near neighbors: 
 6006
 6779
 
 Query: 84
-Nearest neighbor: 2468
-distanceHyperCube: 1810
+Nearest neighbor: 8895
+distanceHyperCube: 1359
 distanceTrue: 1359
-tHyperCube: 0.000172559 seconds
-tTrue: 0.000358207 seconds
+tHyperCube: 0.000215409 seconds
+tTrue: 0.000286923 seconds
 1366.77-near neighbors: 
 8895
 
@@ -1148,17 +1148,17 @@ Query: 85
 Nearest neighbor: 8726
 distanceHyperCube: 1753
 distanceTrue: 1753
-tHyperCube: 0.000241263 seconds
-tTrue: 0.000354125 seconds
+tHyperCube: 0.000167113 seconds
+tTrue: 0.000264253 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
 Query: 86
-Nearest neighbor: 9152
-distanceHyperCube: 1673
+Nearest neighbor: 5744
+distanceHyperCube: 1865
 distanceTrue: 1673
-tHyperCube: 0.000204038 seconds
-tTrue: 0.000424011 seconds
+tHyperCube: 0.000198644 seconds
+tTrue: 0.000241051 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
@@ -1166,8 +1166,8 @@ Query: 87
 Nearest neighbor: 7723
 distanceHyperCube: 683
 distanceTrue: 683
-tHyperCube: 7.5904e-05 seconds
-tTrue: 0.000399879 seconds
+tHyperCube: 0.000132521 seconds
+tTrue: 0.000260522 seconds
 1366.77-near neighbors: 
 5691
 6588
@@ -1178,8 +1178,8 @@ Query: 88
 Nearest neighbor: 7099
 distanceHyperCube: 399
 distanceTrue: 399
-tHyperCube: 0.000213329 seconds
-tTrue: 0.000368953 seconds
+tHyperCube: 0.000257531 seconds
+tTrue: 0.00026589 seconds
 1366.77-near neighbors: 
 5902
 6327
@@ -1201,8 +1201,8 @@ Query: 89
 Nearest neighbor: 7628
 distanceHyperCube: 690
 distanceTrue: 690
-tHyperCube: 0.000256231 seconds
-tTrue: 0.000365115 seconds
+tHyperCube: 9.1425e-05 seconds
+tTrue: 0.000267592 seconds
 1366.77-near neighbors: 
 47
 81
@@ -1225,8 +1225,8 @@ Query: 90
 Nearest neighbor: 9259
 distanceHyperCube: 310
 distanceTrue: 310
-tHyperCube: 0.000243008 seconds
-tTrue: 0.000353417 seconds
+tHyperCube: 0.000100063 seconds
+tTrue: 0.000268285 seconds
 1366.77-near neighbors: 
 104
 118
@@ -1259,8 +1259,8 @@ Query: 91
 Nearest neighbor: 8897
 distanceHyperCube: 1916
 distanceTrue: 1916
-tHyperCube: 0.000164178 seconds
-tTrue: 0.000347679 seconds
+tHyperCube: 0.000124086 seconds
+tTrue: 0.000271431 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
@@ -1268,17 +1268,17 @@ Query: 92
 Nearest neighbor: 8357
 distanceHyperCube: 954
 distanceTrue: 954
-tHyperCube: 0.000181607 seconds
-tTrue: 0.00034961 seconds
+tHyperCube: 0.000256867 seconds
+tTrue: 0.000253777 seconds
 1366.77-near neighbors: 
 8357
 
 Query: 93
-Nearest neighbor: 3504
-distanceHyperCube: 1639
+Nearest neighbor: 8979
+distanceHyperCube: 1433
 distanceTrue: 1433
-tHyperCube: 0.000249715 seconds
-tTrue: 0.0003757 seconds
+tHyperCube: 0.000124393 seconds
+tTrue: 0.000262046 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
@@ -1286,46 +1286,46 @@ Query: 94
 Nearest neighbor: 8420
 distanceHyperCube: 977
 distanceTrue: 977
-tHyperCube: 0.000150908 seconds
-tTrue: 0.000350841 seconds
+tHyperCube: 9.746e-05 seconds
+tTrue: 0.000265836 seconds
 1366.77-near neighbors: 
 7679
 8100
 8420
 
 Query: 95
-Nearest neighbor: 2266
-distanceHyperCube: 2299
+Nearest neighbor: 1186
+distanceHyperCube: 2188
 distanceTrue: 2188
-tHyperCube: 0.000224963 seconds
-tTrue: 0.000298681 seconds
+tHyperCube: 0.000236084 seconds
+tTrue: 0.000307422 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
 Query: 96
-Nearest neighbor: 3207
-distanceHyperCube: 2313
+Nearest neighbor: 972
+distanceHyperCube: 2224
 distanceTrue: 2146
-tHyperCube: 0.000134493 seconds
-tTrue: 0.000292071 seconds
+tHyperCube: 0.000230607 seconds
+tTrue: 0.000312215 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
 Query: 97
-Nearest neighbor: 8826
-distanceHyperCube: 1515
+Nearest neighbor: 8103
+distanceHyperCube: 2173
 distanceTrue: 1515
-tHyperCube: 0.000208183 seconds
-tTrue: 0.00027561 seconds
+tHyperCube: 0.000180517 seconds
+tTrue: 0.000359956 seconds
 1366.77-near neighbors: 
 No 1366.77-near neighbors found
 
 Query: 98
-Nearest neighbor: 7420
-distanceHyperCube: 845
+Nearest neighbor: 5811
+distanceHyperCube: 787
 distanceTrue: 787
-tHyperCube: 0.000203368 seconds
-tTrue: 0.000293057 seconds
+tHyperCube: 0.000240878 seconds
+tTrue: 0.000420061 seconds
 1366.77-near neighbors: 
 1209
 3555
@@ -1439,8 +1439,8 @@ Query: 99
 Nearest neighbor: 8083
 distanceHyperCube: 1246
 distanceTrue: 1246
-tHyperCube: 0.000228111 seconds
-tTrue: 0.000283086 seconds
+tHyperCube: 0.00012807 seconds
+tTrue: 0.000439535 seconds
 1366.77-near neighbors: 
 8083
 
