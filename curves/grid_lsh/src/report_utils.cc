@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "../headers/utils/utils.h"
-#include "../headers/utils/report_utils.h"
+#include "../includes/utils.h"
+#include "../includes/report_utils.h"
 
 void utils::report::ReportError(const utils::ExitCode& code) {
   switch (code) {

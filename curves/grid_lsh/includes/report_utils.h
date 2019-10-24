@@ -1,5 +1,7 @@
-#ifndef REPORT_UTILS
-#define REPORT_UTILS
+#ifndef GRID_LSH_REPORT_UTILS
+#define GRID_LSH_REPORT_UTILS
+
+#include "./utils.h"
 
 namespace utils {
   namespace report {

@@ -3,7 +3,7 @@
 
 #include <tuple>
 
-#include "../../headers/search/lsh.h"
+#include "../../../core/search/lsh.h"
 
 namespace search {
   namespace curves {
@@ -35,14 +35,15 @@ namespace search {
           lsh_result = lsh_structures[i].NearestNeighbor(L_grid_query_vectors[i],
                                         idx, query_curves, query_curves_lengths,
                                         query_curves_offsets);
+          /* get dist and id return by current lsh NN */
           T dist = std::get<0>(lsh_result);
           U id = std::get<1>(lsh_result);
+          /* Check if we have found a better neighbor */
           if (dist < min_dist) {
             min_dist = dist;
             min_id = id;
           }
         }
-
         auto stop = high_resolution_clock::now();
         duration <double> total_time = duration_cast<duration<double>>(stop - start);
         /* return result as a tuple of min_dist, min_id and total_time */

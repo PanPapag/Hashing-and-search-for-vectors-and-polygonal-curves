@@ -1,5 +1,7 @@
-#ifndef ARGS_UTILS
-#define ARGS_UTILS
+#ifndef GRID_LSH_ARGS_UTILS
+#define GRID_LSH_ARGS_UTILS
+
+#include "./utils.h"
 
 namespace utils {
   namespace args {

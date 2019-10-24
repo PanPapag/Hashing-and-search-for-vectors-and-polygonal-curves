@@ -8,9 +8,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../headers/utils/utils.h"
-#include "../headers/utils/io_utils.h"
-#include "../headers/utils/report_utils.h"
+#include "../../../core/utils/utils.h"
+
+#include "../includes/utils.h"
+#include "../includes/io_utils.h"
+#include "../includes/report_utils.h"
 
 int utils::io::GetDataCurves(std::string &file_name, uint32_t &no_curves,
   utils::ExitCode &status) {

@@ -9,17 +9,19 @@
 #include <utility>
 #include <vector>
 
-#include "../headers/hash/hash_function.h"
-#include "../headers/metric/metric.h"
-#include "../headers/search/grid_search.h"
-#include "../headers/search/lsh.h"
-#include "../headers/search/brute_force.h"
-#include "../headers/utils/utils.h"
-#include "../headers/utils/args_utils.h"
-#include "../headers/utils/report_utils.h"
-#include "../headers/utils/io_utils.h"
-#include "../headers/vectorization/vectorization.h"
+#include "../../../core/hash/hash_function.h"
+#include "../../../core/metric/metric.h"
+#include "../../../core/search/brute_force.h"
+#include "../../../core/search/lsh.h"
+#include "../../../core/utils/utils.h"
 
+#include "../../core/vectorization/vectorization.h"
+#include "../../core/search/grid_search.h"
+
+#include "../includes/args_utils.h"
+#include "../includes/io_utils.h"
+#include "../includes/report_utils.h"
+#include "../includes/utils.h"
 
 #define T double
 #define U int
@@ -280,8 +282,8 @@ int main(int argc, char **argv) {
   /* Compute Max and Average ratio lsh_nn_results / bf_nn_results */
   start = high_resolution_clock::now();
   std::cout << "\nCalculating evaluation metric.." << std::endl;
-  std::tuple<double,double,int> metric_res = metric::EvaluationMetric(bf_nn_results,
-                                                            approx_nn_results);
+  std::tuple<double,double,int> metric_res{};
+  metric_res = metric::EvaluationMetric(bf_nn_results, approx_nn_results);
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
   std::cout << "Calculating evaluation metric completed successfully."
@@ -302,8 +304,10 @@ int main(int argc, char **argv) {
   }
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
-  std::cout << "Writing results to the output file completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+  std::cout << "Writing results to the output file completed successfully."
+            << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds"
+            << std::endl;
 
   return EXIT_SUCCESS;
 }

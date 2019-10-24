@@ -1,5 +1,5 @@
-#ifndef IO_UTILS
-#define IO_UTILS
+#ifndef GRID_LSH_IO_UTILS
+#define GRID_LSH_IO_UTILS
 
 #include <algorithm>
 #include <iostream>
