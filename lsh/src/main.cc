@@ -9,14 +9,17 @@
 #include <utility>
 #include <vector>
 
-#include "../headers/hash/hash_function.h"
-#include "../headers/metric/metric.h"
-#include "../headers/utils/utils.h"
-#include "../headers/utils/args_utils.h"
-#include "../headers/utils/report_utils.h"
+#include "../../core/hash/hash_function.h"
+#include "../../core/metric/metric.h"
+#include "../../core/search/lsh.h"
+#include "../../core/search/brute_force.h"
+#include "../../core/utils/utils.h"
+
+#include "../headers/utils/lsh_args_utils.h"
+#include "../headers/utils/lsh_report_utils.h"
+#include "../headers/utils/lsh_utils.h"
+
 #include "../headers/utils/io_utils.h"
-#include "../headers/search/lsh.h"
-#include "../headers/search/brute_force.h"
 
 #define T int
 #define U int
@@ -60,25 +63,31 @@ int main(int argc, char **argv) {
   /* Preprocessing input file to get number of dataset points and their dimension */
   auto start = high_resolution_clock::now();
   std::cout << "\nGetting number of dataset points.." << std::endl;
-  exit_code = utils::io::GetDataPoints(input_info.input_file, input_info.N, status);
+  exit_code = utils::io::GetDataPoints(input_info.input_file,
+                                       input_info.N, status);
   if (exit_code != utils::SUCCESS) {
     utils::report::ReportError(status);
   }
   auto stop = high_resolution_clock::now();
   duration <double> total_time = duration_cast<duration<double>>(stop - start);
-  std::cout << "Getting number of dataset points completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+  std::cout << "Getting number of dataset points completed successfully."
+            << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds"
+            << std::endl;
 
   start = high_resolution_clock::now();
   std::cout << "\nGetting dataset points' dimension.." << std::endl;
-  exit_code = utils::io::GetPointsDim(input_info.input_file,input_info.D, status);
+  exit_code = utils::io::GetPointsDim(input_info.input_file,input_info.D,
+                                      status);
   if (exit_code != utils::SUCCESS) {
     utils::report::ReportError(status);
   }
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
-  std::cout << "Getting dataset points' dimension completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+  std::cout << "Getting dataset points' dimension completed successfully."
+            << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds"
+            << std::endl;
 
   /*
     Read dataset and create 1D vector which represents the d-dimensional points
@@ -98,19 +107,23 @@ int main(int argc, char **argv) {
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
   std::cout << "Reading input file completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds"
+            << std::endl;
 
   /* Preprocessing query file */
   start = high_resolution_clock::now();
   std::cout << "\nGetting number of query points.." << std::endl;
-  exit_code = utils::io::GetDataPoints(input_info.query_file, input_info.Q, status);
+  exit_code = utils::io::GetDataPoints(input_info.query_file, input_info.Q,
+                                       status);
   if (exit_code != utils::SUCCESS) {
     utils::report::ReportError(status);
   }
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
-  std::cout << "Getting number of query points completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+  std::cout << "Getting number of query points completed successfully."
+            << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds"
+            << std::endl;
 
   /* Reading query file */
   start = high_resolution_clock::now();
@@ -118,13 +131,17 @@ int main(int argc, char **argv) {
   std::vector<T> query_points(input_info.Q * input_info.D);
   std::vector<U> query_ids(input_info.Q);
   exit_code = utils::io::ReadFile<T,U>(input_info.query_file, input_info.Q,
-    input_info.D, query_points, query_ids, status);  if (exit_code != utils::SUCCESS) {
+                                       input_info.D, query_points,
+                                       query_ids, status);
+  if (exit_code != utils::SUCCESS) {
     utils::report::ReportError(status);
   }
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
-  std::cout << "Reading query file completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+  std::cout << "Reading query file completed successfully."
+            << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds"
+            << std::endl;
 
   /* Print input info */
   input_info.Print();
@@ -133,11 +150,13 @@ int main(int argc, char **argv) {
   start = high_resolution_clock::now();
   std::cout << "\nBuilding Brute Force.." << std::endl;
   std::vector<std::tuple<T,U,double>> bf_nn_results(input_info.Q);
-  search::BruteForce<T,U> bf{input_info.N, input_info.D, dataset_points, dataset_ids};
+  search::vectors::BruteForce<T,U> bf{input_info.N, input_info.D,
+                                      dataset_points, dataset_ids};
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
   std::cout << "Building Brute Force completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds"
+            << std::endl;
 
   /* Executing Exact Nearest Neighbor using BruteForce */
   start = high_resolution_clock::now();
@@ -147,41 +166,47 @@ int main(int argc, char **argv) {
   }
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
-  std::cout << "Executing Nearest Neighbor using Brute Force completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+  std::cout << "Executing Nearest Neighbor using Brute Force completed successfully."
+            << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds"
+            << std::endl;
 
   /* Computing radius */
   start = high_resolution_clock::now();
   std::cout << "\nComputing radius.." << std::endl;
-  double radius = utils::ComputeRadius(bf_nn_results);
+  double radius = utils::ComputeParameterR(bf_nn_results);
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
   std::cout << "Computing radius completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds"
+            << std::endl;
   std::cout << "\nRadius: " << radius << std::endl;
 
   /* Executing Radius Nearest Neighbor using BruteForce*/
   std::vector<std::vector<std::pair<T,U>>> bf_radius_nn_results(input_info.Q);
   start = high_resolution_clock::now();
-  std::cout << "\nExecuting Radius Nearest Neighbor using Brute Force.." << std::endl;
-  for (int i = 0; i < input_info.Q; ++i) {
+  std::cout << "\nExecuting Radius Nearest Neighbor using Brute Force.."
+            << std::endl;
+  for (size_t i = 0; i < input_info.Q; ++i) {
     bf_radius_nn_results[i] = bf.RadiusNearestNeighbor(query_points, i, radius);
   }
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
-  std::cout << "Executing Radius Nearest Neighbor using Brute Force completed successfully." << std::endl;
+  std::cout << "Executing Radius Nearest Neighbor using Brute Force completed successfully."
+            << std::endl;
   std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
 
   /* Creating LSH class object and a vector to store approx-NN results */
   start = high_resolution_clock::now();
   std::cout << "\nBuilding LSH.." << std::endl;
   std::vector<std::tuple<T,U,double>> lsh_nn_results(input_info.Q);
-  search::LSH<T,U> lsh{input_info.K, input_info.L, input_info.D,
+  search::vectors::LSH<T,U> lsh{input_info.K, input_info.L, input_info.D,
                        input_info.N, radius, dataset_points, dataset_ids};
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
   std::cout << "Building LSH completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds"
+            << std::endl;
 
   /* Executing approximate Nearest Neighbor using LSH */
   start = high_resolution_clock::now();
@@ -191,8 +216,10 @@ int main(int argc, char **argv) {
   }
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
-  std::cout << "Executing Nearest Neighbor using LSH completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+  std::cout << "Executing Nearest Neighbor using LSH completed successfully."
+            << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds"
+            << std::endl;
 
   /* Executing Radius Nearest Neighbor using LSH*/
   std::vector<std::vector<std::pair<T,U>>> lsh_radius_nn_results(input_info.Q);
@@ -203,19 +230,25 @@ int main(int argc, char **argv) {
   }
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
-  std::cout << "Executing Radius Nearest Neighbor using LSH completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+  std::cout << "Executing Radius Nearest Neighbor using LSH completed successfully."
+            << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds"
+            << std::endl;
 
   /* Compute Max and Average ratio lsh_nn_results / bf_nn_results */
   start = high_resolution_clock::now();
   std::cout << "\nCalculating evaluation metric.." << std::endl;
-  std::pair<double,double> metric_res = metric::EvaluationMetric(bf_nn_results, lsh_nn_results);
+  std::tuple<double,double,int> metric_res{};
+  metric_res = metric::EvaluationMetric(bf_nn_results, lsh_nn_results);
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
-  std::cout << "Calculating evaluation metric completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+  std::cout << "Calculating evaluation metric completed successfully."
+            << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds"
+            << std::endl;
   std::cout << "\nMax Af: " << std::get<0>(metric_res) << std::endl;
   std::cout << "Average Af: " << std::get<1>(metric_res) << std::endl;
+  std::cout << "Not found: " << std::get<2>(metric_res) << std::endl;
 
   /* Writing results to the output file */
   start = high_resolution_clock::now();
@@ -227,8 +260,10 @@ int main(int argc, char **argv) {
   }
   stop = high_resolution_clock::now();
   total_time = duration_cast<duration<double>>(stop - start);
-  std::cout << "Writing results to the output file completed successfully." << std::endl;
-  std::cout << "Time elapsed: " << total_time.count() << " seconds" << std::endl;
+  std::cout << "Writing results to the output file completed successfully."
+            << std::endl;
+  std::cout << "Time elapsed: " << total_time.count() << " seconds"
+            << std::endl;
 
   return EXIT_SUCCESS;
 }

@@ -102,8 +102,6 @@ namespace search {
           /* return result as a tuple of min_dist and min_id */
           return std::make_pair(min_dist,min_id);
         };
-
-
     };
   }
 }

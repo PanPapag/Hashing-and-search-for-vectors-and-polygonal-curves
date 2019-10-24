@@ -6,10 +6,11 @@
 #include <string>
 #include <string.h>
 
-#include "../headers/utils/utils.h"
-#include "../headers/utils/args_utils.h"
+#include "../headers/utils/lsh_utils.h"
+#include "../headers/utils/lsh_args_utils.h"
 
-int utils::args::ScanArguments(struct InputInfo &input_info, utils::ExitCode &status) {
+int utils::args::ScanArguments(struct InputInfo &input_info,
+  utils::ExitCode &status) {
 
   std::string input_buffer;
 
