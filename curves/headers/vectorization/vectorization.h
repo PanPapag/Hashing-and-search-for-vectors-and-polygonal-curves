@@ -135,7 +135,8 @@ namespace vectorization {
       int d;
       uint32_t M;
       float eps;
-      size_t K;
+      int K;
+      std::vector<double> G;
       std::default_random_engine generator;
       std::normal_distribution<double> distr = std::normal_distribution<double> {0,1};
     public:
@@ -154,45 +155,95 @@ namespace vectorization {
         // only for upper diagonal cells
         // to reduce memory space
         size_t size = M*M;
-        std::vector<std::vector<std::vector<std::pair<int,int>>>> relevant_traversals (size);
+        std::vector<std::vector<std::vector<std::pair<T,T>>>> relevant_traversals (size);
         int count = 0;
         for(size_t i=0; i<M; i++) {
           for(size_t j=0; j<M; j++) {
-            //if(abs(i-j < 4)) { //change this
+            if(abs(i-j < 4)) { //change this
               relevant_traversals[i*M+j] = RelevantTraversals(i,j);
               count+=relevant_traversals[i*M+j].size();
-            //}
-          }
-        }
-        std::cout << count << std::endl;
-        size = K*d*K*d;
-        std::vector<double> G (size);
-        for(size_t i=0; i<size; i++) {
-          G[i] = distr(generator);
-        }
-        for(size_t i=0; i<M; i++) {
-          for(size_t j=0; j<M; j++) {
-            for(auto& rt:relevant_traversals[i*M+j]) {
-              std::vector<std::vector<T>> x;
-              for(auto& ui:rt) {
-                std::vector<T> xi;
-                for(int k=0; k<size; k+=2) {
-                  xi.push_back(ui.first*(G[k]+G[k+1]));
-                }
-                x.push_back(xi);
-              }
             }
           }
         }
+
+        //Generating G matrix with 
+        //random values ~N(0,1)
+        std::cout << count << std::endl;
+        size_t size_G = K*d;
+        for(size_t i=0; i<size_G; i++) {
+          G[i] = distr(generator);
+        }
+
+        //This is dummy gotta fly away
+        std::vector<std::pair<T,T>> small_curves;
+        std::vector<int> small_length;
+        std::vector<int> small_offset;
+        for(size_t i=0; i<dataset_lengths.size(); i++) {
+          if(dataset_lengths[i] <= 10) {
+            small_offset.push_back(small_curves.size());
+            small_length.push_back(dataset_lengths[i]);
+            for(size_t j=dataset_offsets[i]; j<dataset_offsets[i]+dataset_lengths[i]; j++) {
+              small_curves.push_back(dataset_curves[j]);
+            }
+          }
+        }
+
+        //for every dataset curve
+        for(size_t i=0; i<small_offset.size(); i++) {
+          //for every traversal in l row
+          T l = small_length[i]-1;
+          for(size_t j=0; j<M; j++) {
+            for(auto& tr:relevant_traversals[l*M+j]) {
+              //replace pointers with coordinates
+              std::vector<std::pair<T,T>> rep_curve;
+              for(auto& u:tr) {
+                T pos = u.first;
+                rep_curve.push_back(std::make_pair(small_curves[small_offset[i]+pos].first,u.second));
+                //std::cout << u.first << " ";
+                //u.first = small_curves[small_offset[i]+pos].first;
+              }
+              //CreateVector(rep_curve);
+            }
+          }
+        }
+
+        // for(size_t i=0; i<M; i++) {
+        //   for(size_t j=0; j<M; j++) {
+        //     for(auto& rt:relevant_traversals[i*M+j]) {
+        //       std::vector<std::vector<T>> x;
+        //       for(auto& ui:rt) {
+        //         std::vector<T> xi; 
+        //         for(int k=0; k<size; k+=2) {
+        //           xi.push_back(ui.first*(G[k]+G[k+1]));
+        //         }
+        //         x.push_back(xi);
+        //       }
+        //     }
+        //   }
+        // }
       };
 
-      std::vector<std::vector<std::pair<int,int>>> RelevantTraversals(int i, int j) {
-        std::set<std::pair<int,int>> diag_cells;
-        std::set<std::pair<int,int>> rel_cells;
+      std::vector<T> CreateVector(std::vector<std::pair<T,T>>& traversal) {
+        std::vector<std::vector<T>> x;
+        for(auto& ui:traversal) {
+          std::vector<T> xi; 
+          for(int i=0; i<K; i++) {
+            for(int j=0; j<d; j++) {
+              xi.push_back(ui.first*G[i*d+j]);
+            }
+          }
+          x.push_back(xi);
+        }
+        //concat
+      };
+
+      std::vector<std::vector<std::pair<T,T>>> RelevantTraversals(int i, int j) {
+        std::set<std::pair<T,T>> diag_cells;
+        std::set<std::pair<T,T>> rel_cells;
         diag_cells = DrawLineSegment(i, j, i+1, j+1);
         rel_cells = FindNeighbors(diag_cells,i,j);
-        std::vector<std::pair<int,int>> path;
-        std::vector<std::vector<std::pair<int,int>>> paths;
+        std::vector<std::pair<T,T>> path;
+        std::vector<std::vector<std::pair<T,T>>> paths;
         FindTraversals(path,paths,rel_cells,0,0,i+1,j+1);
         return paths;
       }
@@ -200,8 +251,8 @@ namespace vectorization {
       /* \brief
           Find cells that are crossed by main diagonal line segment
       */
-      std::set<std::pair<int,int>> DrawLineSegment(int x, int y, int m, int n) {
-        std::set<std::pair<int,int>> diag_cells;
+      std::set<std::pair<T,T>> DrawLineSegment(int x, int y, int m, int n) { 
+        std::set<std::pair<T,T>> diag_cells;
         for (int xi = 0; xi <= x; xi++) {
           int yi = n/m * xi;
           diag_cells.insert(std::make_pair(xi,yi));
@@ -216,8 +267,8 @@ namespace vectorization {
       /* \brief
           Find cells that are crossed by main diagonal line segment
       */
-      std::set<std::pair<int,int>> FindNeighbors(std::set<std::pair<int,int>>& diag_cells, int m, int n) {
-        std::set<std::pair<int,int>> rel_cells (diag_cells);
+      std::set<std::pair<T,T>> FindNeighbors(std::set<std::pair<T,T>>& diag_cells, int m, int n) {
+        std::set<std::pair<T,T>> rel_cells (diag_cells);
         for(auto& p:diag_cells) {
           if(p.first != 0) {
             rel_cells.insert(std::make_pair(p.first-1,p.second));
@@ -233,13 +284,13 @@ namespace vectorization {
           A path is relevant when it consists of cells that are either on
           main diagonal line segment or have a distance of 1.
       */
-      const bool isRelevant(std::set<std::pair<int,int>>& s, int i, int j, int m, int n) {
+      const bool isRelevant(std::set<std::pair<T,T>>& s, int i, int j, int m, int n) {
         const bool is_in = s.find(std::make_pair(i,j)) != s.end();
         return (i >= 0 && i < m && j >= 0 && j < n && is_in);
       }
 
-      void FindTraversals(std::vector<std::pair<int,int>>& path, std::vector<std::vector<std::pair<int,int>>>& paths,
-                     std::set<std::pair<int,int>>& s, int i, int j, int m, int n) {
+      void FindTraversals(std::vector<std::pair<T,T>>& path, std::vector<std::vector<std::pair<T,T>>>& paths,
+                     std::set<std::pair<T,T>>& s, int i, int j, int m, int n) {
         //destination point reached
         if ((i == m-1) && (j == n-1)) {
           path.push_back(std::make_pair(i,j));
