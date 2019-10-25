@@ -187,7 +187,7 @@ int main(int argc, char **argv) {
     std::cout << "\nBuilding HyperCube.." << std::endl;
     std::vector<std::tuple<T,U,double>> hypercube_nn_results(input_info.Q);
     search::vectors::HyperCube<T,U> cube{input_info.k, input_info.M, input_info.D,
-                                         input_info.N, input_info.probes, radius,
+                                         input_info.N, input_info.probes, r,
                                          dataset_points, dataset_ids};
 
     stop = high_resolution_clock::now();

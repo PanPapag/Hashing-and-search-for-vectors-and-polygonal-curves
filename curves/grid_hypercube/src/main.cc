@@ -32,9 +32,9 @@ int main(int argc, char **argv) {
   utils::InputInfo input_info;
   utils::ExitCode status;
   std::string input_buffer;
-  uint32_t D_vec;
+  uint16_t D_vec;
   const uint8_t factor = 10;
-  double r, delta;
+  double delta;
   int exit_code;
 
   /* Get arguments */
@@ -216,39 +216,6 @@ int main(int argc, char **argv) {
     std::cout << "Time elapsed: " << total_time.count() << " seconds"
               << std::endl;
 
-    /* Comptuing window parameter as k * R used by LSH and HyperCube */
-    start = high_resolution_clock::now();
-    std::cout << "\nComputing window parameter.." << std::endl;
-    r = utils::ComputeParameterR(bf_nn_results);
-    stop = high_resolution_clock::now();
-    total_time = duration_cast<duration<double>>(stop - start);
-    std::cout << "Computing window parameter completed successfully."
-              << std::endl;
-    std::cout << "Time elapsed: " << total_time.count() << " seconds"
-              << std::endl;
-
-    /* Bulding HyperCube structures */
-    start = high_resolution_clock::now();
-    std::cout << "\nBuilding HyperCube structures.." << std::endl;
-    std::vector<search::curves::HyperCube<T,U>> hypercube_structures;
-    for (size_t i = 0; i < input_info.L_grid; ++i) {
-      hypercube_structures.
-        push_back(search::curves::HyperCube<T,U>(input_info.k_hypercube,
-                                                 input_info.M, D_vec, input_info.N,
-                                                 input_info.probes, r,
-                                                 dataset_curves,
-                                                 dataset_curves_ids,
-                                                 dataset_curves_lengths,
-                                                 dataset_curves_offsets,
-                                                 L_grid_dataset_vectors[i]));
-    }
-    stop = high_resolution_clock::now();
-    total_time = duration_cast<duration<double>>(stop - start);
-    std::cout << "Building HyperCube structures completed successfully."
-              << std::endl;
-    std::cout << "Time elapsed: " << total_time.count() << " seconds"
-              << std::endl;
-
     /* Vectorizing query curves */
     start = high_resolution_clock::now();
     std::cout << "\nVectorizing query curves using grid method.." << std::endl;
@@ -261,6 +228,49 @@ int main(int argc, char **argv) {
     stop = high_resolution_clock::now();
     total_time = duration_cast<duration<double>>(stop - start);
     std::cout << "Vectorizing query curves using grid method completed."
+              << std::endl;
+    std::cout << "Time elapsed: " << total_time.count() << " seconds"
+              << std::endl;
+
+    /* Comptuing window parameter as k * R used by LSH and HyperCube */
+    start = high_resolution_clock::now();
+    std::cout << "\nComputing window parameter.." << std::endl;
+    double r[input_info.L_grid];
+    for (size_t i = 0; i < input_info.L_grid; ++i) {
+      std::vector<std::tuple<T,U,double>> temp_bf_nn_results(input_info.Q);
+      search::vectors::BruteForce<T,U> temp_bf{input_info.N, D_vec,
+                                               L_grid_dataset_vectors[i],
+                                               dataset_curves_ids};
+      for (size_t j = 0; j < input_info.Q; ++j) {
+       temp_bf_nn_results[j] = temp_bf.NearestNeighbor(L_grid_query_vectors[i], j);
+      }
+     r[i] = utils::ComputeParameterR(temp_bf_nn_results);
+    }
+    stop = high_resolution_clock::now();
+    total_time = duration_cast<duration<double>>(stop - start);
+    std::cout << "Computing window parameter completed successfully."
+              << std::endl;
+    std::cout << "Time elapsed: " << total_time.count() << " seconds"
+              << std::endl;
+              
+    /* Bulding HyperCube structures */
+    start = high_resolution_clock::now();
+    std::cout << "\nBuilding HyperCube structures.." << std::endl;
+    std::vector<search::curves::HyperCube<T,U>> hypercube_structures;
+    for (size_t i = 0; i < input_info.L_grid; ++i) {
+      hypercube_structures.
+        push_back(search::curves::HyperCube<T,U>(input_info.k_hypercube,
+                                                 input_info.M, D_vec, input_info.N,
+                                                 input_info.probes, r[i],
+                                                 dataset_curves,
+                                                 dataset_curves_ids,
+                                                 dataset_curves_lengths,
+                                                 dataset_curves_offsets,
+                                                 L_grid_dataset_vectors[i]));
+    }
+    stop = high_resolution_clock::now();
+    total_time = duration_cast<duration<double>>(stop - start);
+    std::cout << "Building HyperCube structures completed successfully."
               << std::endl;
     std::cout << "Time elapsed: " << total_time.count() << " seconds"
               << std::endl;

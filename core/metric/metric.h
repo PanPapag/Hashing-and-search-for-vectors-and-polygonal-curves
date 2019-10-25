@@ -139,7 +139,7 @@ namespace metric {
           cnt_not_found++;
           continue;
         }
-        distance_error = std::get<0>(approx[i]) / std::get<0>(exact[i]);
+        distance_error = (double) std::get<0>(approx[i]) / std::get<0>(exact[i]);
         if (distance_error > max_af) {
           max_af = distance_error;
         }

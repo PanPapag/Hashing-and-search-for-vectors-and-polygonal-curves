@@ -52,11 +52,11 @@ namespace search {
         /** \brief class LSH constructor
         */
         LSH(const uint8_t K, const uint8_t L, const uint16_t D,
-            const uint32_t N, const double radius, const std::vector<T>& points,
-            const std::vector<T>& ids) : K(K), L(L), D(D), N(N), R(radius),
+            const uint32_t N, const double r, const std::vector<T>& points,
+            const std::vector<T>& ids) : K(K), L(L), D(D), N(N), R(r),
             feature_vector(points), feature_vector_ids(ids) {
 
-            w = 2.5 * R;
+            w = 2 * r;
             m = (1ULL << 32) - 5;
             M = 1ULL << (32 / K);
             table_size = N / 32;
@@ -91,7 +91,7 @@ namespace search {
           T min_dist = std::numeric_limits<T>::max();
           /* Initialize correspodent min_id using the C++11 way */
           U min_id{};
-          for (int i = 0; i < L; ++i) {
+          for (size_t i = 0; i < L; ++i) {
             // get i_th hashtable
             std::unordered_map<int,std::vector<int>>& ht_i = hash_tables[i];
             // get all points in the same bucket
@@ -185,10 +185,10 @@ namespace search {
             input_curves_ids(ids), input_curves_lengths(lengths),
             input_curves_offsets(offsets), feature_vector(points) {
 
-            w = 4 * R;
+            w = 40 * R;
             m = (1ULL << 32) - 5;
             M = pow(2, 32 / K);
-            table_size = N / 16;
+            table_size = N / 8;
             // Preprocess step
             // 1) Randomly select L amplified hash functions g1 , . . . , gL .
             for (size_t i = 0; i < L; ++i) {

@@ -188,7 +188,7 @@ int main(int argc, char **argv) {
     std::cout << "\nBuilding LSH.." << std::endl;
     std::vector<std::tuple<T,U,double>> lsh_nn_results(input_info.Q);
     search::vectors::LSH<T,U> lsh{input_info.K, input_info.L, input_info.D,
-                         input_info.N, radius, dataset_points, dataset_ids};
+                         input_info.N, r, dataset_points, dataset_ids};
     stop = high_resolution_clock::now();
     total_time = duration_cast<duration<double>>(stop - start);
     std::cout << "Building LSH completed successfully." << std::endl;

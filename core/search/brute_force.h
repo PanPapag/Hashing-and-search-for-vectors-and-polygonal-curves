@@ -29,7 +29,7 @@ namespace search {
           @par const int D - Points' dimension
         */
         BruteForce(const uint32_t N, const uint16_t D,
-            const std::vector<T>& points, const std::vector<T>& ids)
+            const std::vector<T>& points, const std::vector<U>& ids)
           : N(N), D(D), feature_vector(points), feature_vector_ids(ids) {};
         /**
           \brief class BruteForce default construct

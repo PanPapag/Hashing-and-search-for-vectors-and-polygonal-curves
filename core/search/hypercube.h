@@ -65,7 +65,7 @@ namespace search {
           f(0,1), k(k), M(M), D(D), N(N), probes(probes), R(r),
           feature_vector(points), feature_vector_ids(ids) {
 
-    			w = 5 * R;
+    			w = 5 * r;
     			m = (1ULL << 32) - 5;
     			t = 1ULL << (32 / k);
 
@@ -173,7 +173,7 @@ namespace search {
           U min_id{};
           std::string key;
           // Get value from g function
-          for (int i = 0; i < k; ++i) {
+          for (size_t i = 0; i < k; ++i) {
             uint32_t val = g[i].Hash(query_points,offset);
             FlipCoin(val);
             key += bucket_map[val].to_string();
@@ -316,7 +316,7 @@ namespace search {
           input_curves_lengths(lengths), input_curves_offsets(offsets),
           feature_vector(points) {
 
-    			w = 5 * R;
+    			w = 10 * R;
     			m = (1ULL << 32) - 5;
     			t = 1ULL << (32 / k);
 
