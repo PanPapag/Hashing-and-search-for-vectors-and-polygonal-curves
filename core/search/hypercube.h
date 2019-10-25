@@ -91,6 +91,7 @@ namespace search {
           \brief class HyperCube default destructor
         */
         ~HyperCube() = default;
+
         /** \brief Executes approximate Nearest tNeighbor
           @par const std::vector<T>& query_points - Pass by reference query points
           @par const int offset - Offset to get correspodent point
@@ -131,7 +132,7 @@ namespace search {
           // For each key map to its bucket and search
           for (size_t i = 0; i < max_vertices; ++i) {
             const std::string key = vertices[idx[i]];
-            //Get a specific vertex
+            // Get a specific vertex
             std::vector<int>& vertex = p[key];
             size_t num_points = vertex.size();
             // Choose randomly M points from vertex
@@ -178,7 +179,7 @@ namespace search {
             FlipCoin(val);
             key += bucket_map[val].to_string();
           }
-          //Checking for neighbor in same vertex
+          // Checking for neighbor in same vertex
           std::vector<int>& vertex = p[key];
           for (auto const& fv_offset: vertex) {
             T dist = metric::ManhattanDistance<T>(
@@ -204,7 +205,7 @@ namespace search {
           // For each key map to its bucket and search
           for (size_t i = 0; i < max_vertices; ++i) {
             const std::string key = vertices[idx[i]];
-            //Get a specific vertex
+            // Get a specific vertex
             std::vector<int>& vertex = p[key];
             size_t num_points = vertex.size();
             // Choose randomly M points from vertex

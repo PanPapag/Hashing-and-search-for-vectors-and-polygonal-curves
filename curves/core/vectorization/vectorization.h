@@ -1,12 +1,13 @@
 #ifndef VECTORIZATION
 #define VECTORIZATION
 
+#include <set>
 #include <cmath>
-#include <iostream>
 #include <tuple>
 #include <vector>
 #include <random>
-#include <set>
+#include <iostream>
+#include "../lib/map_hash.h"
 
 namespace vectorization {
 
@@ -134,28 +135,36 @@ namespace vectorization {
     private:
       int d;
       uint32_t M;
+      uint32_t N;
       float eps;
       int K;
       std::vector<double> G;
+      const std::vector<std::pair<T,T>>& input_curves;
+      const std::vector<int>& input_curves_lengths;
+      const std::vector<int>& input_curves_offsets;
       std::default_random_engine generator;
+      /* M * M array containing all possible paths from (0,0) to each cell */
+      std::vector<std::vector<std::vector<std::pair<T,T>>>> relevant_traversals;
+      /* vectors per traversal */
+      std::unordered_map<std::tuple<int,int,int>,std::vector<std::vector<double>>> vectors;
       std::normal_distribution<double> distr = std::normal_distribution<double> {0,1};
     public:
-      /* \brief
-          Just a constructor
+      /** 
+        \brief Just a constructor
       */
       Projection(std::vector<std::pair<T,T>>& dataset_curves, std::vector<int>& dataset_offsets,
-                std::vector<int>& dataset_lengths, std::vector<U>& dataset_ids) : eps(0.5), d(2) {
+                  std::vector<int>& dataset_lengths, std::vector<U>& dataset_ids, uint32_t N) : 
+                  eps(0.5), d(2), N(N),
+                  input_curves(dataset_curves), input_curves_lengths(dataset_lengths), 
+                  input_curves_offsets(dataset_offsets) {
+        
         // Get max length from all curves and
         // store all relevant traversals at an M * M array
-        //M = *max_element(std::begin(dataset_lengths), std::end(dataset_lengths));
-        M = 10;
-        K = d * (-1) * log(eps) / (eps*eps);
+        M = *max_element(std::begin(dataset_lengths), std::end(dataset_lengths));
+        K = d * (-1) * log2(eps) / (eps*eps);
 
-        // Computing relevant traversals
-        // only for upper diagonal cells
-        // to reduce memory space
-        size_t size = M*M;
-        std::vector<std::vector<std::vector<std::pair<T,T>>>> relevant_traversals (size);
+        // Computing all relevant traversals
+        relevant_traversals = std::vector<std::vector<std::vector<std::pair<T,T>>>> (M*M);
         int count = 0;
         for(size_t i=0; i<M; i++) {
           for(size_t j=0; j<M; j++) {
@@ -168,73 +177,57 @@ namespace vectorization {
 
         //Generating G matrix with 
         //random values ~N(0,1)
-        std::cout << count << std::endl;
         size_t size_G = K*d;
+        G = std::vector<double> (size_G);
+        std::cout << count << std::endl;
         for(size_t i=0; i<size_G; i++) {
           G[i] = distr(generator);
         }
+      };
 
-        //This is dummy gotta fly away
-        std::vector<std::pair<T,T>> small_curves;
-        std::vector<int> small_length;
-        std::vector<int> small_offset;
-        for(size_t i=0; i<dataset_lengths.size(); i++) {
-          if(dataset_lengths[i] <= 10) {
-            small_offset.push_back(small_curves.size());
-            small_length.push_back(dataset_lengths[i]);
-            for(size_t j=dataset_offsets[i]; j<dataset_offsets[i]+dataset_lengths[i]; j++) {
-              small_curves.push_back(dataset_curves[j]);
-            }
-          }
-        }
-
-        //for every dataset curve
-        for(size_t i=0; i<small_offset.size(); i++) {
-          //for every traversal in l row
-          T l = small_length[i]-1;
+      void Vectorize (void) {
+        for (size_t i=0; i<N; i++) {
+          // get all relevant traversals 
+          // for curves with length size
+          size_t length = input_curves_lengths[i]-1;
           for(size_t j=0; j<M; j++) {
-            for(auto& tr:relevant_traversals[l*M+j]) {
+            size_t i_traversal = 0;
+            for(auto& tr:relevant_traversals[length*M+j]) {
               //replace pointers with coordinates
               std::vector<std::pair<T,T>> rep_curve;
-              for(auto& u:tr) {
-                T pos = u.first;
-                rep_curve.push_back(std::make_pair(small_curves[small_offset[i]+pos].first,u.second));
-                //std::cout << u.first << " ";
-                //u.first = small_curves[small_offset[i]+pos].first;
+              i_traversal++;
+              for(auto& pair:tr) {
+                T pos = pair.first;
+                rep_curve.push_back(std::make_pair(input_curves[input_curves_offsets[i] + pos].first,pair.second));
               }
-              //CreateVector(rep_curve);
+              std::tuple<size_t,size_t,size_t> key = std::make_tuple(length,j,i_traversal);
+              std::vector<T> value = CreateVector(rep_curve);
+              vectors[key].push_back(value);
             }
           }
         }
-
-        // for(size_t i=0; i<M; i++) {
-        //   for(size_t j=0; j<M; j++) {
-        //     for(auto& rt:relevant_traversals[i*M+j]) {
-        //       std::vector<std::vector<T>> x;
-        //       for(auto& ui:rt) {
-        //         std::vector<T> xi; 
-        //         for(int k=0; k<size; k+=2) {
-        //           xi.push_back(ui.first*(G[k]+G[k+1]));
-        //         }
-        //         x.push_back(xi);
-        //       }
-        //     }
-        //   }
-        // }
+        for(auto& b:vectors) {
+          std::cout << std::get<0>(b.first) << " " << std::get<1>(b.first) << " " << std::get<2>(b.first) << " ";
+          std::cout << b.second.size() << std::endl;
+        }
       };
 
       std::vector<T> CreateVector(std::vector<std::pair<T,T>>& traversal) {
-        std::vector<std::vector<T>> x;
+        std::vector<std::vector<T>> v;
+        std::vector<T> x (K*d);
         for(auto& ui:traversal) {
           std::vector<T> xi; 
-          for(int i=0; i<K; i++) {
-            for(int j=0; j<d; j++) {
-              xi.push_back(ui.first*G[i*d+j]);
-            }
+          for(int i=0; i<K*d; i++) {
+            xi.push_back(ui.first*G[i]);
           }
-          x.push_back(xi);
+          v.push_back(xi);
         }
-        //concat
+        for(size_t i=0; i<v.size(); i++) {
+          for(size_t j=0; j<v[i].size(); j++) {
+            x[j] += v[i][j]; 
+          }
+        }
+        return x;
       };
 
       std::vector<std::vector<std::pair<T,T>>> RelevantTraversals(int i, int j) {
@@ -253,12 +246,12 @@ namespace vectorization {
       */
       std::set<std::pair<T,T>> DrawLineSegment(int x, int y, int m, int n) { 
         std::set<std::pair<T,T>> diag_cells;
-        for (int xi = 0; xi <= x; xi++) {
-          int yi = n/m * xi;
+        for (int xi = 0; xi < m; xi++) {
+          int yi = round((double)n/m * (double)xi);
           diag_cells.insert(std::make_pair(xi,yi));
         }
-        for (int yi = 0; yi <= y; yi++) {
-          int xi = m/n * yi;
+        for (int yi = 0; yi < n; yi++) {
+          int xi = round((double)m/n * (double)yi);
           diag_cells.insert(std::make_pair(xi,yi));
         }
         return diag_cells;
@@ -273,9 +266,6 @@ namespace vectorization {
           if(p.first != 0) {
             rel_cells.insert(std::make_pair(p.first-1,p.second));
           }
-          // if(p.first != m) {
-          //   rel_cells.insert(std::make_pair(p.first+1,p.second));
-          // }
         }
         return rel_cells;
       }
@@ -285,8 +275,7 @@ namespace vectorization {
           main diagonal line segment or have a distance of 1.
       */
       const bool isRelevant(std::set<std::pair<T,T>>& s, int i, int j, int m, int n) {
-        const bool is_in = s.find(std::make_pair(i,j)) != s.end();
-        return (i >= 0 && i < m && j >= 0 && j < n && is_in);
+        return s.find(std::make_pair(i,j)) != s.end();
       }
 
       void FindTraversals(std::vector<std::pair<T,T>>& path, std::vector<std::vector<std::pair<T,T>>>& paths,
