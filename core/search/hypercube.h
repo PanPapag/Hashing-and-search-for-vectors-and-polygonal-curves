@@ -412,6 +412,73 @@ namespace search {
           // Return result as a pair of min_dist and min_id
           return std::make_pair(min_dist,min_id);
         };
+        std::pair<T,U> NearestNeighbor(const std::vector<T>& query_points,
+          const int offset, const std::vector<std::pair<T,T>>& query_curves,
+          const std::vector<int>& query_curves_lengths,
+          const std::vector<int>& query_curves_offsets, U id) {
+
+          T min_dist = std::numeric_limits<T>::max();
+          U min_id{};
+          std::string key;
+          // Get value from g function
+          for (size_t i = 0; i < k; ++i) {
+            uint32_t val = g[i].Hash(query_points,offset);
+            FlipCoin(val);
+            key += bucket_map[val].to_string();
+          }
+          //Checking for neighbor in same vertex
+          std::vector<int>& vertex = p[key];
+          for (auto const& fv_offset: vertex) {
+            int of = fv_offset % input_curves_lengths.size();
+            T dist =  metric::DTWDistance<T>(
+              std::next(input_curves.begin(),input_curves_offsets[of]),
+              std::next(input_curves.begin(),
+                        input_curves_offsets[of] + input_curves_lengths[of]),
+              std::next(query_curves.begin(),query_curves_offsets[offset]),
+              std::next(query_curves.begin(),
+                        query_curves_offsets[offset] + query_curves_lengths[offset]));
+            if (dist < min_dist) {
+              min_dist = dist;
+              min_id = input_curves_ids[of];
+            }
+          }
+
+          // Get "probes" random vertices with hamming distance 1
+          std::vector<std::string> vertices = GetToggledBitStrings(key);
+          size_t num_vertices = vertices.size();
+          std::vector<size_t> idx = VectorShuffle(num_vertices);
+          size_t max_vertices = (num_vertices < probes) ? num_vertices : probes;
+
+          // For each key map to its bucket and search
+          for (size_t i = 0; i < max_vertices; ++i) {
+            const std::string key = vertices[idx[i]];
+            //Get a specific vertex
+            std::vector<int>& vertex = p[key];
+            size_t num_points = vertex.size();
+            // Choose randomly M points from vertex
+            std::vector<size_t> points = VectorShuffle(num_points);
+            size_t max_points = (num_points < M) ? num_points : M;
+            // Calculate manhattan distance between those points and queries
+            for (size_t j = 0; j < max_points; ++j) {
+              int fv_offset = vertex[points[j]] % input_curves_lengths.size();
+              T dist =  metric::DTWDistance<T>(
+                std::next(input_curves.begin(),input_curves_offsets[fv_offset]),
+                std::next(input_curves.begin(),
+                          input_curves_offsets[fv_offset] + input_curves_lengths[fv_offset]),
+                std::next(query_curves.begin(),query_curves_offsets[offset]),
+                std::next(query_curves.begin(),
+                          query_curves_offsets[offset] + query_curves_lengths[offset]));
+              if (dist < min_dist) {
+                min_dist = dist;
+                min_id = input_curves_ids[fv_offset];
+              }
+            }
+          }
+
+          // Return result as a pair of min_dist and min_id
+          return std::make_pair(min_dist,min_id);
+        };
+
     		/** \brief For each gi,
     		 - fi(gi) maps buckets to {0,1} uniformly.
     		*/

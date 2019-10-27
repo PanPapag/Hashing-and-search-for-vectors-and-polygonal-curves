@@ -1,4 +1,4 @@
-TARGET_EXEC ?= projection
+TARGET_EXEC ?= curve_projection_hypercube
 
 CC = g++
 CC_FLAGS = -w -O3 -std=c++11
