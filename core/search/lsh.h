@@ -225,18 +225,57 @@ namespace search {
             std::unordered_map<int,std::vector<int>> &ht_i = hash_tables[i];
             // get all curves in the same bucket
             std::vector<int> &bucket = ht_i[hash_functions[i].Hash(query_points,offset) % table_size];
-            // iterate over all curves in the bucket
+            //iterate over all curves in the bucket
             for (auto const& fv_offset: bucket) {
-              T dist =  metric::DTWDistance<T>(
+              T dist =  metric::DTWDistance<T> (
                 std::next(input_curves.begin(),input_curves_offsets[fv_offset]),
                 std::next(input_curves.begin(),
                           input_curves_offsets[fv_offset] + input_curves_lengths[fv_offset]),
                 std::next(query_curves.begin(),query_curves_offsets[offset]),
                 std::next(query_curves.begin(),
-                          query_curves_offsets[offset] + query_curves_lengths[offset]));
+                          query_curves_offsets[offset] + query_curves_lengths[offset])
+              );
               if (dist < min_dist) {
                 min_dist = dist;
                 min_id = input_curves_ids[fv_offset];
+              }
+            }
+          }
+          /* return result as a tuple of min_dist and min_id */
+          return std::make_pair(min_dist,min_id);
+        };
+
+        std::pair<T,U> NearestNeighbor(const std::vector<T>& query_points,
+          const int offset, const std::vector<std::pair<T,T>>& query_curves,
+          const std::vector<int>& query_curves_lengths,
+          const std::vector<int>& query_curves_offsets,
+          const U idx) {
+
+          /* Initialize min_dist to max value of type T */
+          T min_dist = std::numeric_limits<T>::max();
+          /* Initialize correspodent min_id using the C++11 way */
+          U min_id{};
+          for (size_t i = 0; i < L; ++i) {
+            // get i_th hashtable
+            std::unordered_map<int,std::vector<int>> &ht_i = hash_tables[i];
+            // get all curves in the same bucket
+            std::vector<int> &bucket = ht_i[hash_functions[i].Hash(query_points,offset) % table_size];
+            //iterate over all curves in the bucket
+            //auto const& fv_offset:bucket[0];
+            for (auto const& fv_offset: bucket) {
+              int of = fv_offset % input_curves_offsets.size();
+              //std::cout << fv_offset << std::endl; 
+              T dist =  metric::DTWDistance<T> (
+                std::next(input_curves.begin(),input_curves_offsets[of]),
+                std::next(input_curves.begin(),
+                          input_curves_offsets[of] + input_curves_lengths[of]),
+                std::next(query_curves.begin(),query_curves_offsets[offset]),
+                std::next(query_curves.begin(),
+                          query_curves_offsets[offset] + query_curves_lengths[offset])
+              );
+              if (dist < min_dist) {
+                min_dist = dist;
+                min_id = input_curves_ids[of];
               }
             }
           }

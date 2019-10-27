@@ -142,26 +142,34 @@ namespace vectorization {
       const std::vector<std::pair<T,T>>& input_curves;
       const std::vector<int>& input_curves_lengths;
       const std::vector<int>& input_curves_offsets;
+      const std::vector<U>& input_curves_ids;
       std::default_random_engine generator;
       /* M * M array containing all possible paths from (0,0) to each cell */
       std::vector<std::vector<std::vector<std::pair<T,T>>>> relevant_traversals;
-      /* vectors per traversal */
-      std::unordered_map<std::tuple<int,int,int>,std::vector<std::vector<double>>> vectors;
+      /* Storing datasets vectors' info per traversal */
+      std::unordered_map<std::tuple<int,int,int>,std::vector<double>> vectors;
+      std::unordered_map<std::tuple<int,int,int>,std::vector<int>> vectors_lengths;
+      std::unordered_map<std::tuple<int,int,int>,std::vector<int>> vectors_offsets;
+      std::unordered_map<std::tuple<int,int,int>,std::vector<U>> vectors_ids;
+      /* Storing queries vectors' info per traversal */
+      std::unordered_map<U,std::vector<double>> qvectors;
+      std::unordered_map<U,std::vector<int>> qvectors_lengths;
+      std::unordered_map<U,std::vector<int>> qvectors_offsets;
+      std::unordered_map<U,std::vector<U>> qvectors_ids;
       std::normal_distribution<double> distr = std::normal_distribution<double> {0,1};
     public:
       /** 
         \brief Just a constructor
       */
       Projection(std::vector<std::pair<T,T>>& dataset_curves, std::vector<int>& dataset_offsets,
-                  std::vector<int>& dataset_lengths, std::vector<U>& dataset_ids, uint32_t N) : 
-                  eps(0.5), d(2), N(N),
+                  std::vector<int>& dataset_lengths, std::vector<U>& dataset_ids, uint32_t N, int K) : 
+                  d(2), N(N), K(K),
                   input_curves(dataset_curves), input_curves_lengths(dataset_lengths), 
-                  input_curves_offsets(dataset_offsets) {
+                  input_curves_offsets(dataset_offsets), input_curves_ids(dataset_ids) {
         
         // Get max length from all curves and
         // store all relevant traversals at an M * M array
         M = *max_element(std::begin(dataset_lengths), std::end(dataset_lengths));
-        K = d * (-1) * log2(eps) / (eps*eps);
 
         // Computing all relevant traversals
         relevant_traversals = std::vector<std::vector<std::vector<std::pair<T,T>>>> (M*M);
@@ -175,8 +183,8 @@ namespace vectorization {
           }
         }
 
-        //Generating G matrix with 
-        //random values ~N(0,1)
+        /* Generating G matrix with 
+         * random values ~N(0,1) */
         size_t size_G = K*d;
         G = std::vector<double> (size_G);
         std::cout << count << std::endl;
@@ -184,16 +192,20 @@ namespace vectorization {
           G[i] = distr(generator);
         }
       };
-
+      
+      /** 
+       * For every dataset curve replace 1st pair pointer (ui) 
+       * with actual coordinate. For every value multiply with G
+       * matrix, then concat: x = [G*u1|..|G*un]. Store each
+       * vector and its info to map with key the corresponding traversal.
+       * Each traversal corresponds to a NN structure.
+       */
       void Vectorize (void) {
         for (size_t i=0; i<N; i++) {
-          // get all relevant traversals 
-          // for curves with length size
           size_t length = input_curves_lengths[i]-1;
           for(size_t j=0; j<M; j++) {
             size_t i_traversal = 0;
             for(auto& tr:relevant_traversals[length*M+j]) {
-              //replace pointers with coordinates
               std::vector<std::pair<T,T>> rep_curve;
               i_traversal++;
               for(auto& pair:tr) {
@@ -202,15 +214,88 @@ namespace vectorization {
               }
               std::tuple<size_t,size_t,size_t> key = std::make_tuple(length,j,i_traversal);
               std::vector<T> value = CreateVector(rep_curve);
-              vectors[key].push_back(value);
+              for(auto& ivalue:value) {
+                vectors[key].push_back(ivalue);
+              }
+              vectors_lengths[key].push_back(input_curves_lengths[i]);
+              vectors_offsets[key].push_back(input_curves_offsets[i]);
+              vectors_ids[key].push_back(input_curves_ids[i]);
             }
           }
         }
-        for(auto& b:vectors) {
-          std::cout << std::get<0>(b.first) << " " << std::get<1>(b.first) << " " << std::get<2>(b.first) << " ";
-          std::cout << b.second.size() << std::endl;
-        }
       };
+
+      /**
+        \brief Perfom exactly the opossite procedure as above
+      */
+      void Vectorize(const int Q,
+        const std::vector<std::pair<T,T>>& query_curves,
+        const std::vector<int>& query_curves_lengths,
+        const std::vector<int>& query_curves_offsets,
+        const std::vector<U>& query_curves_ids) {
+          for (size_t i=0; i<Q; i++) {
+            size_t length = query_curves_lengths[i]-1;
+            for(size_t j=0; j<M; j++) {
+              size_t i_traversal = 0;
+              for(auto& tr:relevant_traversals[j*M+length]) {
+                std::vector<std::pair<T,T>> rep_curve;
+                i_traversal++;
+                for(auto& pair:tr) {
+                  T pos = pair.second;
+                  rep_curve.push_back(std::make_pair(pair.first,input_curves[input_curves_offsets[i] + pos].second));
+                }
+                U key = query_curves_ids[i];
+                std::vector<T> value = qCreateVector(rep_curve);
+                for(auto& ivalue:value) {
+                  qvectors[key].push_back(ivalue);
+                }
+                qvectors_lengths[key].push_back(query_curves_lengths[i]);
+                qvectors_offsets[key].push_back(query_curves_offsets[i]);
+                qvectors_ids[key].push_back(query_curves_ids[i]);
+              }
+            }
+          }
+      };
+
+      const std::unordered_map<std::tuple<int,int,int>,
+                              std::vector<double>>& GetVectors() {
+                              return vectors;
+                        };
+      
+      const std::unordered_map<std::tuple<int,int,int>,
+                              std::vector<int>>& GetVectorsLengths() {
+                              return vectors_lengths;
+                        };
+
+      const std::unordered_map<std::tuple<int,int,int>,
+                              std::vector<int>>& GetVectorsOffsets() {
+                              return vectors_offsets;
+                        };
+
+      const std::unordered_map<std::tuple<int,int,int>,
+                              std::vector<U>>& GetVectorsIds() {
+                              return vectors_ids;
+                        };
+      
+      const std::unordered_map<U,
+                              std::vector<double>>& qGetVectors() {
+                              return qvectors;
+                        };
+      
+      const std::unordered_map<U,
+                              std::vector<int>>& qGetVectorsLengths() {
+                              return qvectors_lengths;
+                        };
+
+      const std::unordered_map<U,
+                              std::vector<int>>& qGetVectorsOffsets() {
+                              return qvectors_offsets;
+                        };
+
+      const std::unordered_map<U,
+                              std::vector<U>>& qGetVectorsIds() {
+                              return qvectors_ids;
+                        };
 
       std::vector<T> CreateVector(std::vector<std::pair<T,T>>& traversal) {
         std::vector<std::vector<T>> v;
@@ -219,6 +304,24 @@ namespace vectorization {
           std::vector<T> xi; 
           for(int i=0; i<K*d; i++) {
             xi.push_back(ui.first*G[i]);
+          }
+          v.push_back(xi);
+        }
+        for(size_t i=0; i<v.size(); i++) {
+          for(size_t j=0; j<v[i].size(); j++) {
+            x[j] += v[i][j]; 
+          }
+        }
+        return x;
+      };
+
+      std::vector<T> qCreateVector(std::vector<std::pair<T,T>>& traversal) {
+        std::vector<std::vector<T>> v;
+        std::vector<T> x (K*d);
+        for(auto& ui:traversal) {
+          std::vector<T> xi; 
+          for(int i=0; i<K*d; i++) {
+            xi.push_back(ui.second*G[i]);
           }
           v.push_back(xi);
         }
@@ -241,7 +344,7 @@ namespace vectorization {
         return paths;
       }
 
-      /* \brief
+      /** \brief
           Find cells that are crossed by main diagonal line segment
       */
       std::set<std::pair<T,T>> DrawLineSegment(int x, int y, int m, int n) { 
@@ -257,7 +360,7 @@ namespace vectorization {
         return diag_cells;
       }
 
-      /* \brief
+      /** \brief
           Find cells that are crossed by main diagonal line segment
       */
       std::set<std::pair<T,T>> FindNeighbors(std::set<std::pair<T,T>>& diag_cells, int m, int n) {
@@ -270,7 +373,7 @@ namespace vectorization {
         return rel_cells;
       }
 
-      /* \brief
+      /** \brief
           A path is relevant when it consists of cells that are either on
           main diagonal line segment or have a distance of 1.
       */

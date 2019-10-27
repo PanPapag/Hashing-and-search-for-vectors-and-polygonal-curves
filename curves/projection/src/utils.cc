@@ -15,6 +15,8 @@ void utils::ShowUsage(const std::string &program_name,
                   << input_info.K_vec << ")\n"
             << "  -L_grid\tdefine the number of LSH hash tables (default = "
                   << input_info.L_grid << ")\n"
+            << "  -e\tdefine error (default = "
+                  << input_info.e << ")\n"
             << "  -o\tdefine the output file\n"
             << std::endl;
   exit(EXIT_FAILURE);
@@ -33,4 +35,6 @@ void utils::InputInfo::Print(void) {
             << static_cast<unsigned int>(N) << std::endl;
   std::cout << "Number of query curves: "
             << static_cast<unsigned int>(Q) << std::endl;
+  std::cout << "Error: "
+            << static_cast<unsigned int>(e) << std::endl;
 }

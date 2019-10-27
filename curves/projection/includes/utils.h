@@ -34,6 +34,7 @@ namespace utils {
     uint8_t L_grid = 5;          // number of LSH Structures
     uint32_t N;                  // number of dataset curves
     uint32_t Q;                  // number of query curves
+    float e = 0.5;               // error
     void Print(void);            // print method of the InputInfo struct
   };
   /** \brief ShowUsage - Prints the usage of the program
