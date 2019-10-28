@@ -35,6 +35,6 @@ void utils::InputInfo::Print(void) {
             << static_cast<unsigned int>(N) << std::endl;
   std::cout << "Number of query curves: "
             << static_cast<unsigned int>(Q) << std::endl;
-  std::cout << "Error: "
-            << static_cast<unsigned int>(e) << std::endl;
+  std::cout << "Error parameter: "
+            << static_cast<double>(e) << std::endl;
 }
