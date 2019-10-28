@@ -31,11 +31,10 @@ using namespace std::chrono;
 int main(int argc, char **argv) {
   utils::InputInfo input_info;
   utils::ExitCode status;
-  uint32_t D_vec;
-  int K, M;
   std::string input_buffer;
-  const uint8_t factor = 10;
-  double r, delta;
+  const int factor = 100;
+  int K, M;
+  double r;
   int exit_code;
 
   /* Get arguments */
@@ -159,7 +158,7 @@ int main(int argc, char **argv) {
     /* Executing Exact Nearest Neighbor using BruteForce */
     start = high_resolution_clock::now();
     std::cout << "\nExecuting Nearest Neighbor using Brute Force.." << std::endl;
-    for (int i = 0; i < input_info.Q; ++i) {
+    for (size_t i = 0; i < input_info.Q; ++i) {
       bf_nn_results[i] = bf.NearestNeighbor(query_curves, query_curves_lengths,
                                             query_curves_offsets, i);
     }
@@ -173,11 +172,10 @@ int main(int argc, char **argv) {
     /* Create Random Projection class object and a vector to store exact-NN results */
     start = high_resolution_clock::now();
     std::cout << "\nBuilding Random Projection.." << std::endl;
-    std::cout << float(input_info.e) << std::endl;
-    K = 2 * (-1) * log2(input_info.e) / (input_info.e*input_info.e);
+    K = 2 * (-1) * log2(input_info.e) / (input_info.e * input_info.e);
     std::vector<std::tuple<T,U,double>> rp_nn_results(input_info.Q);
     vectorization::Projection<T,U> rp{dataset_curves, dataset_curves_offsets,
-                                      dataset_curves_lengths, dataset_curves_ids, 
+                                      dataset_curves_lengths, dataset_curves_ids,
                                       input_info.N, K};
     stop = high_resolution_clock::now();
     total_time = duration_cast<duration<double>>(stop - start);
@@ -186,20 +184,25 @@ int main(int argc, char **argv) {
               << std::endl;
 
     start = high_resolution_clock::now();
-    std::cout << "\n\nVectorizing dataset curves using Random Projection method.." << std::endl;
+    std::cout << "\nVectorizing dataset curves using Random Projection method.."
+              << std::endl;
     rp.Vectorize();
     stop = high_resolution_clock::now();
     total_time = duration_cast<duration<double>>(stop - start);
-    std::cout << "Vectorizing dataset curves using Random Projection method completed." << std::endl;
+    std::cout << "Vectorizing dataset curves using Random Projection method completed."
+              << std::endl;
     std::cout << "Time elapsed: " << total_time.count() << " seconds"
               << std::endl;
 
     start = high_resolution_clock::now();
-    std::cout << "\n\nVectorizing query curves using Random Projection method.." << std::endl;
-    rp.Vectorize(input_info.Q, query_curves, query_curves_lengths, query_curves_offsets, query_curves_ids);
+    std::cout << "\nVectorizing query curves using Random Projection method.."
+              << std::endl;
+    rp.Vectorize(input_info.Q, query_curves, query_curves_lengths,
+                 query_curves_offsets, query_curves_ids);
     stop = high_resolution_clock::now();
     total_time = duration_cast<duration<double>>(stop - start);
-    std::cout << "Vectorizing dataset curves using Random Projection method completed." << std::endl;
+    std::cout << "Vectorizing dataset curves using Random Projection method completed."
+              << std::endl;
     std::cout << "Time elapsed: " << total_time.count() << " seconds"
               << std::endl;
 
@@ -236,19 +239,26 @@ int main(int argc, char **argv) {
     start = high_resolution_clock::now();
     std::cout << "\nBuilding LSH structures.." << std::endl;
     std::unordered_map<int,std::vector<search::curves::LSH<T,U>>> lsh_structures;
-    for(auto& bucket:vectors) {
+    for (auto& bucket:vectors) {
       std::tuple<int,int,int> key = std::make_tuple(std::get<0>(bucket.first),
                                                     std::get<1>(bucket.first),
                                                     std::get<2>(bucket.first));
-      
+
       lsh_structures[std::get<1>(bucket.first)]
         .push_back(search::curves::LSH<T,U>(input_info.K_vec, 1, K,
-                                            bucket.second.size()/K, r, dataset_curves,
+                                            bucket.second.size() / K, factor * r,
+                                            dataset_curves,
                                             vectors_ids.at(key),
                                             vectors_length.at(key),
                                             vectors_offsets.at(key),
                                             bucket.second));
     }
+    stop = high_resolution_clock::now();
+    total_time = duration_cast<duration<double>>(stop - start);
+    std::cout << "Building LSH structures completed successfully."
+              << std::endl;
+    std::cout << "Time elapsed: " << total_time.count() << " seconds"
+              << std::endl;
 
     /* Executing approximate Nearest Neighbor using LSH */
     start = high_resolution_clock::now();
@@ -256,12 +266,13 @@ int main(int argc, char **argv) {
     std::vector<std::tuple<T,U,double>> approx_nn_results(input_info.Q);
     for (size_t i = 0; i < input_info.Q; ++i) {
       U id = query_curves_ids[i];
-      approx_nn_results[i] = search::curves::projection_search(vectors.size(),
-                                                  lsh_structures, 
+      approx_nn_results[i] = search::curves::projection_search(lsh_structures,
                                                   query_curves,
                                                   qvectors_length,
                                                   qvectors_offsets,
-                                                  qvectors, query_curves_lengths[i]-1, M, id);
+                                                  qvectors,
+                                                  query_curves_lengths[i]-1, M,
+                                                  id);
     }
     stop = high_resolution_clock::now();
     total_time = duration_cast<duration<double>>(stop - start);
@@ -319,6 +330,6 @@ int main(int argc, char **argv) {
       input_info.output_file = path_name;
     }
   } while (input_buffer == "y");
-  
+
   return EXIT_SUCCESS;
 }

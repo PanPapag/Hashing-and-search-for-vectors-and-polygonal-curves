@@ -152,7 +152,6 @@ namespace metric {
     }
     // For total number of queries discard the ones who failed to be ansewered
     avg_af = af / (Q - cnt_not_found) ;
-    std::cout << (double)((double)found / (double)Q) << std::endl;
     // return result as tuple of max Af, average Af and total #queries failed
     return std::make_tuple(max_af,avg_af,cnt_not_found);
   }
