@@ -80,14 +80,15 @@ int utils::args::ReadArguments(int argc, char **argv,
     }
   }
 
-  const char * const short_opts = "d:q:k:M:p:L:o:";
+  const char * const short_opts = "d:q:k:M:p:L:e:o:";
   const option long_opts[] = {
            {"input", required_argument, nullptr, 'd'},
            {"query", required_argument, nullptr, 'q'},
            {"k_hypercube", optional_argument, nullptr, 'k'},
            {"M", optional_argument, nullptr, 'M'},
            {"probes", optional_argument, nullptr, 'p'},
-           {"L_grid", optional_argument, nullptr, 'L'},
+           {"L_vec", optional_argument, nullptr, 'L'},
+           {"e", optional_argument, nullptr, 'e'},
            {"output", required_argument, nullptr, 'o'},
            {nullptr, no_argument, nullptr, 0}
    };
@@ -143,9 +144,20 @@ int utils::args::ReadArguments(int argc, char **argv,
       case 'L': {
         if (optarg != 0) {
           try {
-            input_info.L_grid = atoi(optarg);
+            input_info.L_vec = atoi(optarg);
           } catch (...) {
-            status = INVALID_L_grid;
+            status = INVALID_L_vec;
+            return FAIL;
+          }
+        }
+        break;
+      }
+      case 'e': {
+        if (optarg != 0) {
+          try {
+            input_info.e = atof(optarg);
+          } catch (...) {
+            status = INVALID_e;
             return FAIL;
           }
         }

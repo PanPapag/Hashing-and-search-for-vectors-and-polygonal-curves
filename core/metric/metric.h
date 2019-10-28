@@ -121,6 +121,7 @@ namespace metric {
 
     // number of queries failed to be ansewered by A-NN
     int cnt_not_found{};
+    int found{};
     // distance difference between exact and approximate NN
     double distance_error;
     // the sum of distance_error for each query
@@ -145,9 +146,13 @@ namespace metric {
         }
         af += distance_error;
       }
+      if (std::get<0>(approx[i]) == std::get<0>(exact[i])) {
+        found++;
+      }
     }
     // For total number of queries discard the ones who failed to be ansewered
     avg_af = af / (Q - cnt_not_found) ;
+    std::cout << (double)((double)found / (double)Q) << std::endl;
     // return result as tuple of max Af, average Af and total #queries failed
     return std::make_tuple(max_af,avg_af,cnt_not_found);
   }

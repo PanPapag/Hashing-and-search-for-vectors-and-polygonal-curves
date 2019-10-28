@@ -18,8 +18,8 @@ void utils::ShowUsage(const std::string &program_name,
                   << input_info.M << ")\n"
             << "  --probes\tdefine max number of probes to be checked (default = "
                   << input_info.probes << ")\n"
-            << "  -L_grid\tdefine the number of LSH hash tables (default = "
-                  << input_info.L_grid << ")\n"
+            << "  -L_vec\tdefine the number of LSH hash tables (default = "
+                  << input_info.L_vec << ")\n"
             << "  -o\tdefine the output file\n"
             << std::endl;
   exit(EXIT_FAILURE);
@@ -41,5 +41,5 @@ void utils::InputInfo::Print(void) {
   std::cout << "Number of candidate points to be checked: "
             << static_cast<unsigned int>(M) << std::endl;
   std::cout << "Number of HyperCube structures: "
-            << static_cast<unsigned int>(L_grid) << std::endl;
+            << static_cast<unsigned int>(L_vec) << std::endl;
 }

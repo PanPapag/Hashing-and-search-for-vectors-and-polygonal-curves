@@ -9,7 +9,7 @@ void utils::report::ReportError(const utils::ExitCode& code) {
       std::cout << "\n[ERROR]: " << "Invalid value of k (number of hash functions)"
                 << std::endl;
       break;
-    case INVALID_L_grid:
+    case INVALID_L_vec:
       std::cout << "\n[ERROR]: " << "Invalid value of L (number of hash tables)"
                 << std::endl;
       break;

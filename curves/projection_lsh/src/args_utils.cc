@@ -47,9 +47,9 @@ int utils::args::ScanArguments(struct InputInfo& input_info,
     std::cout << "Provide the number of LSH hash tables: ";
     std::cin >> input_buffer;
     try {
-      input_info.L_grid = stoi(input_buffer);
+      input_info.L_vec = stoi(input_buffer);
     } catch (...) {
-      status = INVALID_L_grid;
+      status = INVALID_L_vec;
       return FAIL;
     }
   }
@@ -75,7 +75,7 @@ int utils::args::ReadArguments(int argc, char **argv,
            {"input", required_argument, nullptr, 'd'},
            {"query", required_argument, nullptr, 'q'},
            {"k_vec", optional_argument, nullptr, 'k'},
-           {"L_grid", optional_argument, nullptr, 'L'},
+           {"L_vec", optional_argument, nullptr, 'L'},
            {"e", required_argument, nullptr, 'e'},
            {"output", required_argument, nullptr, 'o'},
            {nullptr, no_argument, nullptr, 0}
@@ -112,9 +112,9 @@ int utils::args::ReadArguments(int argc, char **argv,
       case 'L': {
         if (optarg != 0) {
           try {
-            input_info.L_grid = atoi(optarg);
+            input_info.L_vec = atoi(optarg);
           } catch (...) {
-            status = INVALID_L_grid;
+            status = INVALID_L_vec;
             return FAIL;
           }
         }

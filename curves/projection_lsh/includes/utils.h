@@ -15,7 +15,7 @@ namespace utils {
     FAIL,
     NO_ARGS,
     INVALID_k_vec,
-    INVALID_L_grid,
+    INVALID_L_vec,
     INVALID_DATASET,
     INVALID_QUERY,
     INVALID_OUTPUT,
@@ -31,7 +31,7 @@ namespace utils {
     std::string query_file;      // name of the relative path to the query file
     std::string output_file;     // name of the relative path to the output file
     uint8_t K_vec = 4;           // number of LSH hash functions for each hashTable
-    uint8_t L_grid = 5;          // number of LSH Structures
+    uint8_t L_vec = 5;          // number of LSH Structures
     uint32_t N;                  // number of dataset curves
     uint32_t Q;                  // number of query curves
     float e = 0.5;               // error

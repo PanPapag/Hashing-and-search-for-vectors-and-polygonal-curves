@@ -13,8 +13,8 @@ void utils::ShowUsage(const std::string &program_name,
             << "  -q\tdefine the query file\n"
             << "  -k_vec\tdefine the number of LSH hash functions (default = "
                   << input_info.K_vec << ")\n"
-            << "  -L_grid\tdefine the number of LSH hash tables (default = "
-                  << input_info.L_grid << ")\n"
+            << "  -L_vec\tdefine the number of LSH hash tables (default = "
+                  << input_info.L_vec << ")\n"
             << "  -e\tdefine error (default = "
                   << input_info.e << ")\n"
             << "  -o\tdefine the output file\n"
@@ -30,7 +30,7 @@ void utils::InputInfo::Print(void) {
   std::cout << "Number of LSH hash functions: "
             << static_cast<unsigned int>(K_vec) << std::endl;
   std::cout << "Number of LSH hash tables: "
-            << static_cast<unsigned int>(L_grid) << std::endl;
+            << static_cast<unsigned int>(L_vec) << std::endl;
   std::cout << "Number of dataset curves: "
             << static_cast<unsigned int>(N) << std::endl;
   std::cout << "Number of query curves: "

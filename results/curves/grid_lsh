@@ -5,8 +5,8 @@ Found Nearest Neighbor: 0
 True Nearest Neighbor: 7398
 distanceFound: 1.79769e+308
 distanceTrue: 0.120662
-tLSH: 0.00324633 seconds
-tTrue: 0.918746 seconds
+tLSH: 0.00305081 seconds
+tTrue: 0.900691 seconds
 
 Query: 7402
 Method: Grid
@@ -15,8 +15,8 @@ Found Nearest Neighbor: 966
 True Nearest Neighbor: 966
 distanceFound: 5e-05
 distanceTrue: 5e-05
-tLSH: 0.00461104 seconds
-tTrue: 0.012235 seconds
+tLSH: 0.00467288 seconds
+tTrue: 0.0127362 seconds
 
 Query: 7403
 Method: Grid
@@ -25,8 +25,8 @@ Found Nearest Neighbor: 7398
 True Nearest Neighbor: 7398
 distanceFound: 0.114633
 distanceTrue: 0.114633
-tLSH: 0.297987 seconds
-tTrue: 0.737552 seconds
+tLSH: 0.298575 seconds
+tTrue: 0.733569 seconds
 
 Query: 7404
 Method: Grid
@@ -35,8 +35,8 @@ Found Nearest Neighbor: 680
 True Nearest Neighbor: 7398
 distanceFound: 0.63244
 distanceTrue: 0.22985
-tLSH: 0.239212 seconds
-tTrue: 0.883987 seconds
+tLSH: 0.346985 seconds
+tTrue: 0.886261 seconds
 
 Query: 7405
 Method: Grid
@@ -45,18 +45,18 @@ Found Nearest Neighbor: 7397
 True Nearest Neighbor: 7397
 distanceFound: 0.160084
 distanceTrue: 0.160084
-tLSH: 0.277907 seconds
-tTrue: 0.622247 seconds
+tLSH: 0.254925 seconds
+tTrue: 0.614617 seconds
 
 Query: 7406
 Method: Grid
 HashFunction: LSH
-Found Nearest Neighbor: 7398
+Found Nearest Neighbor: 4039
 True Nearest Neighbor: 7398
-distanceFound: 0.204944
+distanceFound: 0.882933
 distanceTrue: 0.204944
-tLSH: 0.286815 seconds
-tTrue: 0.642285 seconds
+tLSH: 0.284985 seconds
+tTrue: 0.664534 seconds
 
 Query: 7407
 Method: Grid
@@ -65,8 +65,8 @@ Found Nearest Neighbor: 4015
 True Nearest Neighbor: 4015
 distanceFound: 0.000111803
 distanceTrue: 0.000111803
-tLSH: 0.00459751 seconds
-tTrue: 0.0109926 seconds
+tLSH: 0.00441172 seconds
+tTrue: 0.0110795 seconds
 
 Query: 7408
 Method: Grid
@@ -75,8 +75,8 @@ Found Nearest Neighbor: 7398
 True Nearest Neighbor: 7398
 distanceFound: 0.138686
 distanceTrue: 0.138686
-tLSH: 0.427207 seconds
-tTrue: 1.01088 seconds
+tLSH: 0.363145 seconds
+tTrue: 1.01408 seconds
 
 Query: 7409
 Method: Grid
@@ -85,8 +85,8 @@ Found Nearest Neighbor: 7398
 True Nearest Neighbor: 7398
 distanceFound: 0.155314
 distanceTrue: 0.155314
-tLSH: 0.302701 seconds
-tTrue: 0.717359 seconds
+tLSH: 0.289335 seconds
+tTrue: 0.723747 seconds
 
 Query: 7410
 Method: Grid
@@ -95,8 +95,8 @@ Found Nearest Neighbor: 3543
 True Nearest Neighbor: 5618
 distanceFound: 1.87988
 distanceTrue: 1.10999
-tLSH: 0.068392 seconds
-tTrue: 0.204492 seconds
+tLSH: 0.094024 seconds
+tTrue: 0.201404 seconds
 
 Query: 7411
 Method: Grid
@@ -105,8 +105,8 @@ Found Nearest Neighbor: 2545
 True Nearest Neighbor: 2545
 distanceFound: 0.00018
 distanceTrue: 0.00018
-tLSH: 0.00419727 seconds
-tTrue: 0.00592738 seconds
+tLSH: 0.0038498 seconds
+tTrue: 0.00570536 seconds
 
 Query: 7412
 Method: Grid
@@ -115,38 +115,38 @@ Found Nearest Neighbor: 7393
 True Nearest Neighbor: 7393
 distanceFound: 0.170772
 distanceTrue: 0.170772
-tLSH: 0.24218 seconds
-tTrue: 0.648223 seconds
+tLSH: 0.269922 seconds
+tTrue: 0.648269 seconds
 
 Query: 7413
 Method: Grid
 HashFunction: LSH
-Found Nearest Neighbor: 5227
+Found Nearest Neighbor: 6934
 True Nearest Neighbor: 1706
-distanceFound: 1.7825
+distanceFound: 1.63346
 distanceTrue: 1.61847
-tLSH: 0.145877 seconds
-tTrue: 0.399678 seconds
+tLSH: 0.153007 seconds
+tTrue: 0.396735 seconds
 
 Query: 7414
 Method: Grid
 HashFunction: LSH
-Found Nearest Neighbor: 1706
+Found Nearest Neighbor: 6938
 True Nearest Neighbor: 6156
-distanceFound: 0.824877
+distanceFound: 0.79677
 distanceTrue: 0.717941
-tLSH: 0.055005 seconds
-tTrue: 0.294614 seconds
+tLSH: 0.0695623 seconds
+tTrue: 0.289731 seconds
 
 Query: 7415
 Method: Grid
 HashFunction: LSH
-Found Nearest Neighbor: 1706
+Found Nearest Neighbor: 6123
 True Nearest Neighbor: 5227
-distanceFound: 1.20978
+distanceFound: 1.24134
 distanceTrue: 1.18791
-tLSH: 0.078309 seconds
-tTrue: 0.270993 seconds
+tLSH: 0.104385 seconds
+tTrue: 0.271649 seconds
 
 Query: 7416
 Method: Grid
@@ -155,8 +155,8 @@ Found Nearest Neighbor: 2766
 True Nearest Neighbor: 2766
 distanceFound: 0.0135078
 distanceTrue: 0.0135078
-tLSH: 0.00482459 seconds
-tTrue: 0.0111823 seconds
+tLSH: 0.00429084 seconds
+tTrue: 0.0110934 seconds
 
 Query: 7417
 Method: Grid
@@ -165,8 +165,8 @@ Found Nearest Neighbor: 4847
 True Nearest Neighbor: 4847
 distanceFound: 1.2381
 distanceTrue: 1.2381
-tLSH: 0.0729883 seconds
-tTrue: 0.326073 seconds
+tLSH: 0.112461 seconds
+tTrue: 0.322186 seconds
 
 Query: 7418
 Method: Grid
@@ -175,18 +175,18 @@ Found Nearest Neighbor: 2770
 True Nearest Neighbor: 2770
 distanceFound: 0
 distanceTrue: 0
-tLSH: 0.00469545 seconds
-tTrue: 0.0122002 seconds
+tLSH: 0.00429399 seconds
+tTrue: 0.0110546 seconds
 
 Query: 7419
 Method: Grid
 HashFunction: LSH
-Found Nearest Neighbor: 1706
+Found Nearest Neighbor: 5227
 True Nearest Neighbor: 5227
-distanceFound: 2.4892
+distanceFound: 1.72631
 distanceTrue: 1.72631
-tLSH: 0.151714 seconds
-tTrue: 0.555795 seconds
+tLSH: 0.188664 seconds
+tTrue: 0.539754 seconds
 
 Query: 7420
 Method: Grid
@@ -195,38 +195,38 @@ Found Nearest Neighbor: 4863
 True Nearest Neighbor: 4863
 distanceFound: 0.000624403
 distanceTrue: 0.000624403
-tLSH: 0.00851627 seconds
-tTrue: 0.0528187 seconds
+tLSH: 0.00993795 seconds
+tTrue: 0.0532462 seconds
 
 Query: 7421
 Method: Grid
 HashFunction: LSH
-Found Nearest Neighbor: 1706
+Found Nearest Neighbor: 5227
 True Nearest Neighbor: 5227
-distanceFound: 2.6466
+distanceFound: 1.69238
 distanceTrue: 1.69238
-tLSH: 0.104473 seconds
-tTrue: 0.562932 seconds
+tLSH: 0.191538 seconds
+tTrue: 0.560583 seconds
 
 Query: 7422
 Method: Grid
 HashFunction: LSH
-Found Nearest Neighbor: 1706
+Found Nearest Neighbor: 5227
 True Nearest Neighbor: 5227
-distanceFound: 2.24272
+distanceFound: 1.56723
 distanceTrue: 1.56723
-tLSH: 0.150244 seconds
-tTrue: 0.529997 seconds
+tLSH: 0.213652 seconds
+tTrue: 0.52062 seconds
 
 Query: 7423
 Method: Grid
 HashFunction: LSH
-Found Nearest Neighbor: 1706
+Found Nearest Neighbor: 6123
 True Nearest Neighbor: 5227
-distanceFound: 1.45783
+distanceFound: 1.53527
 distanceTrue: 1.26886
-tLSH: 0.0993707 seconds
-tTrue: 0.354659 seconds
+tLSH: 0.151019 seconds
+tTrue: 0.356323 seconds
 
 Query: 7424
 Method: Grid
@@ -235,48 +235,48 @@ Found Nearest Neighbor: 6873
 True Nearest Neighbor: 6873
 distanceFound: 0.0156884
 distanceTrue: 0.0156884
-tLSH: 0.00588919 seconds
-tTrue: 0.031578 seconds
+tLSH: 0.00609245 seconds
+tTrue: 0.0315918 seconds
 
 Query: 7425
 Method: Grid
 HashFunction: LSH
-Found Nearest Neighbor: 1706
+Found Nearest Neighbor: 4847
 True Nearest Neighbor: 5227
-distanceFound: 1.94928
+distanceFound: 1.82226
 distanceTrue: 1.52664
-tLSH: 0.129307 seconds
-tTrue: 0.464717 seconds
+tLSH: 0.178052 seconds
+tTrue: 0.456825 seconds
 
 Query: 7426
 Method: Grid
 HashFunction: LSH
-Found Nearest Neighbor: 1706
+Found Nearest Neighbor: 4847
 True Nearest Neighbor: 5227
-distanceFound: 3.07817
+distanceFound: 1.99754
 distanceTrue: 1.94125
-tLSH: 0.11607 seconds
-tTrue: 0.63498 seconds
+tLSH: 0.260648 seconds
+tTrue: 0.632947 seconds
 
 Query: 7427
 Method: Grid
 HashFunction: LSH
-Found Nearest Neighbor: 1706
+Found Nearest Neighbor: 6123
 True Nearest Neighbor: 5227
-distanceFound: 2.35642
+distanceFound: 2.58514
 distanceTrue: 1.76079
-tLSH: 0.190007 seconds
-tTrue: 0.683637 seconds
+tLSH: 0.287995 seconds
+tTrue: 0.672799 seconds
 
 Query: 7428
 Method: Grid
 HashFunction: LSH
-Found Nearest Neighbor: 2769
+Found Nearest Neighbor: 6198
 True Nearest Neighbor: 5227
-distanceFound: 2.22191
+distanceFound: 2.64024
 distanceTrue: 1.52504
-tLSH: 0.253866 seconds
-tTrue: 0.416101 seconds
+tLSH: 0.227919 seconds
+tTrue: 0.408126 seconds
 
 Query: 7429
 Method: Grid
@@ -285,38 +285,38 @@ Found Nearest Neighbor: 1717
 True Nearest Neighbor: 1717
 distanceFound: 2.30047
 distanceTrue: 2.30047
-tLSH: 0.260612 seconds
-tTrue: 0.924605 seconds
+tLSH: 0.372294 seconds
+tTrue: 0.912584 seconds
 
 Query: 7430
 Method: Grid
 HashFunction: LSH
-Found Nearest Neighbor: 3716
+Found Nearest Neighbor: 1894
 True Nearest Neighbor: 3730
-distanceFound: 1.82923
+distanceFound: 2.0963
 distanceTrue: 1.69581
-tLSH: 0.37938 seconds
-tTrue: 0.768584 seconds
+tLSH: 0.417058 seconds
+tTrue: 0.77353 seconds
 
 Query: 7431
 Method: Grid
 HashFunction: LSH
-Found Nearest Neighbor: 3745
+Found Nearest Neighbor: 3731
 True Nearest Neighbor: 3731
-distanceFound: 1.56543
+distanceFound: 1.55592
 distanceTrue: 1.55592
-tLSH: 0.354256 seconds
-tTrue: 0.799993 seconds
+tLSH: 0.313909 seconds
+tTrue: 0.793368 seconds
 
 Query: 7432
 Method: Grid
 HashFunction: LSH
-Found Nearest Neighbor: 3720
+Found Nearest Neighbor: 3716
 True Nearest Neighbor: 3721
-distanceFound: 1.78955
+distanceFound: 2.11685
 distanceTrue: 1.65766
-tLSH: 0.30466 seconds
-tTrue: 0.781414 seconds
+tLSH: 0.353464 seconds
+tTrue: 0.775754 seconds
 
 Query: 7433
 Method: Grid
@@ -325,28 +325,28 @@ Found Nearest Neighbor: 1717
 True Nearest Neighbor: 1717
 distanceFound: 1.90402
 distanceTrue: 1.90402
-tLSH: 0.217985 seconds
-tTrue: 0.634131 seconds
+tLSH: 0.312045 seconds
+tTrue: 0.629057 seconds
 
 Query: 7434
 Method: Grid
 HashFunction: LSH
-Found Nearest Neighbor: 3745
+Found Nearest Neighbor: 3730
 True Nearest Neighbor: 1717
-distanceFound: 1.76578
+distanceFound: 1.75636
 distanceTrue: 1.67589
-tLSH: 0.352744 seconds
-tTrue: 0.802558 seconds
+tLSH: 0.356945 seconds
+tTrue: 0.799606 seconds
 
 Query: 7435
 Method: Grid
 HashFunction: LSH
-Found Nearest Neighbor: 4983
+Found Nearest Neighbor: 3723
 True Nearest Neighbor: 3723
-distanceFound: 0.0494334
+distanceFound: 0.0411006
 distanceTrue: 0.0411006
-tLSH: 0.00510224 seconds
-tTrue: 0.0165461 seconds
+tLSH: 0.00477506 seconds
+tTrue: 0.0162239 seconds
 
 Query: 7436
 Method: Grid
@@ -355,18 +355,18 @@ Found Nearest Neighbor: 4806
 True Nearest Neighbor: 4806
 distanceFound: 0.0079432
 distanceTrue: 0.0079432
-tLSH: 0.00393237 seconds
-tTrue: 0.00594045 seconds
+tLSH: 0.00379359 seconds
+tTrue: 0.00592872 seconds
 
 Query: 7437
 Method: Grid
 HashFunction: LSH
-Found Nearest Neighbor: 3740
+Found Nearest Neighbor: 1894
 True Nearest Neighbor: 3730
-distanceFound: 2.274
+distanceFound: 2.35087
 distanceTrue: 2.26066
-tLSH: 0.370186 seconds
-tTrue: 1.02147 seconds
+tLSH: 0.502353 seconds
+tTrue: 1.04359 seconds
 
 Query: 7438
 Method: Grid
@@ -375,18 +375,18 @@ Found Nearest Neighbor: 4970
 True Nearest Neighbor: 4970
 distanceFound: 0.000308058
 distanceTrue: 0.000308058
-tLSH: 0.00416451 seconds
-tTrue: 0.00607142 seconds
+tLSH: 0.00400908 seconds
+tTrue: 0.00586978 seconds
 
 Query: 7439
 Method: Grid
 HashFunction: LSH
-Found Nearest Neighbor: 3716
+Found Nearest Neighbor: 3741
 True Nearest Neighbor: 3741
-distanceFound: 1.99684
+distanceFound: 1.82119
 distanceTrue: 1.82119
-tLSH: 0.526202 seconds
-tTrue: 1.13882 seconds
+tLSH: 0.457082 seconds
+tTrue: 1.12664 seconds
 
 Query: 7440
 Method: Grid
@@ -395,28 +395,28 @@ Found Nearest Neighbor: 6871
 True Nearest Neighbor: 6871
 distanceFound: 1e-05
 distanceTrue: 1e-05
-tLSH: 0.00412867 seconds
-tTrue: 0.00576131 seconds
+tLSH: 0.00411469 seconds
+tTrue: 0.00579536 seconds
 
 Query: 7441
 Method: Grid
 HashFunction: LSH
-Found Nearest Neighbor: 3740
+Found Nearest Neighbor: 3716
 True Nearest Neighbor: 1894
-distanceFound: 2.42123
+distanceFound: 2.5952
 distanceTrue: 2.35413
-tLSH: 0.371517 seconds
-tTrue: 1.10473 seconds
+tLSH: 0.512753 seconds
+tTrue: 1.08573 seconds
 
 Query: 7442
 Method: Grid
 HashFunction: LSH
-Found Nearest Neighbor: 3745
+Found Nearest Neighbor: 3730
 True Nearest Neighbor: 3730
-distanceFound: 2.08096
+distanceFound: 2.05466
 distanceTrue: 2.05466
-tLSH: 0.31329 seconds
-tTrue: 0.919178 seconds
+tLSH: 0.415515 seconds
+tTrue: 0.909827 seconds
 
 Query: 7443
 Method: Grid
@@ -425,8 +425,8 @@ Found Nearest Neighbor: 353
 True Nearest Neighbor: 353
 distanceFound: 0.00805658
 distanceTrue: 0.00805658
-tLSH: 0.00558561 seconds
-tTrue: 0.0162033 seconds
+tLSH: 0.00499205 seconds
+tTrue: 0.0158975 seconds
 
 Query: 7444
 Method: Grid
@@ -435,8 +435,8 @@ Found Nearest Neighbor: 1310
 True Nearest Neighbor: 1310
 distanceFound: 0.000223607
 distanceTrue: 0.000223607
-tLSH: 0.0039277 seconds
-tTrue: 0.00588492 seconds
+tLSH: 0.00376554 seconds
+tTrue: 0.00585672 seconds
 
 Query: 7445
 Method: Grid
@@ -445,8 +445,8 @@ Found Nearest Neighbor: 3716
 True Nearest Neighbor: 3731
 distanceFound: 1.11027
 distanceTrue: 0.987684
-tLSH: 0.174179 seconds
-tTrue: 0.376199 seconds
+tLSH: 0.167714 seconds
+tTrue: 0.364601 seconds
 
 Query: 7446
 Method: Grid
@@ -455,8 +455,8 @@ Found Nearest Neighbor: 2912
 True Nearest Neighbor: 2912
 distanceFound: 2e-05
 distanceTrue: 2e-05
-tLSH: 0.00474374 seconds
-tTrue: 0.0116005 seconds
+tLSH: 0.00455077 seconds
+tTrue: 0.0107732 seconds
 
 Query: 7447
 Method: Grid
@@ -465,8 +465,8 @@ Found Nearest Neighbor: 1345
 True Nearest Neighbor: 1345
 distanceFound: 0.00348914
 distanceTrue: 0.00348914
-tLSH: 0.00386727 seconds
-tTrue: 0.00644566 seconds
+tLSH: 0.00382288 seconds
+tTrue: 0.00579678 seconds
 
 Query: 7448
 Method: Grid
@@ -475,8 +475,8 @@ Found Nearest Neighbor: 281
 True Nearest Neighbor: 281
 distanceFound: 0.000948683
 distanceTrue: 0.000948683
-tLSH: 0.00390817 seconds
-tTrue: 0.00596543 seconds
+tLSH: 0.00379386 seconds
+tTrue: 0.00574544 seconds
 
 Query: 7449
 Method: Grid
@@ -485,8 +485,8 @@ Found Nearest Neighbor: 1912
 True Nearest Neighbor: 1894
 distanceFound: 2.60833
 distanceTrue: 2.56809
-tLSH: 0.523002 seconds
-tTrue: 1.13142 seconds
+tLSH: 0.453764 seconds
+tTrue: 1.14198 seconds
 
 Query: 7450
 Method: Grid
@@ -495,28 +495,28 @@ Found Nearest Neighbor: 4973
 True Nearest Neighbor: 4973
 distanceFound: 2e-05
 distanceTrue: 2e-05
-tLSH: 0.00410874 seconds
-tTrue: 0.00589896 seconds
+tLSH: 0.0041184 seconds
+tTrue: 0.00591342 seconds
 
 Query: 7451
 Method: Grid
 HashFunction: LSH
-Found Nearest Neighbor: 1912
+Found Nearest Neighbor: 3730
 True Nearest Neighbor: 1894
-distanceFound: 2.29946
+distanceFound: 2.27602
 distanceTrue: 2.18242
-tLSH: 0.521573 seconds
-tTrue: 1.13501 seconds
+tLSH: 0.451601 seconds
+tTrue: 1.12946 seconds
 
 Query: 7452
 Method: Grid
 HashFunction: LSH
-Found Nearest Neighbor: 3745
+Found Nearest Neighbor: 3730
 True Nearest Neighbor: 3730
-distanceFound: 1.76638
+distanceFound: 1.75359
 distanceTrue: 1.75359
-tLSH: 0.482397 seconds
-tTrue: 1.04132 seconds
+tLSH: 0.414785 seconds
+tTrue: 1.0321 seconds
 
 Query: 7453
 Method: Grid
@@ -525,8 +525,8 @@ Found Nearest Neighbor: 1912
 True Nearest Neighbor: 1894
 distanceFound: 2.80924
 distanceTrue: 2.76439
-tLSH: 0.519278 seconds
-tTrue: 1.11392 seconds
+tLSH: 0.447532 seconds
+tTrue: 1.11719 seconds
 
 Query: 7454
 Method: Grid
@@ -535,8 +535,8 @@ Found Nearest Neighbor: 4954
 True Nearest Neighbor: 4954
 distanceFound: 0.000107703
 distanceTrue: 0.000107703
-tLSH: 0.00415529 seconds
-tTrue: 0.00592207 seconds
+tLSH: 0.00391223 seconds
+tTrue: 0.0058727 seconds
 
 Query: 7455
 Method: Grid
@@ -545,18 +545,18 @@ Found Nearest Neighbor: 1292
 True Nearest Neighbor: 2902
 distanceFound: 1.95931
 distanceTrue: 1.50616
-tLSH: 0.254507 seconds
-tTrue: 0.697806 seconds
+tLSH: 0.339643 seconds
+tTrue: 0.691238 seconds
 
 Query: 7456
 Method: Grid
 HashFunction: LSH
-Found Nearest Neighbor: 1912
+Found Nearest Neighbor: 3730
 True Nearest Neighbor: 3730
-distanceFound: 2.53946
+distanceFound: 2.41451
 distanceTrue: 2.41451
-tLSH: 0.380386 seconds
-tTrue: 1.04358 seconds
+tLSH: 0.465095 seconds
+tTrue: 1.0305 seconds
 
 Query: 7457
 Method: Grid
@@ -565,18 +565,18 @@ Found Nearest Neighbor: 5004
 True Nearest Neighbor: 5004
 distanceFound: 0.000156205
 distanceTrue: 0.000156205
-tLSH: 0.00414093 seconds
-tTrue: 0.00591467 seconds
+tLSH: 0.00401686 seconds
+tTrue: 0.00603282 seconds
 
 Query: 7458
 Method: Grid
 HashFunction: LSH
-Found Nearest Neighbor: 3745
+Found Nearest Neighbor: 3730
 True Nearest Neighbor: 3730
-distanceFound: 2.37558
+distanceFound: 2.35463
 distanceTrue: 2.35463
-tLSH: 0.378709 seconds
-tTrue: 1.04679 seconds
+tLSH: 0.412697 seconds
+tTrue: 1.03853 seconds
 
 Query: 7459
 Method: Grid
@@ -585,8 +585,8 @@ Found Nearest Neighbor: 4902
 True Nearest Neighbor: 4902
 distanceFound: 1e-05
 distanceTrue: 1e-05
-tLSH: 0.00420498 seconds
-tTrue: 0.00573941 seconds
+tLSH: 0.00390115 seconds
+tTrue: 0.00579409 seconds
 
 Query: 7460
 Method: Grid
@@ -595,8 +595,8 @@ Found Nearest Neighbor: 3745
 True Nearest Neighbor: 1717
 distanceFound: 2.09816
 distanceTrue: 1.77789
-tLSH: 0.290734 seconds
-tTrue: 0.860097 seconds
+tLSH: 0.387121 seconds
+tTrue: 0.852768 seconds
 
 Query: 7461
 Method: Grid
@@ -605,28 +605,28 @@ Found Nearest Neighbor: 4806
 True Nearest Neighbor: 4806
 distanceFound: 0.0112136
 distanceTrue: 0.0112136
-tLSH: 0.00433848 seconds
-tTrue: 0.00591131 seconds
+tLSH: 0.00399662 seconds
+tTrue: 0.00595422 seconds
 
 Query: 7462
 Method: Grid
 HashFunction: LSH
-Found Nearest Neighbor: 5134
+Found Nearest Neighbor: 1741
 True Nearest Neighbor: 1741
-distanceFound: 0.296073
+distanceFound: 0.17668
 distanceTrue: 0.17668
-tLSH: 0.00952808 seconds
-tTrue: 0.13631 seconds
+tLSH: 0.0358507 seconds
+tTrue: 0.134928 seconds
 
 Query: 7463
 Method: Grid
 HashFunction: LSH
-Found Nearest Neighbor: 3745
+Found Nearest Neighbor: 3716
 True Nearest Neighbor: 3742
-distanceFound: 0.778589
+distanceFound: 1.06221
 distanceTrue: 0.77132
-tLSH: 0.205477 seconds
-tTrue: 0.461886 seconds
+tLSH: 0.140081 seconds
+tTrue: 0.461413 seconds
 
 Query: 7464
 Method: Grid
@@ -635,8 +635,8 @@ Found Nearest Neighbor: 2866
 True Nearest Neighbor: 2866
 distanceFound: 0.000513275
 distanceTrue: 0.000513275
-tLSH: 0.00508055 seconds
-tTrue: 0.0164283 seconds
+tLSH: 0.00485069 seconds
+tTrue: 0.0162342 seconds
 
 Query: 7465
 Method: Grid
@@ -645,18 +645,18 @@ Found Nearest Neighbor: 4918
 True Nearest Neighbor: 4918
 distanceFound: 0.0004272
 distanceTrue: 0.0004272
-tLSH: 0.0039269 seconds
-tTrue: 0.00599234 seconds
+tLSH: 0.00366543 seconds
+tTrue: 0.00588362 seconds
 
 Query: 7466
 Method: Grid
 HashFunction: LSH
-Found Nearest Neighbor: 1912
+Found Nearest Neighbor: 3732
 True Nearest Neighbor: 3732
-distanceFound: 2.65218
+distanceFound: 2.54685
 distanceTrue: 2.54685
-tLSH: 0.47719 seconds
-tTrue: 1.01494 seconds
+tLSH: 0.411182 seconds
+tTrue: 1.01745 seconds
 
 Query: 7467
 Method: Grid
@@ -665,8 +665,8 @@ Found Nearest Neighbor: 4970
 True Nearest Neighbor: 4970
 distanceFound: 0.00010198
 distanceTrue: 0.00010198
-tLSH: 0.00417648 seconds
-tTrue: 0.0060348 seconds
+tLSH: 0.00390427 seconds
+tTrue: 0.00591919 seconds
 
 Query: 7468
 Method: Grid
@@ -675,8 +675,8 @@ Found Nearest Neighbor: 4914
 True Nearest Neighbor: 4914
 distanceFound: 0
 distanceTrue: 0
-tLSH: 0.00409518 seconds
-tTrue: 0.00584562 seconds
+tLSH: 0.00366368 seconds
+tTrue: 0.00591198 seconds
 
 Query: 7469
 Method: Grid
@@ -685,8 +685,8 @@ Found Nearest Neighbor: 1717
 True Nearest Neighbor: 1717
 distanceFound: 2.01215
 distanceTrue: 2.01215
-tLSH: 0.248829 seconds
-tTrue: 0.712137 seconds
+tLSH: 0.362116 seconds
+tTrue: 0.702495 seconds
 
 Query: 7470
 Method: Grid
@@ -695,18 +695,18 @@ Found Nearest Neighbor: 4821
 True Nearest Neighbor: 4821
 distanceFound: 0.00387451
 distanceTrue: 0.00387451
-tLSH: 0.00477576 seconds
-tTrue: 0.0111122 seconds
+tLSH: 0.00424995 seconds
+tTrue: 0.0110313 seconds
 
 Query: 7471
 Method: Grid
 HashFunction: LSH
-Found Nearest Neighbor: 3716
+Found Nearest Neighbor: 3730
 True Nearest Neighbor: 3730
-distanceFound: 2.41842
+distanceFound: 2.2846
 distanceTrue: 2.2846
-tLSH: 0.538952 seconds
-tTrue: 1.16177 seconds
+tLSH: 0.468117 seconds
+tTrue: 1.15262 seconds
 
 Query: 7472
 Method: Grid
@@ -715,8 +715,8 @@ Found Nearest Neighbor: 4986
 True Nearest Neighbor: 4986
 distanceFound: 1e-05
 distanceTrue: 1e-05
-tLSH: 0.00416897 seconds
-tTrue: 0.00594556 seconds
+tLSH: 0.00408085 seconds
+tTrue: 0.00577038 seconds
 
 Query: 7473
 Method: Grid
@@ -725,8 +725,8 @@ Found Nearest Neighbor: 1912
 True Nearest Neighbor: 1894
 distanceFound: 2.77842
 distanceTrue: 2.73147
-tLSH: 0.405115 seconds
-tTrue: 1.10833 seconds
+tLSH: 0.443877 seconds
+tTrue: 1.09979 seconds
 
 Query: 7474
 Method: Grid
@@ -735,8 +735,8 @@ Found Nearest Neighbor: 6865
 True Nearest Neighbor: 6865
 distanceFound: 0.0001
 distanceTrue: 0.0001
-tLSH: 0.004133 seconds
-tTrue: 0.00612827 seconds
+tLSH: 0.00399187 seconds
+tTrue: 0.00584448 seconds
 
 Query: 7475
 Method: Grid
@@ -745,8 +745,8 @@ Found Nearest Neighbor: 1912
 True Nearest Neighbor: 1894
 distanceFound: 2.60046
 distanceTrue: 2.50962
-tLSH: 0.494167 seconds
-tTrue: 1.07 seconds
+tLSH: 0.429903 seconds
+tTrue: 1.07438 seconds
 
 Query: 7476
 Method: Grid
@@ -755,18 +755,18 @@ Found Nearest Neighbor: 6865
 True Nearest Neighbor: 6865
 distanceFound: 5e-05
 distanceTrue: 5e-05
-tLSH: 0.00402179 seconds
-tTrue: 0.00597016 seconds
+tLSH: 0.00428778 seconds
+tTrue: 0.0058686 seconds
 
 Query: 7477
 Method: Grid
 HashFunction: LSH
-Found Nearest Neighbor: 3716
+Found Nearest Neighbor: 3730
 True Nearest Neighbor: 3730
-distanceFound: 2.00219
+distanceFound: 1.84999
 distanceTrue: 1.84999
-tLSH: 0.396936 seconds
-tTrue: 0.851387 seconds
+tLSH: 0.294395 seconds
+tTrue: 0.844639 seconds
 
 Query: 7478
 Method: Grid
@@ -775,8 +775,8 @@ Found Nearest Neighbor: 473
 True Nearest Neighbor: 473
 distanceFound: 0.00225594
 distanceTrue: 0.00225594
-tLSH: 0.022309 seconds
-tTrue: 0.147134 seconds
+tLSH: 0.0168499 seconds
+tTrue: 0.141412 seconds
 
 Query: 7479
 Method: Grid
@@ -785,8 +785,8 @@ Found Nearest Neighbor: 2084
 True Nearest Neighbor: 2084
 distanceFound: 0.00161576
 distanceTrue: 0.00161576
-tLSH: 0.00992444 seconds
-tTrue: 0.0729307 seconds
+tLSH: 0.0102421 seconds
+tTrue: 0.071091 seconds
 
 Query: 7480
 Method: Grid
@@ -795,8 +795,8 @@ Found Nearest Neighbor: 5783
 True Nearest Neighbor: 5783
 distanceFound: 0.684096
 distanceTrue: 0.684096
-tLSH: 0.297688 seconds
-tTrue: 0.804795 seconds
+tLSH: 0.241877 seconds
+tTrue: 0.808936 seconds
 
 Query: 7481
 Method: Grid
@@ -805,8 +805,8 @@ Found Nearest Neighbor: 5764
 True Nearest Neighbor: 5764
 distanceFound: 0.69319
 distanceTrue: 0.69319
-tLSH: 0.33714 seconds
-tTrue: 0.995528 seconds
+tLSH: 0.305368 seconds
+tTrue: 0.993002 seconds
 
 Query: 7482
 Method: Grid
@@ -815,8 +815,8 @@ Found Nearest Neighbor: 2088
 True Nearest Neighbor: 2088
 distanceFound: 0.0277422
 distanceTrue: 0.0277422
-tLSH: 0.00765029 seconds
-tTrue: 0.0533161 seconds
+tLSH: 0.00584306 seconds
+tTrue: 0.0528326 seconds
 
 Query: 7483
 Method: Grid
@@ -825,8 +825,8 @@ Found Nearest Neighbor: 5760
 True Nearest Neighbor: 5760
 distanceFound: 0.474025
 distanceTrue: 0.474025
-tLSH: 0.199767 seconds
-tTrue: 0.442401 seconds
+tLSH: 0.137771 seconds
+tTrue: 0.440433 seconds
 
 Query: 7484
 Method: Grid
@@ -835,18 +835,18 @@ Found Nearest Neighbor: 5764
 True Nearest Neighbor: 5764
 distanceFound: 0.379709
 distanceTrue: 0.379709
-tLSH: 0.281332 seconds
-tTrue: 0.778115 seconds
+tLSH: 0.236513 seconds
+tTrue: 0.784713 seconds
 
 Query: 7485
 Method: Grid
 HashFunction: LSH
-Found Nearest Neighbor: 3635
+Found Nearest Neighbor: 6243
 True Nearest Neighbor: 5766
-distanceFound: 7.91719
+distanceFound: 10.4379
 distanceTrue: 3.34376
-tLSH: 0.0602119 seconds
-tTrue: 1.05676 seconds
+tLSH: 0.0144106 seconds
+tTrue: 1.0608 seconds
 
 Query: 7486
 Method: Grid
@@ -855,6 +855,6 @@ Found Nearest Neighbor: 5764
 True Nearest Neighbor: 5764
 distanceFound: 0.386047
 distanceTrue: 0.386047
-tLSH: 0.250644 seconds
-tTrue: 0.702947 seconds
+tLSH: 0.215783 seconds
+tTrue: 0.69175 seconds
 

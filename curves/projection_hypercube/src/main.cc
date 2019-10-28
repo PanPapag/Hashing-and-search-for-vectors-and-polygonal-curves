@@ -35,7 +35,7 @@ int main(int argc, char **argv) {
   uint16_t D_vec;
   const uint8_t factor = 10;
   double delta, r;
-  int K;
+  int K, M;
   int exit_code;
 
   /* Get arguments */
@@ -105,7 +105,7 @@ int main(int argc, char **argv) {
   std::cout << "Reading input file completed successfully." << std::endl;
   std::cout << "Time elapsed: " << total_time.count() << " seconds"
             << std::endl;
-
+  M = *max_element(dataset_curves_lengths.begin(), dataset_curves_lengths.end());
   do {
     /* Preprocessing query file to get number of query curves */
     start = high_resolution_clock::now();
@@ -143,7 +143,6 @@ int main(int argc, char **argv) {
 
     /* Print input info */
     input_info.Print();
-
     /* Create BruteForce class object and a vector to store exact-NN results */
     start = high_resolution_clock::now();
     std::cout << "\nBuilding Brute Force.." << std::endl;
@@ -174,8 +173,7 @@ int main(int argc, char **argv) {
       /* Create Random Projection class object and a vector to store exact-NN results */
     start = high_resolution_clock::now();
     std::cout << "\nBuilding Random Projection.." << std::endl;
-    std::cout << float(0.5) << std::endl;
-    K = 2 * (-1) * log2(0.5) / (0.5*0.5);
+    K = 2 * (-1) * log2(input_info.e) / (input_info.e*input_info.e);
     std::vector<std::tuple<T,U,double>> rp_nn_results(input_info.Q);
     vectorization::Projection<T,U> rp{dataset_curves, dataset_curves_offsets,
                                       dataset_curves_lengths, dataset_curves_ids, 
@@ -243,7 +241,7 @@ int main(int argc, char **argv) {
                                                     std::get<2>(bucket.first));
       hypercube_structures[std::get<1>(bucket.first)].
         push_back(search::curves::HyperCube<T,U>(input_info.k_hypercube,
-                                                 input_info.M, D_vec, input_info.N,
+                                                 input_info.M, K, bucket.second.size()/K,
                                                  input_info.probes, r,
                                                  dataset_curves,
                                                  vectors_ids.at(key),
@@ -269,7 +267,7 @@ int main(int argc, char **argv) {
                                                   query_curves,
                                                   qvectors_length,
                                                   qvectors_offsets,
-                                                  qvectors, i, 10, id);
+                                                  qvectors, query_curves_lengths[i]-1, M, id);
     }
     stop = high_resolution_clock::now();
     total_time = duration_cast<duration<double>>(stop - start);

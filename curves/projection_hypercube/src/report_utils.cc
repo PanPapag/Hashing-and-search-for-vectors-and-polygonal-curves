@@ -13,11 +13,15 @@ void utils::report::ReportError(const utils::ExitCode& code) {
       std::cout << "\n[ERROR]: " << "Invalid value of probes (max number of probes to be checked)"
                 << std::endl;
       break;
+    case INVALID_e:
+      std::cout << "\n[ERROR]: " << "Invalid value of probes (max number of probes to be checked)"
+              << std::endl;
+      break;
     case INVALID_M:
       std::cout << "\n[ERROR]: " << "Invalid value of M (max number of candidate points to be checked)"
                 << std::endl;
       break;
-    case INVALID_L_grid:
+    case INVALID_L_vec:
       std::cout << "\n[ERROR]: " << "Invalid value of L (number of hash tables)"
                 << std::endl;
       break;

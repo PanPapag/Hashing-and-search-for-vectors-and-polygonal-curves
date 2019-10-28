@@ -263,7 +263,7 @@ namespace search {
             //iterate over all curves in the bucket
             //auto const& fv_offset:bucket[0];
             for (auto const& fv_offset: bucket) {
-              int of = fv_offset % input_curves_offsets.size();
+              int of = fv_offset % input_curves_offsets.size(); //fv_offset % input_curves_offsets.size();
               //std::cout << fv_offset << std::endl; 
               T dist =  metric::DTWDistance<T> (
                 std::next(input_curves.begin(),input_curves_offsets[of]),

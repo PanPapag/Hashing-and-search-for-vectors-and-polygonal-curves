@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
   utils::InputInfo input_info;
   utils::ExitCode status;
   uint32_t D_vec;
-  int K;
+  int K, M;
   std::string input_buffer;
   const uint8_t factor = 10;
   double r, delta;
@@ -105,7 +105,7 @@ int main(int argc, char **argv) {
     std::cout << "Reading input file completed successfully." << std::endl;
     std::cout << "Time elapsed: " << total_time.count() << " seconds"
               << std::endl;
-
+    M = *max_element(dataset_curves_lengths.begin(), dataset_curves_lengths.end());
     /* Preprocessing query file to get number of query curves */
     start = high_resolution_clock::now();
     std::cout << "\nGetting number of query curves.." << std::endl;
@@ -243,7 +243,7 @@ int main(int argc, char **argv) {
       
       lsh_structures[std::get<1>(bucket.first)]
         .push_back(search::curves::LSH<T,U>(input_info.K_vec, 1, K,
-                                            bucket.second.size(), r, dataset_curves,
+                                            bucket.second.size()/K, r, dataset_curves,
                                             vectors_ids.at(key),
                                             vectors_length.at(key),
                                             vectors_offsets.at(key),
@@ -261,7 +261,7 @@ int main(int argc, char **argv) {
                                                   query_curves,
                                                   qvectors_length,
                                                   qvectors_offsets,
-                                                  qvectors, i, 10, id);
+                                                  qvectors, query_curves_lengths[i]-1, M, id);
     }
     stop = high_resolution_clock::now();
     total_time = duration_cast<duration<double>>(stop - start);

@@ -17,7 +17,8 @@ namespace utils {
     INVALID_k_hypercube,
     INVALID_M,
     INVALID_probes,
-    INVALID_L_grid,
+    INVALID_L_vec,
+    INVALID_e,
     INVALID_DATASET,
     INVALID_QUERY,
     INVALID_OUTPUT,
@@ -35,7 +36,8 @@ namespace utils {
     uint8_t M = 10;              // max number of HyperCube's candidate points to be checked
     uint8_t probes = 2;          // max number of HyperCube's verteces to be checked
     uint16_t k_hypercube = 3;    // reduces dimensional space
-    uint8_t L_grid = 5;          // number of HyperCube Structures
+    uint8_t L_vec = 5;           // number of HyperCube Structures
+    float e = 0.5;               // error rate
     uint32_t N;                  // number of dataset curves
     uint32_t Q;                  // number of query curves
     void Print(void);            // print method of the InputInfo struct
