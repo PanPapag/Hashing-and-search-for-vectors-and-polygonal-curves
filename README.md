@@ -17,23 +17,23 @@ The present project implements:
 
 ## Directory Structure
 
-    ├── core                  # The core of 
-         ├── hash             # Fonts, images, and sounds for UI
-         ├── metric           # Fonts, images, and sounds for UI
-         ├── search           # Fonts, images, and sounds for UI
-         ├── utils            # Fonts, images, and sounds for UI
-    ├── curves                # The messaging spec and libs used for all logs
-         ├── core             # Fonts, images, and sounds for UI
-         ├── grid_hybercube   # Fonts, images, and sounds for UI
-         ├── grid_lsh         # Fonts, images, and sounds for UI
-         ├── project_hybecube # Fonts, images, and sounds for UI
-         ├── project_lsh      # Fonts, images, and sounds for U
-    ├── datasets              # Library like functionality we've developed here
-    ├── results               # Manages auto-updates of openpilot
-    ├── scripts               # Files showing how to interpret data from cars
-    ├── vectors               # Code used to communicate on CAN
-         ├── lsh              # Fonts, images, and sounds for UI
-         ├── hybercube        # Fonts, images, and sounds for UI
+    ├── core                  # The core functionalities of the prohect
+         ├── hash             # Hash functions used by LSH and Hypercube 
+         ├── metric           # DTW, Manhatan metric (L1)
+         ├── search           # BF, LSH and Hypercube algorithms
+         ├── utils            # General utilities
+    ├── curves                # The code structure for curves
+         ├── core             # The core functionalities for curves
+         ├── grid_hybercube   
+         ├── grid_lsh        
+         ├── project_hybecube 
+         ├── project_lsh     
+    ├── datasets              # Plethora of datasets for vectors and curves
+    ├── results               # Output directory for the experiments
+    ├── scripts               # All scripts to compile and run the experiments
+    ├── vectors               # The code structure for curves
+         ├── lsh              
+         ├── hybercube        
 
 ## Installing
 
