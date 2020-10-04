@@ -15,13 +15,14 @@ The present project implements:
 2. The Hypercube algorithm deduces curves to vectors and execute search in the vectors' space. Τhese result from possible traversals of the data with curves of as long as possible the length of the query curve.
 3. The design of the code allows its easy extension for different curve spacing functions and different metrics
 
+## Project Structure 
 
 ## Installing
 
 Download source code by typing:
 
 ```
-git clone https://github.com/PanPapag/Ecosystem-Simulation.git
+https://github.com/PanPapag/Hashing-and-search-for-vectors-and-polygonal-curves.git
 ```
 
 ## License
