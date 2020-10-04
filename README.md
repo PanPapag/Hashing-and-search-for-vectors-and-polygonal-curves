@@ -28,7 +28,7 @@ The present project implements:
          ├── grid_lsh        
          ├── project_hybecube 
          ├── project_lsh     
-    ├── datasets              # Plethora of datasets for vectors and curves
+    ├── datasets              # Datasets and query files for vectors and curves
     ├── results               # Output directory for the experiments
     ├── scripts               # All scripts to compile and run the experiments
     ├── vectors               # The code structure for curves
