@@ -14,3 +14,16 @@ The present project implements:
    - The Hypercube algorithm using Manhatan metric
 2. The Hypercube algorithm deduces curves to vectors and execute search in the vectors' space. Τhese result from possible traversals of the data with curves of as long as possible the length of the query curve.
 3. The design of the code allows its easy extension for different curve spacing functions and different metrics
+
+
+## Installing
+
+Download source code by typing:
+
+```
+git clone https://github.com/PanPapag/Ecosystem-Simulation.git
+```
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
