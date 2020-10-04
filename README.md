@@ -15,7 +15,25 @@ The present project implements:
 2. The Hypercube algorithm deduces curves to vectors and execute search in the vectors' space. Τhese result from possible traversals of the data with curves of as long as possible the length of the query curve.
 3. The design of the code allows its easy extension for different curve spacing functions and different metrics
 
-## Project Structure 
+## Directory Structure
+
+    ├── core                  # The core of 
+         ├── hash             # Fonts, images, and sounds for UI
+         ├── metric           # Fonts, images, and sounds for UI
+         ├── search           # Fonts, images, and sounds for UI
+         ├── utils            # Fonts, images, and sounds for UI
+    ├── curves                # The messaging spec and libs used for all logs
+         ├── core             # Fonts, images, and sounds for UI
+         ├── grid_hybercube   # Fonts, images, and sounds for UI
+         ├── grid_lsh         # Fonts, images, and sounds for UI
+         ├── project_hybecube # Fonts, images, and sounds for UI
+         ├── project_lsh      # Fonts, images, and sounds for U
+    ├── datasets              # Library like functionality we've developed here
+    ├── results               # Manages auto-updates of openpilot
+    ├── scripts               # Files showing how to interpret data from cars
+    ├── vectors               # Code used to communicate on CAN
+         ├── lsh              # Fonts, images, and sounds for UI
+         ├── hybercube        # Fonts, images, and sounds for UI
 
 ## Installing
 
